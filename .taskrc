@@ -1,0 +1,97 @@
+# [Created by task 2.5.1 3/9/2018 12:55:54]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.task
+
+# Color theme (uncomment one to use)
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-16.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/light-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-16.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-red-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-green-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-blue-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-violets-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-yellow-green.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-blue-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
+#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
+
+# Contexts
+context.work=project:work
+context.personal=project:personal and -leasure (subproject:false or subproject: )
+
+
+urgency.user.tag.hold.coefficient=-20.0 # +next tag
+
+# Cost amount
+uda.cost.type=numeric
+uda.cost.label=Cost
+uda.cost.default=0
+
+# Subtask UDA (Used to not clutter up my view with subtasks of a project while leaving the project in my list)
+uda.subproject.type=string
+uda.subproject.lable=Sub-Project
+uda.subproject.values=true,false
+uda.subproject.default=false
+
+
+# Work defined user attributes
+uda.projectcode.type=string
+uda.projectcode.label=Project Code
+uda.worktype.type=string
+uda.worktype.label=Work Type
+uda.worktype.values=backoffice,change,business,unplanned,unknown
+uda.worktype.default=unknown
+
+# InThe.AM Config section
+# InThe.AM sync settings
+taskd.certificate=~/.task/certs/private.certificate.pem
+taskd.key=~/.task/certs/private.key.pem
+taskd.ca=~/.task/certs/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/me8b467766f2d94b80/18ac2214-b900-46da-a9f8-bd1e5debaa80
+taskd.trust=ignore hostname
+
+# InThe.AM user defined attributes
+uda.intheamtrelloboardid.type=string
+uda.intheamtrelloboardid.label=Inthe.AM Trello Board ID
+uda.intheamtrellolistid.type=string
+uda.intheamtrellolistid.label=Inthe.AM Trello List ID
+uda.intheamtrellodescription.type=string
+uda.intheamtrellodescription.label=Inthe.AM Trello Description
+uda.intheamtrelloid.type=string
+uda.intheamtrelloid.label=Inthe.AM Trello Object ID
+uda.intheamoriginalemailsubject.type=string
+uda.intheamoriginalemailsubject.label=Inthe.AM E-mail Subject
+uda.intheammergedfrom.type=string
+uda.intheammergedfrom.label=Inthe.AM Duplicate Tasks Merged
+uda.intheamtrellourl.type=string
+uda.intheamtrellourl.label=Inthe.AM Trello URL
+uda.intheamoriginalemailid.type=numeric
+uda.intheamoriginalemailid.label=Inthe.AM E-mail ID
+uda.intheamattachments.type=string
+uda.intheamattachments.label=Inthe.AM Attachments
+uda.intheamduplicateof.type=string
+uda.intheamduplicateof.label=Inthe.AM Duplicate of Task
+uda.intheamtrellolistname.type=string
+uda.intheamtrellolistname.label=Inthe.AM Trello List Name
+
+# Pomodoro config
+pomodoro.defaultFilter=project:work
+
+context.bkash_refer=project:work.business.bkash.refer
+context.bkash_admin=project:work.business.bkash.admin
+context=work

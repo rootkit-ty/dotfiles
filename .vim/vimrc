@@ -1,0 +1,126 @@
+""""""""""""""""""""""""""""""""""""""""
+" -> Plugins
+""""""""""""""""""""""""""""""""""""""""
+" Pathogen infection (Plugin start)
+execute pathogen#infect()
+
+set nocompatible
+filetype plugin indent on
+
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Colors and Fonts
+""""""""""""""""""""""""""""""""""""""""
+
+" Turn on syntax colouring
+syntax on
+
+"Use the dracular colour scheme
+"color dracula
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Settings
+""""""""""""""""""""""""""""""""""""""""
+
+" Tun on numbers and relative numbers
+set rnu nu
+
+" 4 soft-tab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+set foldmethod=syntax
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Per file settings
+""""""""""""""""""""""""""""""""""""""""
+
+autocmd FileType markdown	tabstop=2
+autocmd FileType markdown	softtabstop=2
+autocmd FileType markdown	shiftwidth=2
+
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Commands
+""""""""""""""""""""""""""""""""""""""""
+
+" :W sudo saves the file
+command W w !sudo tee % > /dev/null
+
+""""""""""""""""""""""""""""""""""""""""
+" -> KeyMapping
+""""""""""""""""""""""""""""""""""""""""
+map <leader>ff :Denite file<CR>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+
+" Git and diff keybinds
+
+" Run GDiff
+map <leader>gd :Gdiff<cr>
+
+" Bindings for merging
+map <leader>dm :diffget //2<cr>
+map <leader>dt :diffget //3<cr>
+
+" Close the git windows
+map <leader>do :Only <cr>
+
+" Spell checking
+
+" Pressing \ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Misc
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Automatic file formattting
+""""""""""""""""""""""""""""""""""""""""
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+if has("autocmd")
+    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
+source ~/.vim/maps.vim

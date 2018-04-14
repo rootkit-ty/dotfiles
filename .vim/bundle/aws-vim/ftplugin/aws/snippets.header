@@ -1,0 +1,37 @@
+snippet aws-vim-plugin-author
+"============================================================================
+"File:        aws.snippets
+"Description: vim snippets to improve editing of AWS CloudFormation Templates.
+"Authors: Marcin Katulski ( marcin.katulski@gmail.com ),
+"         Carl Hall ( carl.hall@gmail.com ),
+"
+"============================================================================
+endsnippet
+
+snippet cft "Cloud Formation Template snippet"
+{
+    "AWSTemplateFormatVersion" : "2010-09-09",
+    "Description" : "${1:#description}",
+    "Parameters" : 
+    {
+           ${2:#params}
+    },
+    "Mappings" : 
+    {
+           ${3:#mappings}
+    },
+    "Conditions" : 
+    {
+           ${4:#conditions}
+    },
+    "Outputs" : 
+    {
+           ${5:#outputs}
+    },
+    "Resources" : 
+    {
+           ${6:#resources}
+    }
+}
+endsnippet
+

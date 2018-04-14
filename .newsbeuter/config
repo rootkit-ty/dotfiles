@@ -1,0 +1,13 @@
+auto-reload yes
+browser		firefox
+
+notify-always yes
+notify-format "newsbeuter: %n unread articles within %f unread feeds"
+notify-program notify-send
+notify-xterm yes
+notify-screen yes
+
+bind-key	j	down
+bind-key	k	up
+bind-key	u	pageup
+bind-key	d	pagedown
