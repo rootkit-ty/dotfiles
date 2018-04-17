@@ -1,5 +1,6 @@
-auto-reload yes
-browser		firefox
+browser		"firefox --new-window"
+
+external-url-viewer "urlview" 
 
 notify-always yes
 notify-format "newsbeuter: %n unread articles within %f unread feeds"
@@ -11,3 +12,14 @@ bind-key	j	down
 bind-key	k	up
 bind-key	u	pageup
 bind-key	d	pagedown
+
+macro y set browser "bash ~/Scripts/wyt.sh %u 480"; open-in-browser ; set browser "firefox --new-window"
+
+# colors
+color background           color255 color0
+color listnormal           color255 color0
+color listfocus            color255 color88 bold
+color listnormal_unread    color255 color0 bold
+color listfocus_unread     color255 color88 bold
+color info                 color255 color31
+color article              color255 color0

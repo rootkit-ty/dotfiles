@@ -1,13 +1,30 @@
-https://joshtronic.com/atom.xml "tech" "~Joshtronic"
-https://www.malwaretech.com/feed
-http://feeds.feedburner.com/Xylibox
-https://www.eff.org/rss/updates.xml
-https://rootkitty.tech/index.xml
-https://hackaday.com/blog/feed/
-https://anders.unix.se/index.xml
-https://www.xkcd.com/rss.xml
-https://fedoramagazine.org/feed/
-http://ossfeed.com/feed/
-https://admin.fedoraproject.org/updates/rss/rss2.0?type=security
-http://daddytypes.com/atom.xml
-https://thetinhat.com/rss.xml
+# Malware blogs
+https://www.malwaretech.com/feed            "blog" "tech" "security" "malware" 
+http://feeds.feedburner.com/Xylibox         "blog" "tech" "security" "malware"
+https://rootkitty.tech/index.xml            "blog" "tech" "security" "malware" "linux" 
+
+# Security focused blogs
+https://thetinhat.com/rss.xml               "blog" "tech" "linux" "security" "~The Tin Hat"
+
+# Linux focused blogs
+https://anders.unix.se/index.xml            "blog" "tech" "linux"
+https://blog.sleeplessbeastie.eu/atom.xml   "blog" "tech" "linux"
+https://joshtronic.com/atom.xml             "blog" "tech" "linux" "~Joshtronic"
+
+# Interesting
+https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
+https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
+"blog"
+
+# Youtube
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "yt" "tech" "linux" "workflow" "automation"
+
+# Hardware hacking
+https://hackaday.com/blog/feed/             "blog" "tech" "hardware"
+
+# Feeds
+https://www.eff.org/rss/updates.xml "tech" "freedom" "~EFF" "feed"
+https://fedoramagazine.org/feed/ "linux" "feed" "tech"
+
+## Security/CVE reports 
+https://bodhi.fedoraproject.org/rss/updates/?type=security "linux" "security" "cve" "~Fedora Security Updates"
