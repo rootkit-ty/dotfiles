@@ -15,8 +15,14 @@ filetype plugin indent on
 " Turn on syntax colouring
 syntax on
 
+
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin"
+    color dracula
+  endif
+endif
 "Use the dracular colour scheme
-"color dracula
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8

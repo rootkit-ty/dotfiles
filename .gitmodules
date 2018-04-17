@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/vim-signify"]
 	path = .vim/bundle/vim-signify
 	url = https://github.com/mhinz/vim-signify.git
+[submodule ".vim/bundle/dracula-theme"]
+	path = .vim/bundle/dracula-theme
+	url = https://github.com/dracula/vim.git
