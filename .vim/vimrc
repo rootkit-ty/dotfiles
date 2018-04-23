@@ -15,14 +15,13 @@ filetype plugin indent on
 " Turn on syntax colouring
 syntax on
 
-
+"Use the dracular colour scheme
 if has("unix")
   let s:uname = system("uname -s")
   if s:uname == "Darwin"
-    color dracula
+    colorscheme nord
   endif
 endif
-"Use the dracular colour scheme
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -54,9 +53,9 @@ set lazyredraw
 " -> Per file settings
 """"""""""""""""""""""""""""""""""""""""
 
-autocmd FileType markdown	tabstop=2
-autocmd FileType markdown	softtabstop=2
-autocmd FileType markdown	shiftwidth=2
+autocmd FileType markdown	set tabstop=2
+autocmd FileType markdown	set softtabstop=2
+autocmd FileType markdown	set shiftwidth=2
 
 
 """"""""""""""""""""""""""""""""""""""""

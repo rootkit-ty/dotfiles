@@ -31,3 +31,6 @@
 [submodule ".vim/bundle/dracula-theme"]
 	path = .vim/bundle/dracula-theme
 	url = https://github.com/dracula/vim.git
+[submodule ".vim/bundle/nord-vim"]
+	path = .vim/bundle/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim.git

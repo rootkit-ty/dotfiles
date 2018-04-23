@@ -16,8 +16,16 @@ https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
 https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
 "blog"
 
+# News
+http://www.abc.net.au/news/feed/52278/rss.xml   "news" "world" "~ABC World"
+http://www.abc.net.au/news/feed/46182/rss.xml   "news" "australia"
+
 # Youtube
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "yt" "tech" "linux" "workflow" "automation"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "yt" "tech" "educational"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfVFSjHQ57zyxajhhRc7i0g "yt" "tech" "educational"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCtHaxi4GTYDpJgMSGy7AeSw "yt" "tech" "educational"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCEOXxzW2vU0P-0THehuIIeg "yt" "educational"
 
 # Hardware hacking
 https://hackaday.com/blog/feed/             "blog" "tech" "hardware"
