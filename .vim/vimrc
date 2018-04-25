@@ -16,11 +16,8 @@ filetype plugin indent on
 syntax on
 
 "Use the dracular colour scheme
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin"
-    colorscheme nord
-  endif
+if has("mac")
+  colorscheme nord
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
