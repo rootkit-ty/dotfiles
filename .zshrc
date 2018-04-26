@@ -15,6 +15,7 @@ if [ $machine = "Mac" ]; then
 	
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
+    source /usr/local/opt/fzf/shell/completion.zsh
 
 elif [ $machine = "Linux" ]; then
 	
@@ -171,6 +172,8 @@ if [ $machine = "Linux" ] ; then
 	alias vim='vimx'
 
 	(cat ~/.cache/wal/sequences &)
+
+    source /usr/share/zsh/site-functions/fzf
 
 fi
 

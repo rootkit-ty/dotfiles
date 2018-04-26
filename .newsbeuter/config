@@ -1,4 +1,5 @@
-browser		"firefox --new-window"
+#browser		"firefox --new-window"
+browser		"qutebrowser"
 
 external-url-viewer "urlview" 
 
