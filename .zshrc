@@ -153,6 +153,12 @@ POWERLEVEL9K_SHORTEN_DELIMITER="."
 #POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
 
+
+export VISUAL=vim
+export EDITOR=vim
+
+alias tmux='tmux -2'
+
 # Configure global github excludes
 git config --global core.excludesfile ~/.gitignore_global
 
@@ -162,10 +168,11 @@ alias tw='task'
 alias twl='task ls'
 alias twa='task add'
 
-alias tmux='tmux -2'
+export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
 
-export VISUAL=vim
-export EDITOR=vim
+alias f='fzf'
+alias fv='vim "$(fzf)"'
+alias fh='history | sort -r | fzf'
 
 if [ $machine = "Linux" ] ; then
 
