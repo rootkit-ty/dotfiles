@@ -133,11 +133,18 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-
-" Git and diff keybinds
+" Mode binds
 
 " Run GDiff
-map <leader>gd :Gdiff<cr>
+map <leader>md :Gdiff<cr>
+
+" Toggle zen mode
+map <leader>mz :call<space>ZenMode()<cr>
+
+
+
+
+" Git and diff keybinds
 
 " Bindings for merging
 map <leader>dh :diffget //2<cr>
@@ -230,3 +237,21 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Zen mode
+""""""""""""""""""""""""""""""""""""""""
+fun! ZenMode()
+    "Toggle the flag (or set it if it doesn't yet exist)...
+    let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
+
+    if g:zen_mode
+        Goyo
+        Limelight 0.8
+        silent !i3-msg fullscreen
+    else
+        Goyo
+        Limelight!
+        silent !i3-msg fullscreen
+    endif
+endfun
