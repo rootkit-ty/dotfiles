@@ -20,7 +20,7 @@ syntax on
 if has("mac")
   colorscheme nord
 else
-  colorscheme monokai
+  colorscheme molokai
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -105,7 +105,9 @@ if has("mac")
   set rtp+=~/.fzf
 endif
 
-let g:fzf_buffers_jump = 0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+
 """"""""""""""""""""""""""""""""""""""""
 " -> Per file settings
 """"""""""""""""""""""""""""""""""""""""
