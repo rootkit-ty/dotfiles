@@ -15,7 +15,6 @@ if [ $machine = "Mac" ]; then
 	
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
-    source /usr/local/opt/fzf/shell/completion.zsh
 
 elif [ $machine = "Linux" ]; then
 	
@@ -173,6 +172,7 @@ export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
 alias f='fzf'
 alias fv='vim "$(fzf)"'
 alias fh='history | sort -r | fzf'
+alias fcd='CD="$(fd --type d | fzf)" && cd $CD && unset CD'
 
 if [ $machine = "Linux" ] ; then
 
@@ -181,6 +181,7 @@ if [ $machine = "Linux" ] ; then
 	(cat ~/.cache/wal/sequences &)
 
     source /usr/share/zsh/site-functions/fzf
-
+elif [ $machine = "Mac" ]; then
+    source /usr/local/opt/fzf/shell/completion.zsh
 fi
 

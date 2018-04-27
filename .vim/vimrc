@@ -16,9 +16,11 @@ filetype plugin indent on
 " Turn on syntax colouring
 syntax on
 
-"Use the dracular colour scheme
+"Use the nord colour scheme if on OSX or use Monokai on linux
 if has("mac")
   colorscheme nord
+else
+  colorscheme monokai
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -42,6 +44,7 @@ set shiftwidth=4
 set expandtab
 
 set foldmethod=syntax
+set foldlevel=4
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -52,12 +55,57 @@ set showmatch
 
 set smartcase
 
+"TODO: Create vim directory in cache
+set backupdir=./.vim_data,~/.cache/,.,~
+set directory=./.vim_data,~/.cache/,.,~
+""""""""""""""""""""""""""""""""""""""""
+" -> Netrw settings
+""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 12
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
+augroup END
+
+" To avoid overwriting the netrw buffer with some other buffer, we should
+" change window before executing
+augroup NetrwMaps
+    autocmd FileType netrw nnoremap <leader>b :winc w<cr>:Buffers<cr>
+    autocmd FileType netrw nnoremap <leader>F :winc w<cr>:FZF<space>
+    autocmd FileType netrw nnoremap <leader>ff :winc w<cr>:FZF<cr>
+    autocmd FileType netrw nnoremap <leader>fl :winc w<cr>:Lines<cr>
+    autocmd FileType netrw nnoremap <leader>fb :winc w<cr>:BLines<cr>
+    autocmd FileType netrw nnoremap <leader>ft :winc w<cr>:Tags<cr>
+    autocmd FileType netrw nnoremap <leader>fr :winc w<cr>:History<cr>
+    autocmd FileType netrw nnoremap <leader>fh :winc w<cr>:Helptags<cr>
+    autocmd FileType netrw nnoremap <leader>f: :winc w<cr>:History:<cr>
+    autocmd FileType netrw nnoremap <leader>f/ :winc w<cr>:History/<cr>
+    autocmd FileType netrw nnoremap <leader>fg :winc w<cr>:GFiles<cr>
+    autocmd FileType netrw nnoremap <leader>fs :winc w<cr>:GFiles?<cr>
+    autocmd FileType netrw nnoremap <leader>fc :winc w<cr>:Commits<cr>
+    autocmd FileType netrw nnoremap <leader>fC :winc w<cr>:Commands<cr>
+    autocmd FileType netrw nnoremap <leader>a :winc w<cr>:Ag<cr>
+    autocmd FileType netrw nnoremap <leader>fa :winc w<cr>:Ag<space>
+augroup END
+
 """"""""""""""""""""""""""""""""""""""""
 " -> Plugin Settings
 """"""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1
 
+if has("mac")
+  " If installed using Homebrew
+  set rtp+=/usr/local/opt/fzf
 
+  " If installed using git
+  set rtp+=~/.fzf
+endif
+
+let g:fzf_buffers_jump = 0
 """"""""""""""""""""""""""""""""""""""""
 " -> Per file settings
 """"""""""""""""""""""""""""""""""""""""
@@ -92,7 +140,7 @@ map <C-l> <C-W>l
 map <leader>gd :Gdiff<cr>
 
 " Bindings for merging
-map <leader>dm :diffget //2<cr>
+map <leader>dh :diffget //2<cr>
 map <leader>dt :diffget //3<cr>
 
 " Close the git windows
@@ -105,6 +153,19 @@ inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
 
 " Pressing \ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+" Spelling correction
+map <leader>sc z=
+
+" Add to dictionary
+map <leader>sa zg
+" Add to session dictionary
+map <leader>sA zG
+
+" Add to incorrect word list
+map <leader>sw zw
+" Add to session incorrect word list
+map <leader>sW zW
+
 
 " Misc
 
@@ -115,15 +176,44 @@ nmap <leader>w :w!<cr>
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+map <leader>sb :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+map <leader>sm :e ~/buffer.md<cr>
+
+" Close the current buffer yet keep the windows intact
+map <leader>x :BD<cr>
+
+" Close the current window
+map <leader>q :q<cr>
+map <leader>Q :qa<cr>
+map <leader>z :w<cr>:BD<cr>
+map <leader>Z :w<cr>:qa<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
 
+"Plugin keymaps
+nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>F :FZF<space>
+nnoremap <leader>ff :FZF<cr>
+nnoremap <leader>fl :Lines<cr>
+nnoremap <leader>fb :BLines<cr>
+nnoremap <leader>ft :Tags<cr>
+nnoremap <leader>fr :History<cr>
+nnoremap <leader>fh :Helptags<cr>
+nnoremap <leader>f: :History:<cr>
+nnoremap <leader>f/ :History/<cr>
+nnoremap <leader>fg :GFiles<cr>
+nnoremap <leader>fs :GFiles?<cr>
+nnoremap <leader>fc :Commits<cr>
+nnoremap <leader>fC :Commands<cr>
+nnoremap <leader>a :Ag<cr>
+nnoremap <leader>fa :Ag<space>
+
+" File keymaps
+source ~/.vim/maps.vim
 """"""""""""""""""""""""""""""""""""""""
 " -> Automatic file formattting
 """"""""""""""""""""""""""""""""""""""""
@@ -140,19 +230,3 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
-nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>ff :FZF<cr>
-nnoremap <leader>fl :Lines<cr>
-nnoremap <leader>fb :BLines<cr>
-nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>fr :History<cr>
-nnoremap <leader>fh :Helptags<cr>
-nnoremap <leader>f: :History:<cr>
-nnoremap <leader>f/ :History/<cr>
-nnoremap <leader>fg :GFiles<cr>
-nnoremap <leader>fs :GFiles?<cr>
-nnoremap <leader>fc :Commits<cr>
-nnoremap <leader>fC :Commands<cr>
-
-
-source ~/.vim/maps.vim
