@@ -2451,3 +2451,12 @@ gnore everything
 !.vim/bundle/colorschemes/colors/mrpink.vim
 !.vim/bundle/colorschemes/colors/lightcolors.vim
 !.vim/bundle/colorschemes/colors/heroku.vim
+!.vim/bundle/vim-peekaboo/
+!.vim/bundle/vim-peekaboo/plugin
+!.vim/bundle/vim-peekaboo/plugin/peekaboo.vim
+!.vim/bundle/vim-peekaboo/.git
+!.vim/bundle/vim-peekaboo/README.md
+!.vim/bundle/vim-peekaboo/syntax
+!.vim/bundle/vim-peekaboo/syntax/peekaboo.vim
+!.vim/bundle/vim-peekaboo/autoload
+!.vim/bundle/vim-peekaboo/autoload/peekaboo.vim

@@ -61,3 +61,6 @@
 [submodule ".vim/bundle/colorschemes"]
 	path = .vim/bundle/colorschemes
 	url = https://github.com/flazz/vim-colorschemes.git
+[submodule ".vim/bundle/vim-peekaboo"]
+	path = .vim/bundle/vim-peekaboo
+	url = https://github.com/junegunn/vim-peekaboo
