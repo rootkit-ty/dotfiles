@@ -12,14 +12,14 @@ esac
 
 # Path to your oh-my-zsh installation.
 if [ $machine = "Mac" ]; then
-	
+    
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
 
 elif [ $machine = "Linux" ]; then
-	
-	# Linux ZSH Install
-	export ZSH=/home/kitty/.oh-my-zsh
+    
+    # Linux ZSH Install
+    export ZSH=/home/kitty/.oh-my-zsh
 fi
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -156,10 +156,32 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
 export VISUAL=vim
 export EDITOR=vim
 
-alias tmux='tmux -2'
-
 # Configure global github excludes
 git config --global core.excludesfile ~/.gitignore_global
+
+
+export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
+#export FZF_DEFAULT_OPTS='--preview="pygmentize {}"'
+
+# Functions and aliases
+fh(){
+    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --preview="" | sed 's/ *[0-9]* *//')
+}
+
+
+fcd(){
+    local dir
+    dir=$(fd --type d --exclude .git |fzf +m --preview="ls -al --color {}")
+    cd "$dir"
+}
+
+
+alias f='fzf'
+alias fv='vim "$(fzf --preview="pygmentize {}")"'
+
+alias tmux='tmux -2'
+alias v='vimx'
+alias l='less'
 
 # Custom task and time tracking aliases
 alias tiw='timew'
@@ -167,21 +189,13 @@ alias tw='task'
 alias twl='task ls'
 alias twa='task add'
 
-export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
-
-alias f='fzf'
-alias fv='vim "$(fzf)"'
-alias fh='history | sort -r | fzf'
-alias fcd='CD="$(fd --type d | fzf)" && cd $CD && unset CD'
-
 if [ $machine = "Linux" ] ; then
 
-	alias vim='vimx'
+    alias vim='vimx'
 
-	(cat ~/.cache/wal/sequences &)
+    (cat ~/.cache/wal/sequences &)
 
     source /usr/share/zsh/site-functions/fzf
 elif [ $machine = "Mac" ]; then
     source /usr/local/opt/fzf/shell/completion.zsh
 fi
-
