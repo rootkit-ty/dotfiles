@@ -17,8 +17,12 @@ https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
 "blog"
 
 # News
-http://www.abc.net.au/news/feed/52278/rss.xml   "news" "world" "~ABC World"
-http://www.abc.net.au/news/feed/46182/rss.xml   "news" "australia"
+# ABC online articles aren't nearly as quality as the 7:00 news
+#http://www.abc.net.au/news/feed/52278/rss.xml   "news" "world" "~ABC World"
+#http://www.abc.net.au/news/feed/46182/rss.xml   "news" "australia"
+
+https://www.reddit.com/r/worldnews/.rss     "news" "world" "reddit" "~Reddit world news"
+https://www.reddit.com/r/news/.rss          "news" "reddit" "~Reddit News"
 
 # Youtube
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "yt" "tech" "linux" "workflow" "automation"
