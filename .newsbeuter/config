@@ -24,3 +24,6 @@ color listnormal_unread    color255 color0 bold
 color listfocus_unread     color255 color88 bold
 color info                 color255 color31
 color article              color255 color0
+
+show-read-feeds no
+notify-always no

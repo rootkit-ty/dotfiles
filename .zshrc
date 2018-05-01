@@ -175,6 +175,70 @@ fcd(){
     cd "$dir"
 }
 
+# Something something furry joke
+bd(){
+    system_wide_bookmarks=''
+    user_bookmarks=''
+
+    if [ -r /etc/bd.list ]; then
+        system_wide_bookmarks=$(cat /etc/bd.list)
+    fi
+    if [ -r ~/.bd.list ]; then
+        system_wide_bookmarks=$(cat ~/.bd.list)
+    fi
+
+    dest_dir=$(echo -e "$system_wide_bookmarks\n$user_bookmarks" | sed '/^\s*$/d' | fzf | sed 's/#.*//g'| sed 's/\s*$//g' )
+    cd "$dest_dir"
+}
+
+bda(){
+    local curr_dir="${PWD} # $*"
+    if ! grep -Fxq "$curr_dir" ~/.bd.list; then
+        echo "$curr_dir" >> ~/.bd.list
+    fi
+}
+
+# Git fzf commands
+gtf() {
+  git rev-parse HEAD > /dev/null 2>&1 || echo OwO
+  git -c color.status=always status --short |
+  fzf --height 50% "$@" --border -m --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+  cut -c4- | sed 's/.* -> //'
+}
+
+gtb() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf --height 50% "$@" --border --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+
+gtt() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git tag --sort -version:refname |
+  fzf --height 50% "$@" --border --multi --preview-window right:70% \
+    --preview 'git show --color=always {} | head -'$LINES
+}
+
+gth() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf --height 50% "$@" --border --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+    --header 'Press CTRL-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always | head -'$LINES |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
+gtr() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git remote -v | awk '{print $1 "\t" $2}' | uniq |
+  fzf --height 50% "$@" --border --tac \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+  cut -d$'\t' -f1
+}
 
 alias f='fzf'
 alias fv='vim "$(fzf --preview="pygmentize {}")"'
