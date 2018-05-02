@@ -13,11 +13,15 @@ esac
 # Path to your oh-my-zsh installation.
 if [ $machine = "Mac" ]; then
     
+    alias v='vim'
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
 
 elif [ $machine = "Linux" ]; then
     
+    alias vim='vimx'
+    alias v='vimx'
+
     # Linux ZSH Install
     export ZSH=/home/kitty/.oh-my-zsh
 fi
@@ -187,7 +191,7 @@ bd(){
         system_wide_bookmarks=$(cat ~/.bd.list)
     fi
 
-    dest_dir=$(echo -e "$system_wide_bookmarks\n$user_bookmarks" | sed '/^\s*$/d' | fzf | sed 's/#.*//g'| sed 's/\s*$//g' )
+    dest_dir=$(echo -e "$system_wide_bookmarks\n$user_bookmarks" | sed '/^\s*$/d' | fzf | sed 's/#.*//g'| sed 's/\s*$//g' | sed 's/ *$//g' )
     cd "$dest_dir"
 }
 
@@ -244,7 +248,6 @@ alias f='fzf'
 alias fv='vim "$(fzf --preview="pygmentize {}")"'
 
 alias tmux='tmux -2'
-alias v='vimx'
 alias l='less'
 
 # Custom task and time tracking aliases
@@ -255,7 +258,6 @@ alias twa='task add'
 
 if [ $machine = "Linux" ] ; then
 
-    alias vim='vimx'
 
     (cat ~/.cache/wal/sequences &)
 
