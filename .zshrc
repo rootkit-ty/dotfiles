@@ -220,6 +220,25 @@ gtb() {
   sed 's#^remotes/##'
 }
 
+gtc() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git checkout $(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf --height 50% "$@" --border --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##')
+}
+
+gtm() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+  git merge $(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf --height 50% "$@" --border --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##')
+}
+
+
 gtt() {
   git rev-parse HEAD > /dev/null 2>&1 || return
   git tag --sort -version:refname |
@@ -255,6 +274,8 @@ alias tiw='timew'
 alias tw='task'
 alias twl='task ls'
 alias twa='task add'
+
+alias twp='task add project:personal'
 
 if [ $machine = "Linux" ] ; then
 
