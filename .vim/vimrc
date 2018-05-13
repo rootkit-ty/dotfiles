@@ -74,7 +74,7 @@ augroup END
 " To avoid overwriting the netrw buffer with some other buffer, we should
 " change window before executing
 augroup NetrwMaps
-    autocmd FileType netrw nnoremap <buffer> <leader>b :winc w<cr>:Buffers<cr>
+    autocmd FileType netrw nnoremap <buffer> <leader>B :winc w<cr>:Buffers<cr>
     autocmd FileType netrw nnoremap <buffer> <leader>F :winc w<cr>:FZF<space>
     autocmd FileType netrw nnoremap <buffer> <leader>ff :winc w<cr>:FZF<cr>
     autocmd FileType netrw nnoremap <buffer> <leader>fl :winc w<cr>:Lines<cr>
@@ -95,7 +95,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""
 " -> Plugin Settings
 """"""""""""""""""""""""""""""""""""""""
-let g:rainbow_active = 1
+"let g:rainbow_active = 1
 
 if has("mac")
   " If installed using Homebrew
@@ -112,10 +112,7 @@ let g:indent_guides_guide_size = 1
 " -> Per file settings
 """"""""""""""""""""""""""""""""""""""""
 
-autocmd FileType markdown	set tabstop=2
-autocmd FileType markdown	set softtabstop=2
-autocmd FileType markdown	set shiftwidth=2
-
+autocmd FileType haskell,puppet,ruby,yml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""
 " -> Commands
@@ -213,7 +210,7 @@ map <leader>pp :setlocal paste!<cr>
 
 
 "Plugin keymaps
-nnoremap <leader>b :Buffers<cr>
+nnoremap <leader>B :Buffers<cr>
 nnoremap <leader>F :FZF<space>
 nnoremap <leader>ff :FZF<cr>
 nnoremap <leader>fl :Lines<cr>
