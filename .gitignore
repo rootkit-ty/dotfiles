@@ -2463,3 +2463,9 @@ gnore everything
 !.vim/bundle/vim-peekaboo/syntax/peekaboo.vim
 !.vim/bundle/vim-peekaboo/autoload
 !.vim/bundle/vim-peekaboo/autoload/peekaboo.vim
+!.vim/bundle/visual-split.vim
+!.vim/bundle/visual-split.vim/plugin
+!.vim/bundle/visual-split.vim/plugin/visual-split.vim
+!.vim/bundle/visual-split.vim/.git
+!.vim/bundle/visual-split.vim/README.md
+!.vim/bundle/visual-split.vim/MIT-LICENSE
