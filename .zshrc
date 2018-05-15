@@ -191,7 +191,7 @@ bd(){
         system_wide_bookmarks=$(cat ~/.bd.list)
     fi
 
-    dest_dir=$(echo -e "$system_wide_bookmarks\n$user_bookmarks" | sed '/^\s*$/d' | fzf | sed 's/#.*//g'| sed 's/\s*$//g' | sed 's/ *$//g' )
+    dest_dir=$(echo -e "$system_wide_bookmarks\n$user_bookmarks" | sed '/^\s*$/d' | fzf --height 30% --border --ansi | sed 's/#.*//g'| sed 's/\s*$//g' | sed 's/ *$//g' )
     cd "$dest_dir"
 }
 
