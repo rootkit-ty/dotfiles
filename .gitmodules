@@ -67,3 +67,6 @@
 [submodule ".vim/bundle/visual-split.vim"]
 	path = .vim/bundle/visual-split.vim
 	url = https://github.com/wellle/visual-split.vim.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = https://github.com/vim-syntastic/syntastic.git

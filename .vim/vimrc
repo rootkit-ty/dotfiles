@@ -160,7 +160,7 @@ map <leader>gu :Gpull<cr>
 
 " Buffer keybinds
 " Close the git windows
-map <leader>go :Only<cr>
+map <leader>go :only<cr>
 
 " Dictionary
 inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
