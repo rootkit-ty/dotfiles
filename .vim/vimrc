@@ -55,6 +55,20 @@ set showmatch
 
 set smartcase
 
+" List invisible characters
+set list
+set listchars=eol:¬,tab:→\ ,trail:~,extends:»,precedes:«,space:·,nbsp:§
+
+"Setup highlighting for listchars to make them slightly darker
+if has("mac")
+    hi SpecialKey ctermfg=black
+else
+    hi SpecialKey ctermfg=grey
+endif
+
+" Match trailing spaces
+match ErrorMsg '\s\+$'
+
 "TODO: Create vim directory in cache
 set backupdir=./.vim_data,~/.cache/,.,~
 set directory=./.vim_data,~/.cache/,.,~
@@ -105,6 +119,15 @@ if has("mac")
   set rtp+=~/.fzf
 endif
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
@@ -112,7 +135,7 @@ let g:indent_guides_guide_size = 1
 " -> Per file settings
 """"""""""""""""""""""""""""""""""""""""
 
-autocmd FileType haskell,puppet,ruby,yml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
 
 """"""""""""""""""""""""""""""""""""""""
 " -> Commands
@@ -228,7 +251,7 @@ nnoremap <leader>a :Ag<cr>
 nnoremap <leader>fa :Ag<space>
 
 " File keymaps
-source ~/.vim/maps.vim
+"source ~/.vim/maps.vim
 """"""""""""""""""""""""""""""""""""""""
 " -> Automatic file formattting
 """"""""""""""""""""""""""""""""""""""""
@@ -245,6 +268,17 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
+
+""""""""""""""""""""""""""""""""""""""""
+" -> Syntastic Loclist resize
+""""""""""""""""""""""""""""""""""""""""
+
+" see :h syntastic-loclist-callback
+function! SyntasticCheckHook(errors)
+    if !empty(a:errors)
+        let g:syntastic_loc_list_height = min([len(a:errors), 5])
+    endif
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""
 " -> Zen mode

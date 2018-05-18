@@ -126,18 +126,18 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_tw_count vcs status root_indicator ba
 
 
 # Custom prompt element to count all tasks in the current context
-POWERLEVEL9K_CUSTOM_TW_COUNT="tw -COMPLETED -DELETED count"
+POWERLEVEL9K_CUSTOM_TW_COUNT="tw +READY count"
 
 # Custom prompt element to count all tasks in the current context due this week
-POWERLEVEL9K_CUSTOM_TW_COUNT_WEEK="tw +DUE count"
+POWERLEVEL9K_CUSTOM_TW_COUNT_WEEK="tw -hold +READY +DUE count"
 
 # Custom prompt element to count all tasks in the current context due today
-POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY="tw due:tomorrow count"
+POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY="tw +READY due:eod count"
 POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY_FOREGROUND="black"
 POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY_BACKGROUND="yellow"
 
 # Custom prompt element to count all tasks in the current context that are overdue
-POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE="tw +OVERDUE -WAITING -COMPLETED -DELETED count"
+POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE="tw +OVERDUE +READY count"
 POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE_FOREGROUND="black"
 POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE_BACKGROUND="red"
 
