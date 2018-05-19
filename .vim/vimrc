@@ -252,44 +252,46 @@
     "source ~/.vim/maps.vim
 
 ""}
-" Automatic file formattting {
-    " Delete trailing white space on save, useful for some filetypes ;)
-    fun! CleanExtraSpaces()
-        let save_cursor = getpos(".")
-        let old_query = getreg('/')
-        silent! %s/\s\+$//e
-        call setpos('.', save_cursor)
-        call setreg('/', old_query)
-    endfun
+" Custom functions {
+    " Automatic file formattting {
+        " Delete trailing white space on save, useful for some filetypes ;)
+        fun! CleanExtraSpaces()
+            let save_cursor = getpos(".")
+            let old_query = getreg('/')
+            silent! %s/\s\+$//e
+            call setpos('.', save_cursor)
+            call setreg('/', old_query)
+        endfun
 
-    if has("autocmd")
-        autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-    endif
-"}
-" Syntastic Loclist resize {
-
-    " see :h syntastic-loclist-callback
-    function! SyntasticCheckHook(errors)
-        if !empty(a:errors)
-            let g:syntastic_loc_list_height = min([len(a:errors), 5])
+        if has("autocmd")
+            autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
         endif
-    endfunction
+    "}
+    " Syntastic Loclist resize {
 
-"}
-" Zen mode {
-    fun! ZenMode()
-        "Toggle the flag (or set it if it doesn't yet exist)...
-        let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
+        " see :h syntastic-loclist-callback
+        function! SyntasticCheckHook(errors)
+            if !empty(a:errors)
+                let g:syntastic_loc_list_height = min([len(a:errors), 5])
+            endif
+        endfunction
 
-        if g:zen_mode
-            Goyo
-            Limelight 0.8
-            silent !i3-msg fullscreen
-        else
-            Goyo
-            Limelight!
-            silent !i3-msg fullscreen
-        endif
-    endfun
+    "}
+    " Zen mode {
+        fun! ZenMode()
+            "Toggle the flag (or set it if it doesn't yet exist)...
+            let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
 
-"}
+            if g:zen_mode
+                Goyo
+                Limelight 0.8
+                silent !i3-msg fullscreen
+            else
+                Goyo
+                Limelight!
+                silent !i3-msg fullscreen
+            endif
+        endfun
+
+    "}
+" }
