@@ -2887,3 +2887,12 @@ gnore everything
 !.vim/bundle/vim-quantum/autoload/airline
 !.vim/bundle/vim-quantum/autoload/airline/themes
 !.vim/bundle/vim-quantum/autoload/airline/themes/quantum.vim
+!.vim/bundle/vim-sleuth
+!.vim/bundle/vim-sleuth/README.markdown
+!.vim/bundle/vim-sleuth/plugin
+!.vim/bundle/vim-sleuth/plugin/sleuth.vim
+!.vim/bundle/vim-sleuth/.git
+!.vim/bundle/vim-sleuth/.gitignore
+!.vim/bundle/vim-sleuth/doc
+!.vim/bundle/vim-sleuth/doc/sleuth.txt
+!.vim/bundle/vim-sleuth/CONTRIBUTING.markdown
