@@ -2899,3 +2899,4 @@ gnore everything
 !.vim/keymaps
 !.vim/keymaps/java.vim
 !.vim/keymaps/markdown.vim
+!.vim/init.vim

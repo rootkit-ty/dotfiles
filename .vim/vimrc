@@ -1,12 +1,11 @@
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-" Plugins Configuration {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell: 
+" TODO:
+"       Setup modular vimrc, having separate files for each section of this
+"           config
+"       Make source come from a non-hardcoded location
 
-    " Pathogen infection (Plugin start)
-    execute pathogen#infect()
-
-    set nocompatible
-    filetype plugin indent on
-
+" Init {
+    source ~/.vim/init.vim
 "}
 " Colors and Fonts {
 
@@ -84,96 +83,25 @@
     set hidden
     set showmatch
 
+    " Global flag always applied on regex (save a keypress every search)
+    set gdefault
+
     " Don't redraw while executing macros (good performance config)
     set lazyredraw
 
-    "TODO: Create vim directory in cache
-" Deal with swap files
-    if !isdirectory($HOME . '/.cache/vim/swap') && has('unix')
-      :silent !mkdir -p ~/.cache/vim/swap >/dev/null 2>&1
-    endif
+    " Deal with swap, backup, and undo files
+    call WriteCacheDir("swap")
     set directory=./.vim_data/,~/.cache/vim/swap/,~/.cache/,./,~
 
-    if !isdirectory($HOME . '/.cache/vim/backup') && has('unix')
-      :silent !mkdir -p ~/.cache/vim/backup >/dev/null 2>&1
-    endif
+    call WriteCacheDir("backup")
     set backupdir=./.vim_data/,~/.cache/vim/backup/,~/.cache/,./,~
 
     if exists('+undofile')
-        if !isdirectory($HOME . '/.cache/vim/undo') && has('unix')
-          :silent !mkdir -p ~/.cache/vim/undo >/dev/null 2>&1
-        endif
+        call WriteCacheDir("undo")
         set undofile
         set undodir=./.vim_data/,~/.cache/vim/undo/,~/.cache/,./,
     endif
 
-"}
-" Plugin Settings {
-    "let g:rainbow_active = 1
-
-    if has("mac")
-        " If installed using Homebrew
-        set rtp+=/usr/local/opt/fzf
-
-        " If installed using git
-        set rtp+=~/.fzf
-    endif
-
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-    let g:indent_guides_enable_on_vim_startup = 1
-    let g:indent_guides_guide_size = 1
-"}
-" Per file settings {
-    autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
-
-    " File specific keymaps
-    " TODO: Replace these with snippits
-    autocmd FileType markdown source ~/.vim/keymaps/markdown.vim
-    autocmd FileType java source ~/.vim/keymaps/java.vim
-"}
-" Commands {
-    " :W sudo saves the file
-    command W w !sudo tee % > /dev/null
-"}
-" Netrw settings {
-    let g:netrw_banner = 0
-    let g:netrw_liststyle = 3
-    let g:netrw_browse_split = 4
-    let g:netrw_altv = 1
-    let g:netrw_winsize = 12
-    augroup ProjectDrawer
-        autocmd!
-        autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
-    augroup END
-
-    " To avoid overwriting the netrw buffer with some other buffer, we should
-    " change window before executing
-    augroup NetrwMaps
-        autocmd FileType netrw nnoremap <buffer> <leader>B :winc w<cr>:Buffers<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>F :winc w<cr>:FZF<space>
-        autocmd FileType netrw nnoremap <buffer> <leader>ff :winc w<cr>:FZF<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fl :winc w<cr>:Lines<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fb :winc w<cr>:BLines<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>ft :winc w<cr>:Tags<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fr :winc w<cr>:History<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fh :winc w<cr>:Helptags<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>f: :winc w<cr>:History:<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>f/ :winc w<cr>:History/<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fg :winc w<cr>:GFiles<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fs :winc w<cr>:GFiles?<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fc :winc w<cr>:Commits<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fC :winc w<cr>:Commands<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
-        autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
-    augroup END
 "}
 " KeyMapping {
     let mapleader=","
@@ -281,46 +209,70 @@
     nnoremap <leader>fa :Ag<space>
 
 ""}
-" Custom functions {
-    " Automatic file formattting {
-        " Delete trailing white space on save, useful for some filetypes ;)
-        fun! CleanExtraSpaces()
-            let save_cursor = getpos(".")
-            let old_query = getreg('/')
-            silent! %s/\s\+$//e
-            call setpos('.', save_cursor)
-            call setreg('/', old_query)
-        endfun
+" Plugin Settings {
+    "let g:rainbow_active = 1
 
-        if has("autocmd")
-            autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-        endif
-    "}
-    " Syntastic Loclist resize {
+    if has("mac")
+        " If installed using Homebrew
+        set rtp+=/usr/local/opt/fzf
 
-        " see :h syntastic-loclist-callback
-        function! SyntasticCheckHook(errors)
-            if !empty(a:errors)
-                let g:syntastic_loc_list_height = min([len(a:errors), 5])
-            endif
-        endfunction
+        " If installed using git
+        set rtp+=~/.fzf
+    endif
 
-    "}
-    " Zen mode {
-        fun! ZenMode()
-            "Toggle the flag (or set it if it doesn't yet exist)...
-            let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
 
-            if g:zen_mode
-                Goyo
-                Limelight 0.8
-                silent !i3-msg fullscreen
-            else
-                Goyo
-                Limelight!
-                silent !i3-msg fullscreen
-            endif
-        endfun
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
 
-    "}
-" }
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_guide_size = 1
+"}
+" Per file settings {
+    autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
+
+    " File specific keymaps
+    " TODO: Replace these with snippits
+    autocmd FileType markdown source ~/.vim/keymaps/markdown.vim
+    autocmd FileType java source ~/.vim/keymaps/java.vim
+"}
+" Commands {
+    " :W sudo saves the file
+    command W w !sudo tee % > /dev/null
+"}
+" Netrw settings {
+    let g:netrw_banner = 0
+    let g:netrw_liststyle = 3
+    let g:netrw_browse_split = 4
+    let g:netrw_altv = 1
+    let g:netrw_winsize = 12
+    augroup ProjectDrawer
+        autocmd!
+        autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
+    augroup END
+
+    " To avoid overwriting the netrw buffer with some other buffer, we should
+    " change window before executing
+    augroup NetrwMaps
+        autocmd FileType netrw nnoremap <buffer> <leader>B :winc w<cr>:Buffers<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>F :winc w<cr>:FZF<space>
+        autocmd FileType netrw nnoremap <buffer> <leader>ff :winc w<cr>:FZF<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fl :winc w<cr>:Lines<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fb :winc w<cr>:BLines<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>ft :winc w<cr>:Tags<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fr :winc w<cr>:History<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fh :winc w<cr>:Helptags<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>f: :winc w<cr>:History:<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>f/ :winc w<cr>:History/<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fg :winc w<cr>:GFiles<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fs :winc w<cr>:GFiles?<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fc :winc w<cr>:Commits<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fC :winc w<cr>:Commands<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
+    augroup END
+"}
