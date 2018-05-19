@@ -171,6 +171,7 @@
     map <leader>dt :diffget //3<cr>
 
     " Git commands
+    map <leader>G :Magit<cr>
     map <leader>ga :Git add %<cr>
     map <leader>gA :Git add .<cr>
     map <leader>gc :Gcommit<cr>
