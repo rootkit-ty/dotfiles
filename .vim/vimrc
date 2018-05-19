@@ -32,11 +32,6 @@
 
     endif
 
-    " Set utf8 as standard encoding and en_US as the standard language
-    set encoding=utf8
-
-    " Use Unix as the standard file type
-    set ffs=unix,dos,mac
 
 "}
 " Settings {
@@ -53,14 +48,13 @@
     set foldmethod=syntax
     set foldlevel=4
 
-    " Don't redraw while executing macros (good performance config)
-    set lazyredraw
-
-    " Hide buffers, don't close them
-    set hidden
-    set showmatch
-
+    " Ignore case unless a capital is explicitly used
+    set ignorecase 
     set smartcase
+
+    " Change split directions to be more consistent with i3
+    set splitbelow
+    set splitright
 
     " List invisible characters
     set list
@@ -73,13 +67,81 @@
         hi SpecialKey ctermfg=grey
     endif
 
+    " Set column colour for long lines
+    " TODO: Have this only for lines that exceed the limit
+    set colorcolumn=80
+
     " Match trailing spaces
     match ErrorMsg '\s\+$'
 
-    "TODO: Create vim directory in cache
-    set backupdir=./.vim_data,~/.cache/,.,~
-    set directory=./.vim_data,~/.cache/,.,~
+    " Set utf8 as standard encoding and en_US as the standard language
+    set encoding=utf8
 
+    " Use Unix as the standard file type
+    set ffs=unix,dos,mac
+
+    " Hide buffers, don't close them
+    set hidden
+    set showmatch
+
+    " Don't redraw while executing macros (good performance config)
+    set lazyredraw
+
+    "TODO: Create vim directory in cache
+" Deal with swap files
+    if !isdirectory($HOME . '/.cache/vim/swap') && has('unix')
+      :silent !mkdir -p ~/.cache/vim/swap >/dev/null 2>&1
+    endif
+    set directory=./.vim_data/,~/.cache/vim/swap/,~/.cache/,./,~
+
+    if !isdirectory($HOME . '/.cache/vim/backup') && has('unix')
+      :silent !mkdir -p ~/.cache/vim/backup >/dev/null 2>&1
+    endif
+    set backupdir=./.vim_data/,~/.cache/vim/backup/,~/.cache/,./,~
+
+    if exists('+undofile')
+        if !isdirectory($HOME . '/.cache/vim/undo') && has('unix')
+          :silent !mkdir -p ~/.cache/vim/undo >/dev/null 2>&1
+        endif
+        set undofile
+        set undodir=./.vim_data/,~/.cache/vim/undo/,~/.cache/,./,
+    endif
+
+"}
+" Plugin Settings {
+    "let g:rainbow_active = 1
+
+    if has("mac")
+        " If installed using Homebrew
+        set rtp+=/usr/local/opt/fzf
+
+        " If installed using git
+        set rtp+=~/.fzf
+    endif
+
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_guide_size = 1
+"}
+" Per file settings {
+    autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
+
+    " File specific keymaps
+    " TODO: Replace these with snippits
+    autocmd FileType markdown source ~/.vim/keymaps/markdown.vim
+    autocmd FileType java source ~/.vim/keymaps/java.vim
+"}
+" Commands {
+    " :W sudo saves the file
+    command W w !sudo tee % > /dev/null
 "}
 " Netrw settings {
     let g:netrw_banner = 0
@@ -112,36 +174,6 @@
         autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
         autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
     augroup END
-"}
-" Plugin Settings {
-    "let g:rainbow_active = 1
-
-    if has("mac")
-        " If installed using Homebrew
-        set rtp+=/usr/local/opt/fzf
-
-        " If installed using git
-        set rtp+=~/.fzf
-    endif
-
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_check_on_open = 1
-    let g:syntastic_check_on_wq = 0
-
-    let g:indent_guides_enable_on_vim_startup = 1
-    let g:indent_guides_guide_size = 1
-"}
-" Per file settings {
-    autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
-"}
-" Commands {
-    " :W sudo saves the file
-    command W w !sudo tee % > /dev/null
 "}
 " KeyMapping {
     let mapleader=","
@@ -247,9 +279,6 @@
     nnoremap <leader>fC :Commands<cr>
     nnoremap <leader>a :Ag<cr>
     nnoremap <leader>fa :Ag<space>
-
-    " File keymaps
-    "source ~/.vim/maps.vim
 
 ""}
 " Custom functions {
