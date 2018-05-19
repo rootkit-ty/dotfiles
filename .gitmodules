@@ -58,9 +58,6 @@
 [submodule ".vim/bundle/limelight.vim"]
 	path = .vim/bundle/limelight.vim
 	url = https://github.com/junegunn/limelight.vim.git
-[submodule ".vim/bundle/colorschemes"]
-	path = .vim/bundle/colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
 [submodule ".vim/bundle/vim-peekaboo"]
 	path = .vim/bundle/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo
@@ -70,3 +67,9 @@
 [submodule ".vim/bundle/syntastic"]
 	path = .vim/bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
+[submodule ".vim/bundle/iceberg.vim"]
+	path = .vim/bundle/iceberg.vim
+	url = https://github.com/cocopon/iceberg.vim
+[submodule ".vim/bundle/vim-quantum"]
+	path = .vim/bundle/vim-quantum
+	url = https://github.com/tyrannicaltoucan/vim-quantum

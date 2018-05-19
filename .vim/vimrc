@@ -1,299 +1,293 @@
-""""""""""""""""""""""""""""""""""""""""
-" -> Plugins
-""""""""""""""""""""""""""""""""""""""""
-" Pathogen infection (Plugin start)
-execute pathogen#infect()
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" Plugins Configuration {
 
-set nocompatible
-filetype plugin indent on
+    " Pathogen infection (Plugin start)
+    execute pathogen#infect()
 
+    set nocompatible
+    filetype plugin indent on
 
+"}
+" Colors and Fonts {
 
-""""""""""""""""""""""""""""""""""""""""
-" -> Colors and Fonts
-""""""""""""""""""""""""""""""""""""""""
+    " set Vim-specific sequences for RGB colors
+    " This is for fixing the weird lack of True Colours on ST
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-" Turn on syntax colouring
-syntax on
+    " Turn on syntax colouring
+    syntax on
 
-"Use the nord colour scheme if on OSX or use Monokai on linux
-if has("mac")
-  colorscheme nord
-else
-  colorscheme molokai
-endif
+    " Enable GUI terminal colours
+    set termguicolors
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Settings
-""""""""""""""""""""""""""""""""""""""""
-
-" Tun on numbers and relative numbers
-set rnu nu
-
-" 4 soft-tab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-
-set foldmethod=syntax
-set foldlevel=4
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" Hide buffers, don't close them
-set hidden
-set showmatch
-
-set smartcase
-
-" List invisible characters
-set list
-set listchars=eol:¬,tab:→\ ,trail:~,extends:»,precedes:«,space:·,nbsp:§
-
-"Setup highlighting for listchars to make them slightly darker
-if has("mac")
-    hi SpecialKey ctermfg=black
-else
-    hi SpecialKey ctermfg=grey
-endif
-
-" Match trailing spaces
-match ErrorMsg '\s\+$'
-
-"TODO: Create vim directory in cache
-set backupdir=./.vim_data,~/.cache/,.,~
-set directory=./.vim_data,~/.cache/,.,~
-""""""""""""""""""""""""""""""""""""""""
-" -> Netrw settings
-""""""""""""""""""""""""""""""""""""""""
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 12
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
-augroup END
-
-" To avoid overwriting the netrw buffer with some other buffer, we should
-" change window before executing
-augroup NetrwMaps
-    autocmd FileType netrw nnoremap <buffer> <leader>B :winc w<cr>:Buffers<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>F :winc w<cr>:FZF<space>
-    autocmd FileType netrw nnoremap <buffer> <leader>ff :winc w<cr>:FZF<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fl :winc w<cr>:Lines<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fb :winc w<cr>:BLines<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>ft :winc w<cr>:Tags<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fr :winc w<cr>:History<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fh :winc w<cr>:Helptags<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>f: :winc w<cr>:History:<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>f/ :winc w<cr>:History/<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fg :winc w<cr>:GFiles<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fs :winc w<cr>:GFiles?<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fc :winc w<cr>:Commits<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fC :winc w<cr>:Commands<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
-    autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
-augroup END
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Plugin Settings
-""""""""""""""""""""""""""""""""""""""""
-"let g:rainbow_active = 1
-
-if has("mac")
-  " If installed using Homebrew
-  set rtp+=/usr/local/opt/fzf
-
-  " If installed using git
-  set rtp+=~/.fzf
-endif
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Per file settings
-""""""""""""""""""""""""""""""""""""""""
-
-autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Commands
-""""""""""""""""""""""""""""""""""""""""
-
-" :W sudo saves the file
-command W w !sudo tee % > /dev/null
-
-""""""""""""""""""""""""""""""""""""""""
-" -> KeyMapping
-""""""""""""""""""""""""""""""""""""""""
-let mapleader=","
-
-" Smart way to move between windows
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-h> <C-w>h
-map <C-l> <C-w>l
-
-
-" Mode binds
-
-" Run GDiff
-map <leader>md :Gdiff<cr>
-
-" Toggle zen mode
-map <leader>mz :call<space>ZenMode()<cr>
-
-
-
-
-" Git and diff keybinds
-
-" Bindings for merging
-map <leader>dh :diffget //2<cr>
-map <leader>dt :diffget //3<cr>
-
-" Git commands
-map <leader>ga :Git add %<cr>
-map <leader>gA :Git add .<cr>
-map <leader>gc :Gcommit<cr>
-map <leader>gs :Gstatus<cr>
-map <leader>gp :Gpush<cr>
-map <leader>gu :Gpull<cr>
-
-" Buffer keybinds
-" Close the git windows
-map <leader>go :only<cr>
-
-" Dictionary
-inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
-
-" Pressing \ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-" Spelling correction
-map <leader>sc z=
-
-" Add to dictionary
-map <leader>sa zg
-" Add to session dictionary
-map <leader>sA zG
-
-" Add to incorrect word list
-map <leader>sw zw
-" Add to session incorrect word list
-map <leader>sW zW
-
-
-
-" Misc
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>sb :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>sm :e ~/buffer.md<cr>
-
-" Close the current buffer yet keep the windows intact
-map <leader>x :BD<cr>
-
-" Close the current window
-map <leader>q :q<cr>
-map <leader>Q :qa<cr>
-map <leader>z :w<cr>:BD<cr>
-map <leader>Z :w<cr>:qa<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-
-"Plugin keymaps
-nnoremap <leader>B :Buffers<cr>
-nnoremap <leader>F :FZF<space>
-nnoremap <leader>ff :FZF<cr>
-nnoremap <leader>fl :Lines<cr>
-nnoremap <leader>fb :BLines<cr>
-nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>fr :History<cr>
-nnoremap <leader>fh :Helptags<cr>
-nnoremap <leader>f: :History:<cr>
-nnoremap <leader>f/ :History/<cr>
-nnoremap <leader>fg :GFiles<cr>
-nnoremap <leader>fs :GFiles?<cr>
-nnoremap <leader>fc :Commits<cr>
-nnoremap <leader>fC :Commands<cr>
-nnoremap <leader>a :Ag<cr>
-nnoremap <leader>fa :Ag<space>
-
-" File keymaps
-"source ~/.vim/maps.vim
-""""""""""""""""""""""""""""""""""""""""
-" -> Automatic file formattting
-""""""""""""""""""""""""""""""""""""""""
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Syntastic Loclist resize
-""""""""""""""""""""""""""""""""""""""""
-
-" see :h syntastic-loclist-callback
-function! SyntasticCheckHook(errors)
-    if !empty(a:errors)
-        let g:syntastic_loc_list_height = min([len(a:errors), 5])
-    endif
-endfunction
-
-""""""""""""""""""""""""""""""""""""""""
-" -> Zen mode
-""""""""""""""""""""""""""""""""""""""""
-fun! ZenMode()
-    "Toggle the flag (or set it if it doesn't yet exist)...
-    let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
-
-    if g:zen_mode
-        Goyo
-        Limelight 0.8
-        silent !i3-msg fullscreen
+    "Use the nord colour scheme if on OSX or use Quantum on linux
+    if has("mac")
+        colorscheme nord
     else
-        Goyo
-        Limelight!
-        silent !i3-msg fullscreen
+        "let g:quantum_black=1
+        let g:quantum_italics=1
+        colorscheme quantum
+
     endif
-endfun
+
+    " Set utf8 as standard encoding and en_US as the standard language
+    set encoding=utf8
+
+    " Use Unix as the standard file type
+    set ffs=unix,dos,mac
+
+"}
+" Settings {
+
+    " Tun on numbers and relative numbers
+    set rnu nu
+
+    " 4 soft-tab
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
+    set expandtab
+
+    set foldmethod=syntax
+    set foldlevel=4
+
+    " Don't redraw while executing macros (good performance config)
+    set lazyredraw
+
+    " Hide buffers, don't close them
+    set hidden
+    set showmatch
+
+    set smartcase
+
+    " List invisible characters
+    set list
+    set listchars=eol:¬,tab:→\ ,trail:~,extends:»,precedes:«,space:·,nbsp:§
+
+    "Setup highlighting for listchars to make them slightly darker
+    if has("mac")
+        hi SpecialKey ctermfg=black
+    else
+        hi SpecialKey ctermfg=grey
+    endif
+
+    " Match trailing spaces
+    match ErrorMsg '\s\+$'
+
+    "TODO: Create vim directory in cache
+    set backupdir=./.vim_data,~/.cache/,.,~
+    set directory=./.vim_data,~/.cache/,.,~
+
+"}
+" Netrw settings {
+    let g:netrw_banner = 0
+    let g:netrw_liststyle = 3
+    let g:netrw_browse_split = 4
+    let g:netrw_altv = 1
+    let g:netrw_winsize = 12
+    augroup ProjectDrawer
+        autocmd!
+        autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
+    augroup END
+
+    " To avoid overwriting the netrw buffer with some other buffer, we should
+    " change window before executing
+    augroup NetrwMaps
+        autocmd FileType netrw nnoremap <buffer> <leader>B :winc w<cr>:Buffers<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>F :winc w<cr>:FZF<space>
+        autocmd FileType netrw nnoremap <buffer> <leader>ff :winc w<cr>:FZF<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fl :winc w<cr>:Lines<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fb :winc w<cr>:BLines<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>ft :winc w<cr>:Tags<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fr :winc w<cr>:History<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fh :winc w<cr>:Helptags<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>f: :winc w<cr>:History:<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>f/ :winc w<cr>:History/<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fg :winc w<cr>:GFiles<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fs :winc w<cr>:GFiles?<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fc :winc w<cr>:Commits<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fC :winc w<cr>:Commands<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
+        autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
+    augroup END
+"}
+" Plugin Settings {
+    "let g:rainbow_active = 1
+
+    if has("mac")
+        " If installed using Homebrew
+        set rtp+=/usr/local/opt/fzf
+
+        " If installed using git
+        set rtp+=~/.fzf
+    endif
+
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_guide_size = 1
+"}
+" Per file settings {
+    autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
+"}
+" Commands {
+    " :W sudo saves the file
+    command W w !sudo tee % > /dev/null
+"}
+" KeyMapping {
+    let mapleader=","
+
+    " Smart way to move between windows
+    map <C-j> <C-w>j
+    map <C-k> <C-w>k
+    map <C-h> <C-w>h
+    map <C-l> <C-w>l
+
+
+    " Mode binds
+
+    " Run GDiff
+    map <leader>md :Gdiff<cr>
+
+    " Toggle zen mode
+    map <leader>mz :call<space>ZenMode()<cr>
+
+
+
+
+    " Git and diff keybinds
+
+    " Bindings for merging
+    map <leader>dh :diffget //2<cr>
+    map <leader>dt :diffget //3<cr>
+
+    " Git commands
+    map <leader>ga :Git add %<cr>
+    map <leader>gA :Git add .<cr>
+    map <leader>gc :Gcommit<cr>
+    map <leader>gs :Gstatus<cr>
+    map <leader>gp :Gpush<cr>
+    map <leader>gu :Gpull<cr>
+
+    " Buffer keybinds
+    " Close the git windows
+    map <leader>go :only<cr>
+
+    " Dictionary
+    inoremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+
+    " Pressing \ss will toggle and untoggle spell checking
+    map <leader>ss :setlocal spell!<cr>
+    " Spelling correction
+    map <leader>sc z=
+
+    " Add to dictionary
+    map <leader>sa zg
+    " Add to session dictionary
+    map <leader>sA zG
+
+    " Add to incorrect word list
+    map <leader>sw zw
+    " Add to session incorrect word list
+    map <leader>sW zW
+
+
+
+    " Misc
+
+    " Fast saving
+    nmap <leader>w :w!<cr>
+
+    " Remove the Windows ^M - when the encodings gets messed up
+    noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+    " Quickly open a buffer for scribble
+    map <leader>sb :e ~/buffer<cr>
+
+    " Quickly open a markdown buffer for scribble
+    map <leader>sm :e ~/buffer.md<cr>
+
+    " Close the current buffer yet keep the windows intact
+    map <leader>x :BD<cr>
+
+    " Close the current window
+    map <leader>q :q<cr>
+    map <leader>Q :qa<cr>
+    map <leader>z :w<cr>:BD<cr>
+    map <leader>Z :w<cr>:qa<cr>
+
+    " Toggle paste mode on and off
+    map <leader>pp :setlocal paste!<cr>
+
+
+    "Plugin keymaps
+    nnoremap <leader>B :Buffers<cr>
+    nnoremap <leader>F :FZF<space>
+    nnoremap <leader>ff :FZF<cr>
+    nnoremap <leader>fl :Lines<cr>
+    nnoremap <leader>fb :BLines<cr>
+    nnoremap <leader>ft :Tags<cr>
+    nnoremap <leader>fr :History<cr>
+    nnoremap <leader>fh :Helptags<cr>
+    nnoremap <leader>f: :History:<cr>
+    nnoremap <leader>f/ :History/<cr>
+    nnoremap <leader>fg :GFiles<cr>
+    nnoremap <leader>fs :GFiles?<cr>
+    nnoremap <leader>fc :Commits<cr>
+    nnoremap <leader>fC :Commands<cr>
+    nnoremap <leader>a :Ag<cr>
+    nnoremap <leader>fa :Ag<space>
+
+    " File keymaps
+    "source ~/.vim/maps.vim
+
+""}
+" Automatic file formattting {
+    " Delete trailing white space on save, useful for some filetypes ;)
+    fun! CleanExtraSpaces()
+        let save_cursor = getpos(".")
+        let old_query = getreg('/')
+        silent! %s/\s\+$//e
+        call setpos('.', save_cursor)
+        call setreg('/', old_query)
+    endfun
+
+    if has("autocmd")
+        autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+    endif
+"}
+" Syntastic Loclist resize {
+
+    " see :h syntastic-loclist-callback
+    function! SyntasticCheckHook(errors)
+        if !empty(a:errors)
+            let g:syntastic_loc_list_height = min([len(a:errors), 5])
+        endif
+    endfunction
+
+"}
+" Zen mode {
+    fun! ZenMode()
+        "Toggle the flag (or set it if it doesn't yet exist)...
+        let g:zen_mode = exists('g:zen_mode') ? !g:zen_mode : 1
+
+        if g:zen_mode
+            Goyo
+            Limelight 0.8
+            silent !i3-msg fullscreen
+        else
+            Goyo
+            Limelight!
+            silent !i3-msg fullscreen
+        endif
+    endfun
+
+"}
