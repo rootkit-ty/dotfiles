@@ -2896,3 +2896,6 @@ gnore everything
 !.vim/bundle/vim-sleuth/doc
 !.vim/bundle/vim-sleuth/doc/sleuth.txt
 !.vim/bundle/vim-sleuth/CONTRIBUTING.markdown
+!.vim/keymaps
+!.vim/keymaps/java.vim
+!.vim/keymaps/markdown.vim
