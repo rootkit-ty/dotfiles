@@ -4,10 +4,13 @@
     # Malware blogs
     https://www.malwaretech.com/feed            "blog" "tech" "security" "malware" 
     http://feeds.feedburner.com/Xylibox         "blog" "tech" "security" "malware"
+    https://krebsonsecurity.com/feed/           "blog" "tech" "security" "malware"
     https://rootkitty.tech/index.xml            "blog" "tech" "security" "malware" "linux" 
 
     # Security focused blogs
     https://thetinhat.com/rss.xml               "blog" "tech" "linux" "security" "~The Tin Hat"
+
+    https://www.schneier.com/blog/atom.xml      "blog" "security"
 
     # Linux focused blogs
     https://anders.unix.se/index.xml            "blog" "tech" "linux"
