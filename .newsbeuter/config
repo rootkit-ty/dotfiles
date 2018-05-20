@@ -1,5 +1,6 @@
-#browser		"firefox --new-window"
-browser		"qutebrowser"
+browser		"firefox --new-window"
+# No longer using qutebrowser because of inadequate tracking protection
+#browser		"qutebrowser"
 
 external-url-viewer "urlview" 
 
