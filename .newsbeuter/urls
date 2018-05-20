@@ -1,47 +1,61 @@
-# Malware blogs
-https://www.malwaretech.com/feed            "blog" "tech" "security" "malware" 
-http://feeds.feedburner.com/Xylibox         "blog" "tech" "security" "malware"
-https://rootkitty.tech/index.xml            "blog" "tech" "security" "malware" "linux" 
+# vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell: 
+# Blogs {
 
-# Security focused blogs
-https://thetinhat.com/rss.xml               "blog" "tech" "linux" "security" "~The Tin Hat"
+    # Malware blogs
+    https://www.malwaretech.com/feed            "blog" "tech" "security" "malware" 
+    http://feeds.feedburner.com/Xylibox         "blog" "tech" "security" "malware"
+    https://rootkitty.tech/index.xml            "blog" "tech" "security" "malware" "linux" 
 
-# Linux focused blogs
-https://anders.unix.se/index.xml            "blog" "tech" "linux"
-https://blog.sleeplessbeastie.eu/atom.xml   "blog" "tech" "linux"
-https://joshtronic.com/atom.xml             "blog" "tech" "linux" "~Joshtronic"
+    # Security focused blogs
+    https://thetinhat.com/rss.xml               "blog" "tech" "linux" "security" "~The Tin Hat"
 
-https://jabranham.com/feed.xml              "blog" "tech" "linux" "workflow"
+    # Linux focused blogs
+    https://anders.unix.se/index.xml            "blog" "tech" "linux"
+    https://blog.sleeplessbeastie.eu/atom.xml   "blog" "tech" "linux"
+    https://joshtronic.com/atom.xml             "blog" "tech" "linux" "~Joshtronic"
 
-https://itscode.red/index.xml               "blog" "tech" "ruby" "programming"
-https://coderoncode.com/feed.xml            "blog" "tech" "programming"
+    https://jabranham.com/feed.xml              "blog" "tech" "linux" "workflow"
 
-# Interesting
-https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
-https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
-"blog"
+    https://itscode.red/index.xml               "blog" "tech" "ruby" "programming"
+    https://coderoncode.com/feed.xml            "blog" "tech" "programming"
 
-# News
-# ABC online articles aren't nearly as quality as the 7:00 news
-#http://www.abc.net.au/news/feed/52278/rss.xml   "news" "world" "~ABC World"
-#http://www.abc.net.au/news/feed/46182/rss.xml   "news" "australia"
+    # Interesting
+    https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
+    https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
+    "blog"
 
-https://www.reddit.com/r/worldnews/.rss     "news" "world" "reddit" "~Reddit world news"
-https://www.reddit.com/r/news/.rss          "news" "reddit" "~Reddit News"
+    # EDC
+    http://everyday-carry.com/rss               "blog" "edc"
+    
+    # Hardware hacking
+    https://hackaday.com/blog/feed/             "blog" "tech" "hardware"
 
-# Youtube
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "yt" "tech" "linux" "workflow" "automation"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "yt" "tech" "educational"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCfVFSjHQ57zyxajhhRc7i0g "yt" "tech" "educational"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCtHaxi4GTYDpJgMSGy7AeSw "yt" "tech" "educational"
-https://www.youtube.com/feeds/videos.xml?channel_id=UCEOXxzW2vU0P-0THehuIIeg "yt" "educational"
+#}
+# News {
+    # ABC online articles aren't nearly as quality as the 7:00 news
+    #http://www.abc.net.au/news/feed/52278/rss.xml   "news" "world" "~ABC World"
+    #http://www.abc.net.au/news/feed/46182/rss.xml   "news" "australia"
 
-# Hardware hacking
-https://hackaday.com/blog/feed/             "blog" "tech" "hardware"
+    https://www.reddit.com/r/worldnews+news/hot/.rss?sort=new    "news" "world" "reddit" "~Reddit news"
 
-# Feeds
-https://www.eff.org/rss/updates.xml "tech" "freedom" "~EFF" "feed"
-https://fedoramagazine.org/feed/ "linux" "feed" "tech"
-
-## Security/CVE reports 
-https://bodhi.fedoraproject.org/rss/updates/?type=security "linux" "security" "cve" "~Fedora Security Updates"
+    https://www.reddit.com/r/vim/hot/.rss?sort=new  "tech" "vim" "reddit" "~Reddit vim"
+#}
+# Youtube {
+    # TODO:
+    #	comment the name of the channel
+    #	Add new channels:
+    #		Kurzegat
+    #		Level 1 linux
+    https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "yt" "tech" "linux" "workflow" "automation"
+    https://www.youtube.com/feeds/videos.xml?channel_id=UCBa659QWEk1AI4Tg--mrJ2A "yt" "tech" "educational"
+    https://www.youtube.com/feeds/videos.xml?channel_id=UCfVFSjHQ57zyxajhhRc7i0g "yt" "tech" "educational"
+    https://www.youtube.com/feeds/videos.xml?channel_id=UCtHaxi4GTYDpJgMSGy7AeSw "yt" "tech" "educational"
+    https://www.youtube.com/feeds/videos.xml?channel_id=UCEOXxzW2vU0P-0THehuIIeg "yt" "educational"
+#}
+# Feeds {
+    https://www.eff.org/rss/updates.xml "tech" "freedom" "~EFF" "feed"
+    https://fedoramagazine.org/feed/ "linux" "feed" "tech"
+#}
+# Security/CVE reports {
+    https://bodhi.fedoraproject.org/rss/updates/?type=security "linux" "security" "cve" "~Fedora Security Updates"
+#}
