@@ -54,7 +54,8 @@
 #}
 # Feeds {
     https://www.eff.org/rss/updates.xml "tech" "freedom" "~EFF" "feed"
-    https://fedoramagazine.org/feed/ "linux" "feed" "tech"
+    https://fedoramagazine.org/feed/    "linux" "feed" "tech"
+    https://medium.com/feed/tag/vim     "vim" "feed" "blogs" "~Medium Vim Articles"
 #}
 # Security/CVE reports {
     https://bodhi.fedoraproject.org/rss/updates/?type=security "linux" "security" "cve" "~Fedora Security Updates"
