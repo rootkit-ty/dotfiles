@@ -2900,3 +2900,5 @@ gnore everything
 !.vim/keymaps/java.vim
 !.vim/keymaps/markdown.vim
 !.vim/init.vim
+!images
+!images/linux_vim.png
