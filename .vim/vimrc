@@ -112,7 +112,6 @@
     map <C-h> <C-w>h
     map <C-l> <C-w>l
 
-
     " Mode binds
 
     " Run GDiff
@@ -120,9 +119,6 @@
 
     " Toggle zen mode
     map <leader>mz :call<space>ZenMode()<cr>
-
-
-
 
     " Git and diff keybinds
 
@@ -162,7 +158,6 @@
     map <leader>sW zW
 
 
-
     " Misc
 
     " Fast saving
@@ -188,7 +183,6 @@
 
     " Toggle paste mode on and off
     map <leader>pp :setlocal paste!<cr>
-
 
     "Plugin keymaps
     nnoremap <leader>B :Buffers<cr>
@@ -255,6 +249,7 @@
         autocmd VimEnter * :Vexplore | :set winfixwidth | :winc l
     augroup END
 
+
     " To avoid overwriting the netrw buffer with some other buffer, we should
     " change window before executing
     augroup NetrwMaps
@@ -274,5 +269,6 @@
         autocmd FileType netrw nnoremap <buffer> <leader>fC :winc w<cr>:Commands<cr>
         autocmd FileType netrw nnoremap <buffer> <leader>a :winc w<cr>:Ag<cr>
         autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
+        autocmd FileType netrw nnoremap <buffer> - <plug>VinegarUp
     augroup END
 "}
