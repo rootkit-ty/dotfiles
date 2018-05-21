@@ -1,12 +1,6 @@
-[submodule ".vim/bundle/aws-vim"]
-	path = .vim/bundle/aws-vim
-	url = https://github.com/m-kat/aws-vim.git
 [submodule ".vim/bundle/denite.nvim"]
 	path = .vim/bundle/denite.nvim
 	url = https://github.com/Shougo/denite.nvim.git
-[submodule ".vim/bundle/Jenkinsfile-vim-syntax"]
-	path = .vim/bundle/Jenkinsfile-vim-syntax
-	url = git@github.com:martinda/Jenkinsfile-vim-syntax.git
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
@@ -79,3 +73,12 @@
 [submodule ".vim/bundle/vimagit"]
 	path = .vim/bundle/vimagit
 	url = https://github.com/jreybert/vimagit
+[submodule ".vim/bundle/ultisnips"]
+	path = .vim/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule ".vim/bundle/vim-polyglot"]
+	path = .vim/bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule ".vim/bundle/vim-snippets"]
+	path = .vim/bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets
