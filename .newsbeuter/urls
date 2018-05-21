@@ -23,6 +23,9 @@
     https://itscode.red/index.xml               "blog" "tech" "ruby" "programming"
     https://coderoncode.com/feed.xml            "blog" "tech" "programming"
 
+    https://matthias-endler.de/rss.xml          "blog" "tech" "programming" "linux"
+    https://statico.github.io/atom.xml          "blog" "tech" "programming" "linux"
+
     # Interesting
     https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
     https://www.xkcd.com/rss.xml                "comic" "tech" "funny"
@@ -30,7 +33,7 @@
 
     # EDC
     http://everyday-carry.com/rss               "blog" "edc"
-    
+
     # Hardware hacking
     https://hackaday.com/blog/feed/             "blog" "tech" "hardware"
 
