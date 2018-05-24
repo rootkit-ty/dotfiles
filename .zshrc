@@ -286,3 +286,5 @@ if [ $machine = "Linux" ] ; then
 elif [ $machine = "Mac" ]; then
     source /usr/local/opt/fzf/shell/completion.zsh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

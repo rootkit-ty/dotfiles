@@ -1,0 +1,13 @@
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+" TODO:
+"       Setup modular vimrc, having separate files for each section of this
+"           config
+"       Make source come from a non-hardcoded location
+
+" Per file settings {
+
+    " File specific keymaps
+    " TODO: Replace these with snippits
+    autocmd FileType markdown source ~/.vim/keymaps/markdown.vim
+    autocmd FileType java source ~/.vim/keymaps/java.vim
+"}

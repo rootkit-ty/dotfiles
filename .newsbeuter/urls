@@ -16,6 +16,7 @@
     https://anders.unix.se/index.xml            "blog" "tech" "linux"
     https://blog.sleeplessbeastie.eu/atom.xml   "blog" "tech" "linux"
     https://www.gregjs.com/rss.xml              "blog" "tech" "linux"
+    https://major.io/feed/              "blog" "tech" "linux"
     https://joshtronic.com/atom.xml             "blog" "tech" "linux" "~Joshtronic"
 
     https://jabranham.com/feed.xml              "blog" "tech" "linux" "workflow"
@@ -25,6 +26,7 @@
 
     https://matthias-endler.de/rss.xml          "blog" "tech" "programming" "linux"
     https://statico.github.io/atom.xml          "blog" "tech" "programming" "linux"
+    https://www.codeword.xyz/rss.xml            "blog" "tech" "programming" "linux"
 
     # Interesting
     https://blog.benjojo.co.uk/rss.xml          "blog" "tech" "funny"
