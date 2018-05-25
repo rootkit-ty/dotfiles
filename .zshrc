@@ -8,19 +8,20 @@ case "${unameOut}" in
 esac
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 if [ $machine = "Mac" ]; then
-    
-    alias v='vim'
+
+    export PATH=$HOME/Library/Python/3.6/bin/:$PATH
+
+    alias v='nvim'
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
 
 elif [ $machine = "Linux" ]; then
-    
-    alias vim='vimx'
-    alias v='vimx'
+
+    alias vim='nvim'
+    alias v='nvimx'
 
     # Linux ZSH Install
     export ZSH=/home/kitty/.oh-my-zsh
@@ -157,8 +158,8 @@ POWERLEVEL9K_SHORTEN_DELIMITER="."
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_to_unique"
 
 
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
 
 # Configure global github excludes
 git config --global core.excludesfile ~/.gitignore_global
