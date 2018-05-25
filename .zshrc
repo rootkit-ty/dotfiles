@@ -21,7 +21,7 @@ if [ $machine = "Mac" ]; then
 elif [ $machine = "Linux" ]; then
 
     alias vim='nvim'
-    alias v='nvimx'
+    alias v='nvim'
 
     # Linux ZSH Install
     export ZSH=/home/kitty/.oh-my-zsh
@@ -265,7 +265,7 @@ gtr() {
 }
 
 alias f='fzf'
-alias fv='vim "$(fzf --preview="pygmentize {}")"'
+alias fv='nvim "$(fzf --preview="pygmentize {}")"'
 
 alias tmux='tmux -2'
 alias l='less'
