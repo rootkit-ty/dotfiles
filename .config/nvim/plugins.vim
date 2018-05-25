@@ -7,6 +7,8 @@
 
     Plug 'tyrannicaltoucan/vim-quantum'
 
+    Plug 'mhinz/vim-startify'
+
     Plug 'wellle/visual-split.vim', { 'on': [ 'VSResize', 'VSSplit', 'VSSplitAbove', 'VSSplitBelow' ] }
 
     Plug 'itchyny/lightline.vim'
@@ -15,23 +17,30 @@
 
     Plug 'honza/vim-snippets'
 
-    " Plugin outside ~/.vim/plugged with post-update hook
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
-
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
     Plug 'tpope/vim-sensible'
-
-    Plug 'junegunn/vim-peekaboo'
-
-    Plug 'qpkorr/vim-bufkill'
+    Plug 'tpope/vim-commentary'
 
     Plug 'tpope/vim-git'
 
     Plug 'tpope/vim-fugitive'
 
-    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+    Plug 'raimondi/delimitmate'
 
-    Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+    " Plugin outside ~/.vim/plugged with post-update hook
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+
+    Plug 'yggdroot/indentline'
+
+    Plug 'godlygeek/tabular'
+
+    Plug 'junegunn/vim-peekaboo'
+
+    Plug 'qpkorr/vim-bufkill'
+
+    Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
     Plug 'jreybert/vimagit', { 'on': 'Magit' }
 
@@ -39,12 +48,18 @@
 
     Plug 'mhinz/vim-signify'
 
+    Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim'
+
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer' }
+
+    Plug 'w0rp/ale'
+
+    Plug 'maximbaz/lightline-ale'
 
     " Initialize plugin system
     call plug#end()
 "}
-
 
 " Plugin Settings {
     "let g:rainbow_active = 1
@@ -57,21 +72,53 @@
         set rtp+=~/.fzf
     endif
 
-    "set statusline+=%#warningmsg#
-    "set statusline+=%{SyntasticStatuslineFlag()}
-    "set statusline+=%*
+    " UltiSnips {
+        let g:UltiSnipsJumpForwardTrigger="<Tab>"
+        let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+        let g:UltiSnipsExpandTrigger="<C-e>"
 
-    "let g:syntastic_always_populate_loc_list = 1
-    "let g:syntastic_auto_loc_list = 1
-    "let g:syntastic_check_on_open = 1
-    "let g:syntastic_check_on_wq = 0
+        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+    "}
 
-    "let g:indent_guides_enable_on_vim_startup = 1
-    "let g:indent_guides_guide_size = 1
+    " ALE {
+        let g:ale_open_list = 1
+        let g:ale_list_window_size = 5
+        let g:ale_lint_on_text_changed="never"
+    "}
 
-    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-    let g:UltiSnipsExpandTrigger="<tab>"
+    " YouCompleteMe {
+        let g:ycm_key_list_stop_completion = ['<C-a>']
+        let g:ycm_filetype_blacklist = {
+        \ 'tagbar' : 1,
+        \ 'magit' : 1,
+        \ 'vimwiki' : 1,
+        \}
+    " }
 
-    let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+    " Lightline {
+        let g:lightline = {
+          \ 'colorscheme': 'one',
+          \ }
+
+        let g:lightline.component_expand = {
+          \  'linter_checking': 'lightline#ale#checking',
+          \  'linter_warnings': 'lightline#ale#warnings',
+          \  'linter_errors': 'lightline#ale#errors',
+          \  'linter_ok': 'lightline#ale#ok',
+          \ }
+
+        let g:lightline.component_type = {
+          \     'linter_checking': 'left',
+          \     'linter_warnings': 'warning',
+          \     'linter_errors': 'error',
+          \     'linter_ok': 'left',
+          \ }
+
+        let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
+        let g:lightline#ale#indicator_checking = "\uf110"
+        let g:lightline#ale#indicator_warnings = "\uf071"
+        let g:lightline#ale#indicator_errors = "\uf05e"
+        let g:lightline#ale#indicator_ok = "\uf00c"
+    "}
 "}
