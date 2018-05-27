@@ -88,6 +88,9 @@
 
     " YouCompleteMe {
         let g:ycm_key_list_stop_completion = ['<C-a>']
+        let g:ycm_max_num_identifier_candidates = 5
+        let g:ycm_max_num_candidates = 20
+        let g:ycm_min_num_of_chars_for_completion = 4
         let g:ycm_filetype_blacklist = {
         \ 'tagbar' : 1,
         \ 'magit' : 1,

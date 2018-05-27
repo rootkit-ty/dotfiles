@@ -46,6 +46,8 @@
     " Toggle netrw
    nnoremap <leader>e :call ToggleNetrw()<cr>
 
+   nnoremap <leader>/ :nohlsearch<cr>
+
     " Fast saving
    nnoremap <leader>w :w!<cr>
    nnoremap <leader>W :w!<cr>:BD<cr>

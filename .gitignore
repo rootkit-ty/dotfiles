@@ -56,6 +56,8 @@ gnore everything
 !.config/polybar/config
 !.config/nvim/**
 
+.config/nvim/.netrwhist
+
 !README.md
 !images
 !images/linux_vim.png
