@@ -282,6 +282,7 @@ if [ $machine = "Linux" ] ; then
 
 
     (cat ~/.cache/wal/sequences &)
+	eval "$(fasd --init auto)"
 
     source /usr/share/zsh/site-functions/fzf
 elif [ $machine = "Mac" ]; then
