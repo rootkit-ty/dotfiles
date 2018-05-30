@@ -1,0 +1,70 @@
+snippet _skel "Cloudformation yaml skeleton" b
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: VicRoads Infrastructure for the DLKit project
+$0
+endsnippet
+
+snippet gatt "Get Attribute"
+!GetAtt ${1:${VISUAL}}
+endsnippet
+snippet ref "Ref"
+!Ref ${1:${VISUAL}}
+endsnippet
+
+snippet param "Cloudformation parameter without default" b
+p${1:ParameterName}:
+	Type: ${0:String}
+endsnippet
+
+snippet ec2 "Cloudformation ec2 instance" b
+${1:EC2ResourceName}:
+	Type: "AWS::EC2::Instance"
+	Properties:
+		AvailabilityZone: $2
+		IamInstanceProfile: ${3:!Ref InstanceProfile}
+		ImageId: ${4:pAmiId}
+		InstanceType: ${5:t2.micro}
+		KeyName: ${6:!Ref pKeyName}
+		SecurityGroupIds:
+			- $7
+		SubnetId: ${8}
+		Tags:
+			-
+				${9:Key: "CostCenter"
+				Value: !Ref pCostCenter}
+		UserData: ${10:Fn::Base64: !Ref pUserData}
+endsnippet
+
+snippet sg "Cloudformation security group" b
+${1:ResourceName}:
+	Type: 'AWS::EC2::SecurityGroup'
+	Properties:
+		GroupDescription: "${2:Web}SecurityGroup"
+		SecurityGroupIngress:
+			- IpProtocol: tcp
+				FromPort: ${3:!Ref pInstancePort}
+				ToPort: ${4:!Ref pInstancePort}
+				CidrIp: ${5:'0.0.0.0/0'}
+		VpcId: ${0:!Ref pVpcId}
+endsnippet
+
+snippet vpclink "Cloudformation vpc link" b
+${1:ResourceName}:
+	Type: "AWS::ApiGateway::VpcLink"
+	Properties:
+		Description: "${2:VPC Link description}"
+		Name: ${3:!Sub vpclink-${AWS::StackName}}
+		TargetArns:
+			- !Ref $0
+endsnippet
+
+snippet stack "Cloudformation nested stack" b
+${1:StackName}:
+	Type: AWS::CloudFormation::Stack
+	Properties:
+		Parameters:
+			$2
+		TemplateURL: ./$3/$3.yaml
+		TimeoutInMinutes: '${0:5}'
+endsnippet
