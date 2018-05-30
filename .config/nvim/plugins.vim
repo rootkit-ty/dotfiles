@@ -7,23 +7,22 @@
 
     Plug 'tyrannicaltoucan/vim-quantum'
 
-    Plug 'mhinz/vim-startify'
+    "PLugin takes a long itme
+    "Plug 'mhinz/vim-startify'
 
     Plug 'wellle/visual-split.vim', { 'on': [ 'VSResize', 'VSSplit', 'VSSplitAbove', 'VSSplitBelow' ] }
 
-    Plug 'itchyny/lightline.vim'
 
+    " Snippet plugins
     Plug 'sirver/ultisnips'
-
     Plug 'honza/vim-snippets'
 
+    " Tim pope plugins
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-sensible'
     Plug 'tpope/vim-commentary'
-
     Plug 'tpope/vim-git'
-
     Plug 'tpope/vim-fugitive'
 
     Plug 'raimondi/delimitmate'
@@ -34,7 +33,7 @@
 
     Plug 'yggdroot/indentline'
 
-    Plug 'godlygeek/tabular'
+    Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
     Plug 'junegunn/vim-peekaboo'
 
@@ -46,15 +45,17 @@
 
     Plug 'sheerun/vim-polyglot'
 
+    "TODO make this load on file save
     Plug 'mhinz/vim-signify'
 
     Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-    Plug 'junegunn/limelight.vim'
+    Plug 'junegunn/limelight.vim', {'on': 'LimeLight'}
 
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer' }
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer', 'on': []}
 
     Plug 'w0rp/ale'
 
+    Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
 
     " Initialize plugin system
@@ -62,7 +63,6 @@
 "}
 
 " Plugin Settings {
-    "let g:rainbow_active = 1
 
     if has("mac")
         " If installed using Homebrew
@@ -73,20 +73,25 @@
     endif
 
     " UltiSnips {
+
         let g:UltiSnipsJumpForwardTrigger="<Tab>"
         let g:UltiSnipsJumpBackwardTrigger="<c-k>"
         let g:UltiSnipsExpandTrigger="<C-e>"
 
-        let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+        let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
+
     "}
 
     " ALE {
+
         let g:ale_open_list = 1
         let g:ale_list_window_size = 5
         let g:ale_lint_on_text_changed="never"
+
     "}
 
     " YouCompleteMe {
+
         let g:ycm_key_list_stop_completion = ['<C-a>']
         let g:ycm_max_num_identifier_candidates = 5
         let g:ycm_max_num_candidates = 20
@@ -96,9 +101,11 @@
         \ 'magit' : 1,
         \ 'vimwiki' : 1,
         \}
+
     " }
 
     " Lightline {
+
         let g:lightline = {
           \ 'colorscheme': 'one',
           \ }
@@ -123,6 +130,19 @@
         let g:lightline#ale#indicator_warnings = "\uf071"
         let g:lightline#ale#indicator_errors = "\uf05e"
         let g:lightline#ale#indicator_ok = "\uf00c"
+
     "}
+
     let g:polyglot_disabled = ['markdown']
+
+    autocmd! InsertEnter * call InitYCM()
+    let g:load_ycm_done = 0
+
+    "TODO: make this better
+    function! InitYCM()
+        if g:load_ycm_done == 0
+            let g:load_ycm_done = 1
+            call plug#load('YouCompleteMe')
+        endif
+    endfunction
 "}
