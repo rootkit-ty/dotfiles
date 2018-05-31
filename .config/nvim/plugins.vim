@@ -10,8 +10,12 @@
     "PLugin takes a long itme
     "Plug 'mhinz/vim-startify'
 
+    Plug 'mbbill/undotree', { 'on': [ 'UndotreeToggle' ] }
+
     Plug 'wellle/visual-split.vim', { 'on': [ 'VSResize', 'VSSplit', 'VSSplitAbove', 'VSSplitBelow' ] }
 
+    Plug 'rhysd/clever-f.vim'
+    Plug 'justinmk/vim-sneak'
 
     " Snippet plugins
     Plug 'sirver/ultisnips'
@@ -51,7 +55,8 @@
     Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim', {'on': 'LimeLight'}
 
-    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer', 'on': []}
+    Plug 'ajh17/VimCompletesMe'
+"    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer', 'on': []}
 
     Plug 'w0rp/ale'
 
@@ -135,14 +140,17 @@
 
     let g:polyglot_disabled = ['markdown']
 
-    autocmd! InsertEnter * call InitYCM()
-    let g:load_ycm_done = 0
+    let g:clever_f_smart_case = 1
+    let g:sneak#label = 1
 
-    "TODO: make this better
-    function! InitYCM()
-        if g:load_ycm_done == 0
-            let g:load_ycm_done = 1
-            call plug#load('YouCompleteMe')
-        endif
-    endfunction
-"}
+"    autocmd! BufEnter * call InitYCM()
+"    let g:load_ycm_done = 0
+"
+"    "TODO: make this better
+"    function! InitYCM()
+"        if g:load_ycm_done == 0
+"            let g:load_ycm_done = 1
+"            call plug#load('YouCompleteMe')
+"        endif
+"    endfunction
+
