@@ -11,7 +11,8 @@
 
     "Use the nord colour scheme if on OSX or use Quantum on linux
     if has("mac")
-        colorscheme nord
+        "colorscheme nord
+        colorscheme quantum
     else
         "let g:airline_theme='quantum'
         let g:quantum_italics=1
