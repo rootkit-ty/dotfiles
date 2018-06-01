@@ -1,4 +1,5 @@
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+        let g:quantum_italics=1
 " Colors and Fonts {
 
     " set Vim-specific sequences for RGB colors
@@ -9,16 +10,8 @@
     " Enable GUI terminal colours
     set termguicolors
 
-    "Use the nord colour scheme if on OSX or use Quantum on linux
-    if has("mac")
-        "colorscheme nord
-        colorscheme quantum
-    else
-        "let g:airline_theme='quantum'
-        let g:quantum_italics=1
-        colorscheme quantum
-
-    endif
+    " Use Quantum colour scheme
+    colorscheme quantum
 
 
 "}
