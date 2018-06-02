@@ -52,7 +52,7 @@
     " }
     " Toggle netrw {
         fun! ToggleNetrw()
-            let g:net_rw_state = exists('g:net_rw_state') ? !g:net_rw_state  : 0
+            let g:net_rw_state = exists('g:net_rw_state') ? !g:net_rw_state : 0
 
             if g:net_rw_state && exists('g:net_rw_window')
                 exec g:net_rw_window.'wincmd q'
