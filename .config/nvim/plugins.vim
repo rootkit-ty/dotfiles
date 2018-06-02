@@ -7,19 +7,13 @@
 
     Plug 'tyrannicaltoucan/vim-quantum'
 
-    "PLugin takes a long itme
-    "Plug 'mhinz/vim-startify'
-
-    Plug 'mbbill/undotree', { 'on': [ 'UndotreeToggle' ] }
-
-    Plug 'wellle/visual-split.vim', { 'on': [ 'VSResize', 'VSSplit', 'VSSplitAbove', 'VSSplitBelow' ] }
-
     Plug 'rhysd/clever-f.vim'
     Plug 'justinmk/vim-sneak'
 
+    Plug 'wellle/targets.vim'
+
     " Snippet plugins
-    Plug 'sirver/ultisnips'
-    Plug 'honza/vim-snippets'
+    Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
 
     " Tim pope plugins
     Plug 'tpope/vim-repeat'
@@ -32,14 +26,15 @@
     Plug 'raimondi/delimitmate'
 
     " Plugin outside ~/.vim/plugged with post-update hook
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } | Plug 'junegunn/fzf.vim'
 
     Plug 'yggdroot/indentline'
 
     Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 
     Plug 'junegunn/vim-peekaboo'
+    Plug 'mbbill/undotree', { 'on': [ 'UndotreeToggle' ] }
+    Plug 'wellle/visual-split.vim', { 'on': [ 'VSResize', 'VSSplit', 'VSSplitAbove', 'VSSplitBelow' ] }
 
     Plug 'qpkorr/vim-bufkill'
 
@@ -51,6 +46,8 @@
 
     "TODO make this load on file save
     Plug 'mhinz/vim-signify'
+
+    Plug 'roxma/vim-paste-easy'
 
     Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim', {'on': 'LimeLight'}
