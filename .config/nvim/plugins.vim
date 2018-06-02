@@ -143,14 +143,5 @@
     let g:clever_f_smart_case = 1
     let g:sneak#label = 1
 
-"    autocmd! BufEnter * call InitYCM()
-"    let g:load_ycm_done = 0
 "
-"    "TODO: make this better
-"    function! InitYCM()
-"        if g:load_ycm_done == 0
-"            let g:load_ycm_done = 1
-"            call plug#load('YouCompleteMe')
-"        endif
-"    endfunction
 

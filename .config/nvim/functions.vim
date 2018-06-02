@@ -64,4 +64,13 @@
 
         endfunction
     "}
+    " InitYCM {
+        function! InitYCM()
+            let g:load_ycm_done = exists('g:load_ycm_done') ? !g:load_ycm_done : 0
+            if g:load_ycm_done && exists('g:load_ycm_done')
+                let g:load_ycm_done = 1
+                call plug#load('YouCompleteMe')
+            endif
+        endfunction
+    "}
 " }
