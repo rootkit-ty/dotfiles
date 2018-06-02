@@ -22,6 +22,9 @@
    nnoremap <leader>dh :diffget //2<cr>
    nnoremap <leader>dt :diffget //3<cr>
 
+   " Bindings for diffing
+   nnoremap <leader>dd :diffthis<cr>
+
     " Git commands
    nnoremap <leader>G :Magit<cr>
    nnoremap <leader>ga :Git add %<cr>
@@ -88,5 +91,9 @@
     nnoremap <leader>fC :Commands<cr>
     nnoremap <leader>a :Ag<cr>
     nnoremap <leader>fa :Ag<space>
+
+    " Command remaps
+    cmap ;\ \(\)<Left><Left>
+
 
 ""}
