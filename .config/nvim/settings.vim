@@ -71,6 +71,102 @@
     endif
 
 "}
+" Plugin Settings {
+
+    " Fzf {
+
+        " If installed using git
+        set rtp+=~/.fzf
+
+    "}
+
+    " UltiSnips {
+
+        let g:UltiSnipsJumpForwardTrigger="<c-j>"
+        let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+        let g:UltiSnipsExpandTrigger="<c-e>"
+
+        let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', 'UltiSnips']
+
+    "}
+
+    " ALE {
+
+        let g:ale_open_list = 1
+        let g:ale_list_window_size = 5
+        let g:ale_lint_on_text_changed="never"
+
+    "}
+
+    " YouCompleteMe {
+
+        let g:ycm_key_list_stop_completion = ['<C-a>']
+        let g:ycm_max_num_identifier_candidates = 5
+        let g:ycm_max_num_candidates = 20
+        let g:ycm_min_num_of_chars_for_completion = 4
+        let g:ycm_filetype_blacklist = {
+        \ 'tagbar' : 1,
+        \ 'magit' : 1,
+        \ 'vimwiki' : 1,
+        \}
+
+        ""    autocmd! BufEnter * call InitYCM()
+    " }
+
+    " Lightline {
+
+        let g:lightline = {
+          \ 'colorscheme': 'one',
+          \ }
+
+        let g:lightline.component_expand = {
+          \  'linter_checking': 'lightline#ale#checking',
+          \  'linter_warnings': 'lightline#ale#warnings',
+          \  'linter_errors': 'lightline#ale#errors',
+          \  'linter_ok': 'lightline#ale#ok',
+          \ }
+
+        let g:lightline.component_type = {
+          \     'linter_checking': 'left',
+          \     'linter_warnings': 'warning',
+          \     'linter_errors': 'error',
+          \     'linter_ok': 'left',
+          \ }
+
+        let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+
+        let g:lightline#ale#indicator_checking = "\uf110"
+        let g:lightline#ale#indicator_warnings = "\uf071"
+        let g:lightline#ale#indicator_errors = "\uf05e"
+        let g:lightline#ale#indicator_ok = "\uf00c"
+
+    "}
+
+    " PolyGot {
+
+        let g:polyglot_disabled = ['markdown']
+
+    "}
+
+    " Clever-f {
+
+    let g:clever_f_smart_case = 1
+
+    "}
+
+    " Sneak {
+
+    let g:sneak#label = 1
+
+    "}
+
+    " BufKill {
+
+        let g:BufKillCreateMappings = 0
+
+    "}
+
+"}
 " Netrw settings {
     let g:netrw_banner = 0
     let g:netrw_liststyle = 3
