@@ -57,6 +57,10 @@
 
     autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
 
+    " Change working directory to the git root of the project if it exists
+    autocmd * exec 'cd' fnameescape(fnamemodify(finddir('.git',
+    \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
+
     " Deal with swap, backup, and undo files
     call WriteCacheDir("swap")
     set directory=./.vim_data/,~/.cache/vim/swap/,~/.cache/,./,~
