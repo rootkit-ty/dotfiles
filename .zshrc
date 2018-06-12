@@ -14,14 +14,10 @@ if [ $machine = "Mac" ]; then
 
     export PATH=$HOME/Library/Python/3.6/bin/:$PATH
 
-    alias v='nvim'
     # Keep all work exports seprate
     source ~/.mac_zsh_source.sh
 
 elif [ $machine = "Linux" ]; then
-
-    alias vim='nvim'
-    alias v='nvim'
 
     # Linux ZSH Install
     export ZSH=/home/kitty/.oh-my-zsh
@@ -165,7 +161,8 @@ export EDITOR=nvim
 git config --global core.excludesfile ~/.gitignore_global
 
 
-export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
+#export FZF_DEFAULT_COMMAND='fd --exclude .git -H --type f'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 #export FZF_DEFAULT_OPTS='--preview="pygmentize {}"'
 
 # Functions and aliases
@@ -267,6 +264,9 @@ gtr() {
 alias f='fzf'
 alias fv='nvim "$(fzf --preview="pygmentize {}")"'
 
+alias v='f -e nvim'
+alias vim='nvim'
+
 alias tmux='tmux -2'
 alias l='less'
 
@@ -282,11 +282,17 @@ if [ $machine = "Linux" ] ; then
 
 
     (cat ~/.cache/wal/sequences &)
-	eval "$(fasd --init auto)"
 
     source /usr/share/zsh/site-functions/fzf
 elif [ $machine = "Mac" ]; then
     source /usr/local/opt/fzf/shell/completion.zsh
 fi
 
+# FASD setup for zsh
+eval "$(fasd --init auto)"
+
+# Add ~/.bin/ to the path
+export PATH=$HOME/.bin/:$PATH
+
+# FZF autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
