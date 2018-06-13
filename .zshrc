@@ -264,7 +264,8 @@ gtr() {
 alias f='fzf'
 alias fv='nvim "$(fzf --preview="pygmentize {}")"'
 
-alias v='f -e nvim'
+alias v='nvim'
+alias vv='f -e nvim'
 alias vim='nvim'
 
 alias tmux='tmux -2'
