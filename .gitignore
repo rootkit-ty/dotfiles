@@ -31,6 +31,7 @@ gnore everything
 !.config/compton/compton2.conf
 !.config/polybar
 !.config/polybar/config
+!.config/i3/**
 !.git
 !.zshrc
 !.gitignore

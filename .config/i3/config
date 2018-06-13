@@ -1,0 +1,267 @@
+###---BASIC SETTINGS---###
+# For i3 gaps
+hide_edge_borders				both
+font							pango: Source Code Pro 10
+new_window						pixel 0
+
+set $term						st
+set $mod						Mod4
+
+set $gaps_inner					20
+set $gaps_outer					0
+set $gap_in_inc					5
+set $gap_in_dec					5
+set $gap_out_inc				5
+set $gap_out_dec				5
+
+set $background					~/.wallpaper.jpg
+
+gaps inner						$gaps_inner
+gaps outer						$gaps_outer
+
+
+###---AUTOSTART---###
+exec_always						xrdb ~/Repos/dracula-xresources/.XResources
+
+exec --no-startup-id			bash ~/Scripts/polybar_start.sh
+exec							mpd ~/.config/mpd/mpd.conf
+exec							redshift-gtk
+exec							udiskie -a --tray --use-udisks2
+exec							"xss-lock -v ~/Scripts/lock.sh"
+exec							nm-applet
+exec							wal -R
+
+exec --no-startup-id			setxkbmap -option caps:escape
+#exec --no-startup-id			dunst
+#exec --no-startup-id			feh --bg-center $background
+exec --no-startup-id			compton --config ~/.config/compton/compton -b
+exec --no-startup-id			dnfdragora
+
+exec --no-startup-id			telegram-desktop
+exec --no-startup-id			Discord
+
+
+
+###---BASIC BINDINGS---###
+# kill focused window
+bindsym $mod+Shift+q			kill
+
+# start a terminal
+bindsym $mod+Return				exec $term
+
+# reload the configuration file
+bindsym $mod+Delete				reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+Delete		restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+Escape		exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Rofi
+#bindsym $mod+p					exec rofi -show run -lines 5 -eh 2 -width 30  -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
+bindsym $mod+p					exec rofi -show run -lines 5 -eh 2 -width 30  -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" 
+
+
+
+###---FOCUS AND MOVEMENT BINDINGS---###
+# Focus binding
+bindsym $mod+h					focus left
+bindsym $mod+j					focus down
+
+bindsym $mod+k					focus up
+bindsym $mod+l					focus right
+
+# focus the parent container
+bindsym $mod+bracketright		focus parent
+# focus the child container
+bindsym $mod+bracketleft		focus child
+
+# move focused window
+bindsym $mod+Shift+h			move left
+bindsym $mod+Shift+j			move down
+
+bindsym $mod+Shift+k 			move up
+bindsym $mod+Shift+l 			move right
+
+# move workstations
+bindsym $mod+Control+h			move workspace to output left
+bindsym $mod+Control+j			move workspace to output down
+
+bindsym $mod+Control+k 			move workspace to output up
+bindsym $mod+Control+l 			move workspace to output right
+
+# Resize keybinds
+bindsym $mod+Shift+y 			resize shrink width 5 px or 5 ppt
+bindsym $mod+Shift+u			resize shrink height 5 px or 5 ppt
+
+bindsym $mod+Shift+i			resize grow height 5 px or 5 ppt
+bindsym $mod+Shift+o			resize grow width 5 px or 5 ppt
+
+
+###---GAP BINDINGS---###
+# Incrase/Decrease outer gap
+bindsym $mod+period				gaps outer current plus $gap_out_inc
+bindsym $mod+Shift+period		gaps outer current minus $gap_out_dec
+
+# Increase/Decrease inner gap
+bindsym $mod+comma				gaps inner current plus $gap_in_inc
+bindsym $mod+Shift+comma		gaps inner current minus $gap_in_dec
+
+# Reset gaps to default
+bindsym $mod+slash				gaps outer current set $gaps_outer; gaps inner current set $gaps_inner;
+# Set gaps to 0
+bindsym $mod+Shift+slash		gaps outer current set 0; gaps inner current set 0;
+
+
+###---WINDOW MANAGEMENT BINDINGS---###
+# Vertical split
+bindsym $mod+x					split toggle
+
+# Toggle parent split direction
+bindsym $mod+z					layout toggle split
+
+# enter fullscreen mode for the focused container
+bindsym $mod+Shift+c			fullscreen toggle
+
+# change container layout (stacked, tabbed)
+bindsym $mod+n					layout toggle
+
+
+###---FLOATING BINDINGS---###
+# toggle tiling / floating
+bindsym $mod+Shift+space		floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space				focus mode_toggle
+
+# Floating modifier key
+floating_modifier 				$mod
+
+
+###---SYSTEM BINDINGS---###
+# Locking and suspending
+bindsym $mod+s					exec bash ~/Scripts/lock.sh 
+bindsym $mod+Shift+s 			exec systemctl suspend
+
+# Brightness control
+bindsym XF86MonBrightnessDown	exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp 	exec xbacklight -inc 10
+
+bindsym XF86Tools				exec xbacklight -set 1
+bindsym XF86Search				exec xbacklight -set 0
+
+bindsym XF86Explorer			exec echo pause | nc -c localhost 6600
+bindsym XF86LaunchA				exec echo next | nc -c localhost 6600
+bindsym Shift+XF86LaunchA		exec echo previous | nc -c localhost 6600
+
+
+# Screenshot keybinds
+bindsym Print					exec --no-startup-id scrot 'Pictures/Screenshots/Scrot/%s_fullscreen.png'
+bindsym Shift+Print				exec --no-startup-id scrot -u 'Pictures/Screenshots/Scrot/%s_window.png'
+bindsym $mod+Print				exec --no-startup-id gscreenshot-cli -scf ~/Pictures/Screenshots/GScreenshot/$(date %s).png
+
+
+# Application keybinds
+#bindsym $mod+f exec				waterfox
+bindsym $mod+Shift+f exec		firefox
+bindsym $mod+f exec				qutebrowser
+#bindsym $mod+Shift+g exec		gimp
+bindsym $mod+e exec				$term ranger
+bindsym $mod+Shift+n exec		$term newsbeuter
+
+
+
+###---Dropdown/Scratchpad Windows---###
+for_window [instance="pavucontrol"] floating enable
+for_window [instance="pavucontrol"] resize set 625 400
+for_window [instance="pavucontrol"] move position center
+for_window [instance="pavucontrol"] move scratchpad
+exec --no-startup-id				pavucontrol
+
+for_window [instance="math"]		floating enable
+for_window [instance="math"]		resize set 800 300
+for_window [instance="math"]		move position center
+for_window [instance="math"]		move scratchpad
+exec 								$term -n math calc
+
+for_window [instance="scratch"]		floating enable
+for_window [instance="scratch"]		resize set 800 500
+for_window [instance="scratch"]		move position center
+for_window [instance="scratch"]		move scratchpad
+exec 								$term -n scratch
+
+for_window [instance="ranger"]		floating enable
+for_window [instance="ranger"]		resize set 800 500
+for_window [instance="ranger"]		move position center
+for_window [instance="ranger"]		move scratchpad
+exec --no-startup-id				$term -n ranger ranger ~/
+
+for_window [instance="pass"]		floating enable
+for_window [instance="pass"]		resize set 800 500
+for_window [instance="pass"]		move position center
+for_window [instance="pass"]		move scratchpad
+exec --no-startup-id				keepassxc
+
+bindsym $mod+Shift+p			[instance="pavucontrol"] scratchpad show; move position center
+bindsym $mod+Shift+m			[instance="math"] scratchpad show; move position center
+bindsym $mod+Shift+Return		[instance="scratch"] scratchpad show; move position center
+bindsym $mod+r					[instance="ranger"] scratchpad show; move position center
+bindsym $mod+m					[instance="pass"] scratchpad show; move position center
+
+bindsym $mod+semicolon			workspace prev
+bindsym $mod+apostrophe			workspace next
+bindsym $mod+Tab				workspace back_and_forth
+
+
+#Setup workstations
+set $ws1						"1"
+set $ws2						"2"
+set $ws3						"3"
+set $ws4						"4"
+set $ws5						"5"
+set $ws6						"6"
+set $ws7						"7"
+set $ws8						"8"
+set $ws9						"9"
+set $ws10						"10"
+
+# switch to workspace
+bindsym $mod+1					workspace $ws1
+bindsym $mod+2					workspace $ws2
+bindsym $mod+3					workspace $ws3
+bindsym $mod+4					workspace $ws4
+bindsym $mod+5					workspace $ws5
+bindsym $mod+6					workspace $ws6
+bindsym $mod+7					workspace $ws7
+bindsym $mod+8					workspace $ws8
+bindsym $mod+9					workspace $ws9
+bindsym $mod+0					workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1			move container to workspace $ws1
+bindsym $mod+Shift+2			move container to workspace $ws2
+bindsym $mod+Shift+3			move container to workspace $ws3
+bindsym $mod+Shift+4			move container to workspace $ws4
+bindsym $mod+Shift+5			move container to workspace $ws5
+bindsym $mod+Shift+6			move container to workspace $ws6
+bindsym $mod+Shift+7			move container to workspace $ws7
+bindsym $mod+Shift+8			move container to workspace $ws8
+bindsym $mod+Shift+9			move container to workspace $ws9
+bindsym $mod+Shift+0			move container to workspace $ws10
+
+# workspace default monitors
+#workspace $ws1					output eDP1
+
+
+
+# Floating windows
+for_window [instance="Pidgin" class="Pidgin" window_role="conversation"] floating enable, resize set 475 550 
+for_window [instance="Pidgin" class="Pidgin" window_role="file transfer"] floating enable, resize set 475 250 
+
+for_window [class="discord" instance="discord" title="Discord" window_role="browser-window"] move container to workspace $ws2
+
+for_window [class="TelegramDesktop" instance="telegram-desktop" title="Telegram"] move container to workspace $ws2
+for_window [class="Pinentry" instance="pinentry" title="pinentry"] move container to workspace $ws2
+
+# vim:filetype=i3
