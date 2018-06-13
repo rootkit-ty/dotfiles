@@ -33,19 +33,15 @@ data.location=~/.task
 context.work=project:work
 context.personal=project:personal and -leasure (subproject:false or subproject: )
 
+# Subtask UDA (Used to not clutter up my view with subtasks of a project while leaving the project in my list)
+uda.subproject.type=string
+uda.subproject.label=Sub-Project
+uda.subproject.values=true,false
+uda.subproject.default=false
 
-urgency.user.tag.hold.coefficient=-20.0 # +next tag
-
-# Cost amount
 uda.cost.type=numeric
 uda.cost.label=Cost
 uda.cost.default=0
-
-# Subtask UDA (Used to not clutter up my view with subtasks of a project while leaving the project in my list)
-uda.subproject.type=string
-uda.subproject.lable=Sub-Project
-uda.subproject.values=true,false
-uda.subproject.default=false
 
 
 # Work defined user attributes
@@ -91,7 +87,15 @@ uda.intheamtrellolistname.label=Inthe.AM Trello List Name
 
 # Pomodoro config
 pomodoro.defaultFilter=project:work
+context=personal
 
-context.bkash_refer=project:work.business.bkash.refer
-context.bkash_admin=project:work.business.bkash.admin
-context=work
+# Priority
+# Critical, High, Medium, Low, No priority, Minimal, None
+uda.priority.values=C,H,M,L,,m,n
+urgency.uda.priority.C.coefficient=9.0
+urgency.uda.priority.H.coefficient=6.0
+urgency.uda.priority.M.coefficient=3.9
+urgency.uda.priority.L.coefficient=1.8
+urgency.uda.priority..coefficient=0.0
+urgency.uda.priority.m.coefficient=-3.9
+urgency.uda.priority.n.coefficient=-9.0
