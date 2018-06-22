@@ -53,6 +53,8 @@
     Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim', {'on': 'LimeLight'}
 
+    Plug 'blindFS/vim-taskwarrior'
+
     Plug 'ajh17/VimCompletesMe'
 "    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer', 'on': []}
 
