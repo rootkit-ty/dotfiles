@@ -22,6 +22,7 @@
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-git'
     Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-eunuch'
 
     Plug 'raimondi/delimitmate'
 
