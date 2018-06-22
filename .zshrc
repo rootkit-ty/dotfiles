@@ -257,8 +257,15 @@ gtr() {
   cut -d$'\t' -f1
 }
 
+fv(){
+	local file
+	file="$( { fasd -Rfl "$1" & fd -H -a -d 1 -t f "$1" } | uniq | fzf -1 -0 --no-sort +m)" && nvim "${file}" || return 1
+}
+
+function join_by { local IFS="$1"; shift; echo "$*"; }
+
 alias f='fzf'
-alias fv='nvim "$(fzf --preview="pygmentize {}")"'
+#alias fv='nvim "$(fzf --preview="pygmentize {}")"'
 
 alias v='nvim'
 alias vv='f -e nvim'
