@@ -166,10 +166,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 #export FZF_DEFAULT_OPTS='--preview="pygmentize {}"'
 
 # Functions and aliases
-fh(){
-    print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac --preview="" | sed 's/ *[0-9]* *//')
-}
-
 
 fcd(){
     local dir
