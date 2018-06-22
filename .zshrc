@@ -300,3 +300,10 @@ export PATH=$HOME/.bin/:$PATH
 
 # FZF autocompletion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Allow command editing in vim using Ctrl-E
+zle -N edit-command-line
+bindkey -M vicmd '^e' edit-command-line
+
+gpg-agent --daemon 2>/dev/null
+
