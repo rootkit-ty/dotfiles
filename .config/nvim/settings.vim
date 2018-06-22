@@ -155,6 +155,8 @@
 
     "}
 
+    let g:task_rc_override = 'rc.defaultwidth=265'
+
 "}
 " Netrw settings {
     let g:netrw_banner = 0
