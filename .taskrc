@@ -31,7 +31,15 @@ data.location=~/.task
 
 # Contexts
 context.work=project:work
-context.personal=project:personal and -leasure (subproject:false or subproject: )
+context.personal=project:personal and -leasure (subproject:false or subproject: ) -wishlist
+
+
+urgency.user.tag.hold.coefficient=-20.0 # +next tag
+
+# Cost amount
+uda.cost.type=numeric
+uda.cost.label=Cost
+uda.cost.default=0
 
 # Subtask UDA (Used to not clutter up my view with subtasks of a project while leaving the project in my list)
 uda.subproject.type=string
