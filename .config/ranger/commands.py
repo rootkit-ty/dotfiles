@@ -70,8 +70,8 @@ class fzf_select(Command):
     def execute(self):
         import subprocess
         import os.path
-        # command = "fd --exclude .git -H -L | fzf +m"
-        command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
+        command = "fd --exclude .git -H -L | fzf +m"
+        # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
         fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:
