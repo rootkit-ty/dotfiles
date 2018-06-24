@@ -119,7 +119,7 @@ bindkey -v
 
 # Setup the prompt elements on the left and right
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv custom_tw_count_week custom_tw_count_today custom_tw_count_overdue)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_tw_count vcs status root_indicator background_jobs custom_tiw custom_tiw_day time vi_mode)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_tw_count vcs status root_indicator background_jobs custom_tiw custom_tiw_day time)
 
 
 # Custom prompt element to count all tasks in the current context
@@ -271,7 +271,7 @@ alias v='nvim'
 alias vv='f -e nvim'
 alias vim='nvim'
 
-alias tmux='tmux -2'
+#alias tmux='tmux -2'
 alias l='less'
 
 # Custom task and time tracking aliases
