@@ -21,7 +21,7 @@ bind-key	k	up
 bind-key	u	pageup
 bind-key	d	pagedown
 
-macro y set browser "bash ~/Scripts/wyt.sh %u 480"; open-in-browser ; set browser "firefox --new-window"
+macro y set browser "bash ~/.bin/wyt %u 480"; open-in-browser ; set browser "firefox --new-window"
 
 # colors
 color background           color255 color0
