@@ -4,6 +4,12 @@ browser		"firefox --new-window"
 
 external-url-viewer "urlview" 
 
+urls-source "ocnews"
+ocnews-url "https://cloud.rootkitty.tech"
+
+ocnews-login "kitty"
+ocnews-passwordeval "gpg --decrypt ~/.secrets/ocnews.pass.gpg 2>/dev/null"
+
 notify-always yes
 notify-format "newsbeuter: %n unread articles within %f unread feeds"
 notify-program notify-send
