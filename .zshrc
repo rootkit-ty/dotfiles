@@ -162,7 +162,7 @@ git config --global core.excludesfile ~/.gitignore_global
 
 
 #export FZF_DEFAULT_COMMAND='fd -H --type f'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 #export FZF_DEFAULT_OPTS='--preview="pygmentize {}"'
 
 # Functions and aliases
