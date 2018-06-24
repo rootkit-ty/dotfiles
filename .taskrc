@@ -95,7 +95,6 @@ uda.intheamtrellolistname.label=Inthe.AM Trello List Name
 
 # Pomodoro config
 pomodoro.defaultFilter=project:work
-context=personal
 
 # Priority
 # Critical, High, Medium, Low, No priority, Minimal, None
@@ -107,3 +106,42 @@ urgency.uda.priority.L.coefficient=1.8
 urgency.uda.priority..coefficient=0.0
 urgency.uda.priority.m.coefficient=-3.9
 urgency.uda.priority.n.coefficient=-9.0
+
+# Bugwarrior UDAs
+uda.jiraurl.type=string
+uda.jiraurl.label=Jira URL
+uda.gmailthreadid.type=string
+uda.gmailthreadid.label=GMail Thread Id
+uda.gmaillastsender.type=string
+uda.gmaillastsender.label=GMail last sender name
+uda.gmailsnippet.type=string
+uda.gmailsnippet.label=GMail snippet
+uda.gmailsubject.type=string
+uda.gmailsubject.label=GMail Subject
+uda.jiraid.type=string
+uda.jiraid.label=Jira Issue ID
+uda.jiradescription.type=string
+uda.jiradescription.label=Jira Description
+uda.jiraestimate.type=numeric
+uda.jiraestimate.label=Estimate
+uda.gmaillastsenderaddr.type=string
+uda.gmaillastsenderaddr.label=GMail last sender address
+uda.jirasummary.type=string
+uda.jirasummary.label=Jira Summary
+uda.gmailurl.type=string
+uda.gmailurl.label=GMail URL
+uda.gmaillabels.type=string
+uda.gmaillabels.label=GMail labels
+uda.jirafixversion.type=string
+uda.jirafixversion.label=Fix Version
+uda.jiracreatedts.type=date
+uda.jiracreatedts.label=Created At
+# END Bugwarrior UDAs
+
+uda.reviewed.type=date
+uda.reviewed.label=Reviewed
+report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
+report._reviewed.columns=uuid
+report._reviewed.sort=reviewed+,modified+
+report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+context=personal
