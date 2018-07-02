@@ -1,0 +1,14 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.newsboat: Newsboat
+    ~/.config/i3: i3wm
+    ~/.config/nvim: NeoVim
+    ~/.config/ranger: Ranger
+    ~/.config/compton: Compton
+    ~/.taskrc: TaskWarrior/taskrc
+    ~/.zshrc: ZSH/zshrc

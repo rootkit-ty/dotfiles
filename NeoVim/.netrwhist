@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/kitty/Documents/Projects/DotFiles'
+let g:netrw_dirhist_2='/home/kitty/Documents/Projects'
+let g:netrw_dirhist_3='/home/kitty/Documents/Projects/Bash/UMMM'
+let g:netrw_dirhist_4='/home/kitty/Pictures/Wallpapers/Cthulu'
+let g:netrw_dirhist_5='/home/kitty'
+let g:netrw_dirhist_6='/home/kitty/Documents/Projects/DotFiles'
