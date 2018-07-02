@@ -314,5 +314,8 @@ export PATH=$HOME/.bin/:$PATH
 zle -N edit-command-line
 bindkey -M vicmd '^e' edit-command-line
 
+# Start GPG agent
 gpg-agent --daemon 2>/dev/null
 
+# Do not add commands starting with a space to history
+export HISTCONTROL=ignorespace
