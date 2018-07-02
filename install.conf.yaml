@@ -12,3 +12,4 @@
     ~/.config/compton: Compton
     ~/.taskrc: TaskWarrior/taskrc
     ~/.zshrc: ZSH/zshrc
+    ~/.tmux.conf: Tmux/tmux.conf
