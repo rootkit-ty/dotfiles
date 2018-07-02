@@ -68,3 +68,18 @@ ${1:StackName}:
 		TemplateURL: ./$3/$3.yaml
 		TimeoutInMinutes: '${0:5}'
 endsnippet
+snippet eip "Amazong EC2 Elastic IP" b
+${1:EIP}:
+	Type: AWS::EC2::EIP
+	Properties:
+		InstanceId: ${2:!Ref EC2Instance}
+endsnippet
+
+snippet tmuxinator "Tmuxinator bootstrap" b
+name: ${1:Environment name}
+root: ${2:`!v expand('%')`}
+startup_window: term
+windows:
+  - editor:  vim ./$3 && exit
+  - term: 
+endsnippet
