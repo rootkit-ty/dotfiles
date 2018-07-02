@@ -284,12 +284,21 @@ alias twp='task add project:personal'
 
 if [ $machine = "Linux" ] ; then
 
-
     (cat ~/.cache/wal/sequences &)
 
+    # Linux fzf ZSH functions
     source /usr/share/zsh/site-functions/fzf
+
+    # Autoenv Linux ZSH hook
+    source `which activate.sh`
+
 elif [ $machine = "Mac" ]; then
+
+    # Mac fzf ZSH functions
     source /usr/local/opt/fzf/shell/completion.zsh
+
+    # Autoenv mac ZSH hook
+    source $(brew --prefix autoenv)/activate.sh
 fi
 
 # FASD setup for zsh
