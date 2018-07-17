@@ -100,6 +100,10 @@
         let g:ale_list_window_size = 5
         let g:ale_lint_on_text_changed="never"
 
+        let g:ale_completion_enabled = 1
+
+        let g:ale_yaml_cfnlint_options = "--ignore-checks E3002"
+
     "}
 
     " Lightline {
