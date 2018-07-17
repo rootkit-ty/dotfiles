@@ -14,7 +14,8 @@ endsnippet
 
 snippet param "Cloudformation parameter without default" b
 p${1:ParameterName}:
-	Type: ${0:String}
+	Type: ${2:String}
+$0
 endsnippet
 
 snippet ec2 "Cloudformation ec2 instance" b
@@ -82,4 +83,59 @@ startup_window: term
 windows:
   - editor:  vim ./$3 && exit
   - term: 
+endsnippet
+
+snippet lambda "AWS Lambda function" b
+${1:LambdaName}:
+	Type: "AWS::Lambda::Function"
+	Properties:
+		Environment:
+			Variables:
+				${2:Variable}: !Ref p${2}
+		Handler: "${3:index.handler}"
+		Role: !GetAtt ${4:LambdaRole}.Arn
+		Runtime: "${5:nodejs4.3}"
+		MemorySize: ${6:128}
+		Timeout: "${7:60}"
+		VpcConfig:
+			SecurityGroupIds:
+				- !Ref ${8:pSG}
+			SubnetIds:
+				- !Ref ${9:pSubA}
+				- !Ref ${10:pSubB}
+		Code: ./../${11:lambdafunction}.zip
+$0
+endsnippet
+
+snippet role "IAM Role" b
+${1:IamRoleName}:
+	Type: "AWS::IAM::Role"
+	Properties:
+		AssumeRolePolicyDocument:
+			Statement:
+				-
+					$2
+		Policies:
+			-
+				$3
+$0
+endsnippet
+
+snippet iamsts "IAM STS assume role Policy Document" b
+Effect: ${1:Allow}
+Principal:
+	Service:
+		- "${2:lambda.amazonaws.com}"
+Action: ["sts:AssumeRole"]
+$0
+endsnippet
+
+snippet policy "IAM Policy" b
+PolicyName: "${1:PolicyName}"
+PolicyDocument:
+	Statement:
+	-
+		Effect: Allow
+		Action: ["${2:ec2:*}"]
+		Resource: ["${3:*}"]
 endsnippet

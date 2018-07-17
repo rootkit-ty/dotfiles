@@ -1,0 +1,19 @@
+snippet env ".Env bootstrap" b
+NAME="${1:Environment Name}"
+AWS_PROFILE="${2:awsprofile}"
+AWS_REGION="${3:ap-southeast-1}"
+if [[ -n "${TMUX+set}" ]] && [ "$(tmux display-message -p '#S')" != "${NAME}" ]; then
+	tmuxinator start "$NAME"
+	tmux switch -t "$NAME"
+elif [ -z "$TMUX" ]; then
+	tmuxinator start "$NAME"
+	tmux attach -t "$NAME"
+else
+	export AWS_PROFILE="$AWS_PROFILE"
+	export AWS_DEFAULT_REGION="$AWS_REGION"
+	alias package="${4:echo TODO cloudformation package}"
+	alias deploy="${5:echo TODO cloudformation deploy}"
+	alias update="${6:echo TODO cloudformation update}"
+fi
+$0
+endsnippet
