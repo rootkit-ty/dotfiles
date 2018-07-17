@@ -155,6 +155,10 @@
 
     "}
 
+    " Jedi.vim {
+        let g:jedi#popup_on_dot = 0
+    " }
+
     let g:task_rc_override = 'rc.defaultwidth=265'
 
 "}
