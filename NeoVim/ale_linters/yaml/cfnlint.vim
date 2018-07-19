@@ -21,9 +21,6 @@ function! ale_linters#yaml#cfnlint#Handle(buffer, lines) abort
 	let l:pattern = '^.*:\(\d\+\):\(\d\+\): \[\(E\|W\)\(\d\+\)\] \(.\+\)$'
 	let l:output = []
 
-	for l:line in a:lines
-		echom l:line
-	endfor
 	for l:match in ale#util#GetMatches(a:lines, l:pattern)
 		let l:line = l:match[1] + 0
 		let l:col = l:match[2] + 0
