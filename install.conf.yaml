@@ -13,3 +13,4 @@
     ~/.taskrc: TaskWarrior/taskrc
     ~/.zshrc: ZSH/zshrc
     ~/.tmux.conf: Tmux/tmux.conf
+    ~/.config/polybar: Polybar
