@@ -23,7 +23,7 @@ gaps outer						$gaps_outer
 ###---AUTOSTART---###
 exec_always						xrdb ~/Repos/dracula-xresources/.XResources
 
-exec --no-startup-id			bash ~/Scripts/polybar_start.sh
+exec --no-startup-id			bash ~/.docked/scripts/BOTH_polybar_start.sh
 exec							mpd ~/.config/mpd/mpd.conf
 exec							redshift-gtk
 exec							udiskie -a --tray --use-udisks2
@@ -250,10 +250,6 @@ bindsym $mod+Shift+8			move container to workspace $ws8
 bindsym $mod+Shift+9			move container to workspace $ws9
 bindsym $mod+Shift+0			move container to workspace $ws10
 
-# workspace default monitors
-#workspace $ws1					output eDP1
-
-
 
 # Floating windows
 for_window [instance="Pidgin" class="Pidgin" window_role="conversation"] floating enable, resize set 475 550 
@@ -263,5 +259,7 @@ for_window [class="discord" instance="discord" title="Discord" window_role="brow
 
 for_window [class="TelegramDesktop" instance="telegram-desktop" title="Telegram"] move container to workspace $ws2
 for_window [class="Pinentry" instance="pinentry" title="pinentry"] move container to workspace $ws2
+
+for_window [class="tridactyl_editor"] floating enable border pixel 1
 
 # vim:filetype=i3
