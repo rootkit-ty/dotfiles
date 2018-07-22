@@ -70,10 +70,13 @@ class fzf_select(Command):
     def execute(self):
         import subprocess
         import os.path
-        command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
+        # TODO use the below commented out command if on mac
+        # command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
+        command = "fd -H -L | fzf +m"
         # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
-        fzf = self.fm.execute_command(command, universal_newlines=True, stdout=subprocess.PIPE)
-        stdout, stderr = fzf.communicate()
+        fzf = self.fm.execute_command(command, universal_newlines=True,
+                                      stdout=subprocess.PIPE)
+        stdout, _ = fzf.communicate()
         if fzf.returncode == 0:
             fzf_file = os.path.abspath(stdout.rstrip('\n'))
             if os.path.isdir(fzf_file):
