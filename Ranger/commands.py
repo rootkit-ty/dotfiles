@@ -83,3 +83,24 @@ class fzf_select(Command):
                 self.fm.cd(fzf_file)
             else:
                 self.fm.select_file(fzf_file)
+
+class fasd_find(Command):
+    """
+    :fasd_find
+
+    Do a FZF fuzzy search of frequently and recently accesed files through fasd
+    """
+
+    def execute(self):
+        import subprocess
+        import os.path
+        command = "fasd -aR | fzf-tmux +m +s| awk '{print $2}'"
+        fzf = self.fm.execute_command(command, universal_newlines=True,
+                                      stdout=subprocess.PIPE)
+        stdout, _ = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            if os.path.isdir(fzf_file):
+                self.fm.cd(fzf_file)
+            else:
+                self.fm.select_file(fzf_file)
