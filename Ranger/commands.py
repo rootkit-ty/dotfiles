@@ -72,7 +72,7 @@ class fzf_select(Command):
         import os.path
         # TODO use the below commented out command if on mac
         # command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
-        command = "fd -H -L | fzf +m"
+        command = "fd -H -L | fzf-tmux +m"
         # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
         fzf = self.fm.execute_command(command, universal_newlines=True,
                                       stdout=subprocess.PIPE)
