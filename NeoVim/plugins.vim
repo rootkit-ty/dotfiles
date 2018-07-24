@@ -2,10 +2,12 @@
 " VimPlug {
     call plug#begin('~/.local/share/nvim/plugged')
 
+
     " Nord colour theme
     Plug 'arcticicestudio/nord-vim'
 
     Plug 'tyrannicaltoucan/vim-quantum'
+    Plug 'rakr/vim-one'
 
     Plug 'rhysd/clever-f.vim'
     Plug 'justinmk/vim-sneak'
