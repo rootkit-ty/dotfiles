@@ -31,7 +31,7 @@ data.location=~/.task
 
 # Contexts
 context.work=project:work
-context.personal=project:personal and -leasure (subproject:false or subproject: ) -wishlist
+context.personal=project.not:work and -leasure (subproject:false or subproject: ) -wishlist
 
 
 urgency.user.tag.hold.coefficient=-20.0 # +next tag
