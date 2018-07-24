@@ -10,6 +10,9 @@ Pictures are worth a thousand words
 
 ![Linux Vim Screenshot](https://raw.githubusercontent.com/rootkit-ty/dotfiles/master/images/linux_vim.png)
 
+### Vim on Mac
+![Mac Vim Screenshot](https://raw.githubusercontent.com/rootkit-ty/dotfiles/master/images/mac_vim.png)
+
 ## Notes
 
 - These should be system-linked on a new system, and I will deploy a script to do this at some point.
