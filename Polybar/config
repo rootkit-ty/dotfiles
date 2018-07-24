@@ -49,7 +49,7 @@ font-3 = fontawesome:size=10;1
 
 modules-left = i3
 modules-center = mpd
-modules-right = filesystem memory cpu battery temperature date powermenu
+modules-right = data-usage updates-pending filesystem memory cpu battery temperature date powermenu
 
 tray-position = right
 tray-padding = 0
@@ -365,6 +365,27 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
+[module/data-usage]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/usr/bin/env sh -c [command]")
+exec = vnstat -m | head -n 6 | tail -n 1 | awk '{print $9$10}'
+interval = 90
+
+format-prefix = " "
+
+[module/pending-updates]
+type = custom/script
+
+; Available tokens:
+;   %counter%
+; Command to be executed (using "/usr/bin/env sh -c [command]")
+exec = dnf check-update --quiet | grep '^[a-Z0-9]' | wc -l
+interval = 90
+
+format-prefix = " "
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
