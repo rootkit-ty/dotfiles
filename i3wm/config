@@ -164,8 +164,8 @@ bindsym $mod+Print				exec --no-startup-id gscreenshot-cli -scf ~/Pictures/Scree
 
 
 # Application keybinds
-bindsym $mod+Shift+f exec		firefox
-bindsym $mod+f exec				qutebrowser
+bindsym $mod+f exec				firefox
+bindsym $mod+Shift+f exec		qutebrowser
 bindsym $mod+e exec				$term ranger
 bindsym $mod+Shift+n exec		$term newsbeuter
 
