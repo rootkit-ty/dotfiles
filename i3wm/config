@@ -163,10 +163,8 @@ bindsym $mod+Print				exec --no-startup-id gscreenshot-cli -scf ~/Pictures/Scree
 
 
 # Application keybinds
-#bindsym $mod+f exec				waterfox
 bindsym $mod+Shift+f exec		firefox
 bindsym $mod+f exec				qutebrowser
-#bindsym $mod+Shift+g exec		gimp
 bindsym $mod+e exec				$term ranger
 bindsym $mod+Shift+n exec		$term newsbeuter
 
