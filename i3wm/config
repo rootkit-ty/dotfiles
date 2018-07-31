@@ -30,6 +30,7 @@ exec							udiskie -a --tray --use-udisks2
 exec							"xss-lock -v ~/Scripts/lock.sh"
 exec							nm-applet
 exec							wal -R
+exec							modem-manager-gui -i
 
 exec --no-startup-id			setxkbmap -option caps:escape
 #exec --no-startup-id			dunst
