@@ -5,3 +5,4 @@ ZSH/zshrc
 Newsboat/cache.db
 Newsboat/history.cmdline
 Newsboat/history.search
+Newsboat/cache.db.lock
