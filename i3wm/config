@@ -27,7 +27,7 @@ exec --no-startup-id			bash ~/.docked/scripts/BOTH_polybar_start.sh
 exec							mpd ~/.config/mpd/mpd.conf
 exec							redshift-gtk
 exec							udiskie -a --tray --use-udisks2
-exec							"xss-lock -v ~/Scripts/lock.sh"
+exec							xss-lock -v ~/Scripts/lock.sh
 exec							nm-applet
 exec							wal -R
 exec							modem-manager-gui -i
