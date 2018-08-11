@@ -84,6 +84,32 @@ class fzf_select(Command):
             else:
                 self.fm.select_file(fzf_file)
 
+class fzf_locate(Command):
+    """
+    :fzf_locate
+
+    Find a file using fzf and locate.
+
+    With a prefix argument select only directories.
+
+    See: https://github.com/junegunn/fzf
+    """
+    def execute(self):
+        import subprocess
+        import os.path
+        # TODO use the below commented out command if on mac
+        # command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
+        command = "locate $(pwd) | fzf-tmux +m"
+        # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
+        fzf = self.fm.execute_command(command, universal_newlines=True,
+                                      stdout=subprocess.PIPE)
+        stdout, _ = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            if os.path.isdir(fzf_file):
+                self.fm.cd(fzf_file)
+            else:
+                self.fm.select_file(fzf_file)
 class fasd_find(Command):
     """
     :fasd_find
