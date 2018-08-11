@@ -36,7 +36,7 @@ exec --no-startup-id			setxkbmap -option caps:escape
 #exec --no-startup-id			dunst
 #exec --no-startup-id			feh --bg-center $background
 exec --no-startup-id			compton --config ~/.config/compton/compton -b
-exec --no-startup-id			dnfdragora
+#exec --no-startup-id			dnfdragora
 
 exec --no-startup-id			telegram-desktop
 exec --no-startup-id			Discord
