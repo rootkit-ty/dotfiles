@@ -127,7 +127,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_tw_count vcs status root_indicator ba
 POWERLEVEL9K_CUSTOM_TW_COUNT="tw +READY count"
 
 # Custom prompt element to count all tasks in the current context due this week
-POWERLEVEL9K_CUSTOM_TW_COUNT_WEEK="tw -hold +READY +DUE count"
+POWERLEVEL9K_CUSTOM_TW_COUNT_WEEK="tw -hold +READY +DUE +next count"
 
 # Custom prompt element to count all tasks in the current context due today
 POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY="tw +READY due:24h count"
