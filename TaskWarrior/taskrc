@@ -25,13 +25,17 @@ data.location=~/.task
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-yellow-green.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/dark-gray-blue-256.theme
-#include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
+include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
 
 # Contexts
 context.work=project:work
-context.personal=project.not:work and -leasure (subproject:false or subproject: ) -wishlist
+context.personal=project.not:work and -leasure (subproject:false or subproject: )
+context.bkash=project:work.tickets.BKAS or project:work.business.bkash
+context=work
+
+default.command=current
 
 
 urgency.user.tag.hold.coefficient=-20.0 # +next tag
@@ -138,10 +142,31 @@ uda.jiracreatedts.type=date
 uda.jiracreatedts.label=Created At
 # END Bugwarrior UDAs
 
-uda.reviewed.type=date
 uda.reviewed.label=Reviewed
+uda.reviewed.type=date
 report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
 report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
-context=personal
+
+report.current.description=List of tasks currently being worked on
+report.current.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
+report.current.labels=ID,Active,Dep,Project,Tags,Recurring,Wait,Scheduled,Due,Until,Desc,Urg
+report.current.filter=status:pending -hold due.not:someday (+next or +DUE)
+report.current.sort=urgency-,project+/
+
+report.todo.description=List of tasks that need to be completed this week
+report.todo.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
+report.todo.filter=status:pending -hold -next due.not:someday -DUE
+report.todo.sort=urgency-,project+/
+
+report.backlog.description=List of tasks that need to be completed in the next few weeks or followed up
+report.backlog.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
+report.backlog.filter=status:pending +hold due.not:someday
+report.backlog.sort=urgency-,project+/
+
+report.wishlist.description=List of tasks that would be nice to complete
+report.wishlist.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
+report.wishlist.filter=status:pending -next (+wishlist or due:someday)
+report.wishlist.sort=urgency-,project+/
+
