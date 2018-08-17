@@ -61,6 +61,11 @@
     autocmd * exec 'cd' fnameescape(fnamemodify(finddir('.git',
     \ escape(expand('%:p:h'), ' ') . ';'), ':h'))
 
+    augroup TermAutoInsert
+        autocmd BufWinEnter,WinEnter term://* startinsert
+        autocmd BufLeave term://* stopinsert
+    augroup END
+
     " Deal with swap, backup, and undo files
     call WriteCacheDir("swap")
     set directory=./.vim_data/,~/.cache/vim/swap/,~/.cache/,./,~
