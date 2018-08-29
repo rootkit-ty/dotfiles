@@ -38,7 +38,8 @@ context=work
 default.command=current
 
 
-urgency.user.tag.hold.coefficient=-20.0 # +next tag
+urgency.user.tag.hold.coefficient=-20.0 # +hold tag
+urgency.user.tag.next.coefficient=7.5 # +next tag
 
 # Cost amount
 uda.cost.type=numeric
