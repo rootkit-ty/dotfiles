@@ -17,6 +17,7 @@
     " Snippet plugins
     Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
 
+    Plug 'christoomey/vim-tmux-navigator'
     " Tim pope plugins
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
