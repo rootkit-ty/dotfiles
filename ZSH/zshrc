@@ -320,3 +320,7 @@ gpg-agent --daemon 2>/dev/null
 
 # Do not add commands starting with a space to history
 export HISTCONTROL=ignorespace
+
+if [[ -z $TMUX ]] && [[ -z $NO_TMUX_START ]] ; then
+	tmux attach -t main || tmux new -s main
+fi
