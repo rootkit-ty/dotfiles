@@ -14,3 +14,4 @@
     ~/.zshrc: ZSH/zshrc
     ~/.tmux.conf: Tmux/tmux.conf
     ~/.config/polybar: Polybar
+    ~/.config/tmuxinator: Tmuxinator
