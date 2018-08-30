@@ -70,10 +70,11 @@ class fzf_select(Command):
     def execute(self):
         import subprocess
         import os.path
-        # TODO use the below commented out command if on mac
-        # command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
-        command = "fd -H -L | fzf-tmux +m"
-        # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
+        from sys import platform
+        if platform == "linux" or platform == "linux2":
+            command = "fd -H -L | fzf-tmux +m"
+        elif platform == "darwin":
+            command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
         fzf = self.fm.execute_command(command, universal_newlines=True,
                                       stdout=subprocess.PIPE)
         stdout, _ = fzf.communicate()
