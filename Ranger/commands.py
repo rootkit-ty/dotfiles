@@ -98,10 +98,7 @@ class fzf_locate(Command):
     def execute(self):
         import subprocess
         import os.path
-        # TODO use the below commented out command if on mac
-        # command = "fd --ignore-file ~/.ignore -H -L | fzf +m"
         command = "locate $(pwd) | fzf-tmux +m"
-        # command = "rg --hidden --files --follow 2> /dev/null | fzf +m"
         fzf = self.fm.execute_command(command, universal_newlines=True,
                                       stdout=subprocess.PIPE)
         stdout, _ = fzf.communicate()
@@ -121,7 +118,7 @@ class fasd_find(Command):
     def execute(self):
         import subprocess
         import os.path
-        command = "fasd -aR | fzf-tmux +m +s| awk '{print $2}'"
+        command = "fasd -aR | fzf-tmux +m +s | awk '{print $2}'"
         fzf = self.fm.execute_command(command, universal_newlines=True,
                                       stdout=subprocess.PIPE)
         stdout, _ = fzf.communicate()

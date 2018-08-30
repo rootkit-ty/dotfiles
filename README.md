@@ -11,6 +11,7 @@ Pictures are worth a thousand words
 ![Linux Vim Screenshot](https://raw.githubusercontent.com/rootkit-ty/dotfiles/master/images/linux_vim.png)
 
 ### Vim on Mac
+
 ![Mac Vim Screenshot](https://raw.githubusercontent.com/rootkit-ty/dotfiles/master/images/mac_vim.png)
 
 ## Notes
