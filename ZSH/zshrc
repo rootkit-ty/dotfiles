@@ -322,5 +322,5 @@ gpg-agent --daemon 2>/dev/null
 export HISTCONTROL=ignorespace
 
 if [[ -z $TMUX ]] && [[ -z $NO_TMUX_START ]] ; then
-	tmux attach -t main || tmux new -s main
+	tmux attach -t main || tmuxinator start main
 fi
