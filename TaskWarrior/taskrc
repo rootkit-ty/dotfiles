@@ -28,11 +28,35 @@ data.location=~/.task
 include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-light-256.theme
 #include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/no-color.theme
+include ~/.custom_taskrc
 
 # Contexts
-context.work=project:work
-context.personal=project.not:work and -leasure (subproject:false or subproject: )
-context.bkash=project:work.tickets.BKAS or project:work.business.bkash
+# Work context
+# Anything that has the project of work, or taged at work
+# Or tasks avaliable to me while I am
+# - at work
+# - Task has not yet been processed (Global inbox)
+# - In the CBD
+# - On a laptop
+# - On a computer
+# - Online
+# - On the macbook
+# and only include personal tasks IF they are next
+# Exclude all things that require and x250 OR me to be at home ("and (-@home -@x250)" has been removed)
+# Exclude all subprojects (I rarely use this now)
+context.work=((project:work or +work or reviewed.none: or +@work or +@melbourne or +@laptop or +@computer or +@online or +@macbook) and ((+personal +next) or (-personal -next) or (-personal +next)) ) and (subproject.not: subproject:false)
+
+# Home context
+# Anything that does not have the project of work or the work tag
+# And tasks avaliable to me while I am
+# - At home
+# - Task has not yet been processed (Global inbox)
+# - On a laptop
+# - On a computer
+# - Online
+# - On my x250
+context.home=(project.not:work or -work) and (reviewed.none: or +@laptop or +@home or +@computer or +@online or +@x250) and (subproject:false or subproject: )
+
 context=work
 
 default.command=current
@@ -52,9 +76,17 @@ uda.subproject.label=Sub-Project
 uda.subproject.values=true,false
 uda.subproject.default=false
 
+uda.waiting_on.type=string
+uda.waiting_on.label=Waiting-On
+
 uda.cost.type=numeric
 uda.cost.label=Cost
 uda.cost.default=0
+
+# The effort required ( in minutes)
+uda.effort.label=Effort
+uda.effort.type=numeric
+uda.effort.default=10
 
 
 # Work defined user attributes
@@ -145,15 +177,26 @@ uda.jiracreatedts.label=Created At
 
 uda.reviewed.label=Reviewed
 uda.reviewed.type=date
+
 report._reviewed.description=Tasksh review report.  Adjust the filter to your needs.
 report._reviewed.columns=uuid
 report._reviewed.sort=reviewed+,modified+
 report._reviewed.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
 
+report.review.description=The weekly review
+report.review.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
+report.review.labels=ID,Active,Dep,Project,Tags,Recurring,Wait,Scheduled,Due,Until,Desc,Urg
+report.review.sort=reviewed+,modified+
+report.review.filter=( reviewed.none: or reviewed.before:now-6days ) and ( +PENDING or +WAITING )
+
+report.in.description=List of tasks that haven't been assigned properly yet
+report.in.columns=id,tags,description.count
+report.in.filter=(reviewed: and(+PENDING or +WAITING or +WAITING_ON))
+
 report.current.description=List of tasks currently being worked on
 report.current.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
 report.current.labels=ID,Active,Dep,Project,Tags,Recurring,Wait,Scheduled,Due,Until,Desc,Urg
-report.current.filter=status:pending -hold due.not:someday (+next or +DUE)
+report.current.filter=(status:pending -hold due.not:someday (+next or +DUE)) and reviewed.after:now-6days
 report.current.sort=urgency-,project+/
 
 report.todo.description=List of tasks that need to be completed this week
@@ -170,4 +213,3 @@ report.wishlist.description=List of tasks that would be nice to complete
 report.wishlist.columns=id,start.active,depends.indicator,project,tags,recur.indicator,wait.remaining,scheduled.countdown,due.relative,until.countdown,description.count,urgency
 report.wishlist.filter=status:pending -next (+wishlist or due:someday)
 report.wishlist.sort=urgency-,project+/
-
