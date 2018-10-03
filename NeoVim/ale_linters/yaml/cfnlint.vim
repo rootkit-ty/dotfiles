@@ -13,12 +13,12 @@ endfunction
 function! ale_linters#yaml#cfnlint#GetCommand(buffer) abort
 	return ale_linters#yaml#cfnlint#GetExecutable(a:buffer)
 				\   . ' ' . ale#Var(a:buffer, 'yaml_cfnlint_options')
-				\   . ' --template %t --format parsable'
+				\   . ' --template %t --format parseable || exit 0'
 endfunction
 
 function! ale_linters#yaml#cfnlint#Handle(buffer, lines) abort
 	" Matches patterns line the following:
-	let l:pattern = '^.*:\(\d\+\):\(\d\+\): \[\(E\|W\)\(\d\+\)\] \(.\+\)$'
+	let l:pattern = '^.*:\(\d\+\):\(\d\+\):\(E\|W\)\(\d\+\):\(.\+\)$'
 	let l:output = []
 
 	for l:match in ale#util#GetMatches(a:lines, l:pattern)
