@@ -617,6 +617,41 @@ Today I learnt %?")
                                                         ))
                                                      (org-agenda-overriding-header "")))
                                          ))
+          ("p" "Super Work Daily agenda"(
+                                         (agenda "" ((org-super-agenda-groups
+                                                      '((:log t)  ; Automatically named "Log"
+                                                        (:name "Schedule"
+                                                               :time-grid t)
+                                                        (:name "Overdue"
+                                                               :deadline past)
+                                                        (:name "Due today"
+                                                               :deadline today)
+                                                        (:name "Today"
+                                                               :scheduled today)
+                                                        (:habit t)
+                                                        (:name "Scheduled earlier"
+                                                               :scheduled past)))
+                                                     (org-agenda-span 1)))
+                                         (tags-todo "+{@computer\\|@laptop\\|@phone\\|@melbourne\\|@online\\|@home}-{@work\\|work}-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Inbox"
+                                                               :tag "INBOX")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "")))
+                                         ))
         ))
 
   (spacemacs/set-leader-keys
