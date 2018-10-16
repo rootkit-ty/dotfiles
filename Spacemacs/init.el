@@ -43,6 +43,11 @@ values."
      git
      finance
      fasd
+     (mu4e :variables
+           mu4e-installation-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e"
+           mu4e-enable-notifications t
+           mu4e-enable-mode-line t
+           )
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -347,6 +352,60 @@ you should place your code here."
 
   (setq custom-file "~/.spacemacs.d/custom.el")
 
+  (defun mu4e-compose-org-mail ()
+    (interactive)
+    (mu4e-compose-new)
+    (org-mu4e-compose-org-mode))
+
+  (defun htmlize-and-send ()
+    "When in an org-mu4e-compose-org-mode message, htmlize and send it."
+    (interactive)
+    (when (member 'org~mu4e-mime-switch-headers-or-body post-command-hook)
+      (org-mime-htmlize) 
+      (message-send-and-exit)))
+
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'htmlize-and-send t)
+
+  (defun my-org-screenshot-attach ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat "/tmp/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+                                        ; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                        ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (org-attach-attach filename nil 'mv)))
+  (defun my-org-screenshot-insert ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (file-name-nondirectory (buffer-file-name))
+                    "_imgs/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+                                        ; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                        ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (insert (concat "[[file:" filename "]]"))))
+
   (defun do-org-board-dl-hook ()
     (when
 	  (and (equal (buffer-name)
@@ -472,7 +531,13 @@ Captured On: %U" :immediate-finish t)
       (file+olp+datetree "~/Documents/Notes/personal.org" "Journal")
       "* %U - %^{Title}
 %i
-%?"))))
+%?")
+     ("T" "TIL" entry
+      (file+olp+datetree "~/Documents/Notes/personal.org" "TIL")
+      "* %U - Today I learnt: %^{Title}
+%i
+Today I learnt %?")
+     )))
   (setq org-todo-keyword-faces
         (quote (("TODO" :foreground "orange" :weight bold)
                 ("NEXT" :foreground "red" :weight bold)
@@ -496,92 +561,62 @@ Captured On: %U" :immediate-finish t)
  (setq org-refile-use-outline-path (quote file))
  (setq org-todo-repeat-to-state "RECURRING")
 
-  (spacemacs/set-leader-keys "aof" (defalias
-                                     (make-symbol "org-agenda-file-find")
-                                     (lambda()
-                                      (interactive)
-                                      (projectile-find-file-in-directory "~/Documents/Notes/")
-                                      ;;(mapcar '(lambda(x)
-                                      ;;match-string '(match-string "([a-zA-Z_-]+\.org$)" x) x) org-agenda-files)
-                                      ;;(ivy-read "Org File: " org-agenda-files)
-                                      )
-                                    )
-    )
-
   (setq org-agenda-custom-commands
         '(
-         ("W" "Work Weekly Agenda"
-         ((agenda "" ((org-agenda-span 7)                      ;; overview of appointments
-                      (org-agenda-start-on-weekday nil)         ;; calendar begins today
-                      (org-agenda-repeating-timestamp-show-all t)
-                      ))
-
-          (tags-todo "+@work"                                          ;; todos sorted by context
-                ((org-agenda-prefix-format "[ ] %T: ")
-                 (org-agenda-sorting-strategy '(priority-down category-keep))
-                 (org-agenda-todo-keyword-format "")
-                 (org-agenda-overriding-header "\nWork Tasks\n------------------\n")))
-          (tags-todo "@computer|@laptop|@melbourne|@online"           ;; todos sorted by context
-                     ((org-agenda-prefix-format "[ ] %T: ")
-                      (org-agenda-sorting-strategy '(priority-down))
-                      (org-agenda-todo-keyword-format "")
-                      (org-agenda-overriding-header "\nPersonal Tasks\n------------------\n")))
-          )
-         (
-          (org-agenda-compact-blocks t)
-          (org-agenda-remove-tags t)
-          (ps-number-of-columns 2)
-           (ps-landscape-mode t))
-         ("~/agenda.ps"))
-         ("w" "Work Daily Agenda"
-          (
-           ;; (agenda "" ((org-agenda-span 7)                      ;; overview of appointments
-           ;;            (org-agenda-start-on-weekday nil)         ;; calendar begins today
-           ;;            (org-agenda-repeating-timestamp-show-all t)
-           ;;            (org-agenda-entry-types '(:timestamp :sexp))))
-
-          (agenda "-STYLE=\"habit\""
-                ((org-agenda-span 1)                      ; daily agenda
-                 (org-deadline-warning-days 7)            ; 7 day advanced warning for deadlines
-                 (org-agenda-scheduled-leaders '("" "%dd old"))
-                 (org-agenda-prefix-format "%c:%T %t%s %e "))
-                 )
-          (tags-todo "+INBOX"                                          ;; todos sorted by context
-                     ((org-agenda-prefix-format "")
-                      (org-agenda-sorting-strategy '(priority-down category-keep))
-                      (org-agenda-todo-keyword-format "")
-                      (org-agenda-overriding-header "\nInbox Tasks\n------------------\n")))
-          (tags-todo "TODO=\"WAIT\""                                          ;; todos sorted by context
-                     ((org-agenda-prefix-format "[ ] %T: ")
-                      (org-agenda-sorting-strategy '(priority-down category-keep))
-                      (org-agenda-todo-keyword-format "")
-                      (org-agenda-overriding-header "\nWaiting Tasks\n------------------\n")))
-          ;; (tags-todo "TODO=\"NEXT\"+{@work\\|@computer\\|@online\\|@phone}-personal-LAST_REPEAT-SCHEDULED<\"<tomorrow>\""                                          ;; todos sorted by context
-          (tags-todo "+TODO=\"NEXT\"+@work-LAST_REPEAT-SCHEDULED<\"<tomorrow>\""                                          ;; todos sorted by context
-                ((org-agenda-prefix-format "[ ] %T: ")
-                 (org-agenda-sorting-strategy '(priority-down category-keep))
-                 (org-agenda-todo-keyword-format "")
-                 (org-agenda-overriding-header "\nWork Tasks\n------------------\n")))
-          (tags-todo "{@computer\\|@laptop\\|@melbourne\\|@online}+personal-STYLE=\"habit\""           ;; todos sorted by context
-                     ((org-agenda-prefix-format "[ ] %T: ")
-                      (org-agenda-sorting-strategy '(priority-down))
-                      (org-agenda-todo-keyword-format "")
-                      (org-agenda-overriding-header "\nPersonal Tasks\n------------------\n")))
-          )
-         (
-          (org-agenda-compact-blocks t)
-          (org-agenda-remove-tags t)
-          (ps-number-of-columns 2)
-           (ps-landscape-mode t))
-         ("~/agenda.ps"))
-        ;; other commands go here
-        ("D" "Daily Action List"
-         (
-          (agenda "" ((org-agenda-ndays 1)
-                      (org-agenda-sorting-strategy
-                       (quote ((agenda time-up priority-down tag-up) )))
-                      (org-deadline-warning-days 0)
-                      ))))
+          ("w" "Super Work Daily agenda"(
+                                         (agenda "" ((org-super-agenda-groups
+                                                      '((:log t)  ; Automatically named "Log"
+                                                        (:name "Schedule"
+                                                               :time-grid t)
+                                                        (:name "Overdue"
+                                                               :deadline past)
+                                                        (:name "Due today"
+                                                               :deadline today)
+                                                        (:name "Today"
+                                                               :scheduled today)
+                                                        (:habit t)
+                                                        (:name "Scheduled earlier"
+                                                               :scheduled past)))
+                                                     (org-agenda-span 1)))
+                                         (tags-todo "+@work-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Inbox"
+                                                               :tag "INBOX")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "")))
+                                         (tags-todo "+{@computer\\|@laptop\\|@phone\\|@melbourne\\|@online}-{@work\\|work}-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Inbox"
+                                                               :tag "INBOX")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "")))
+                                         ))
         ))
 
   (spacemacs/set-leader-keys
