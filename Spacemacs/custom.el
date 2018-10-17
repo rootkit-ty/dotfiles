@@ -3,7 +3,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(bbdb-mua-auto-update-p (quote create))
+ '(bbdb-mua-pop-up nil)
+ '(epa-pinentry-mode (quote loopback))
  '(evil-want-Y-yank-to-eol nil)
+ '(mu4e-get-mail-command "offlineimap")
+ '(mu4e-update-interval 60)
  '(org-attach-store-link-p t)
  '(org-startup-indented t)
  '(org-super-agenda-mode t)
