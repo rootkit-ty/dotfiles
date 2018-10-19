@@ -43,6 +43,7 @@ values."
      git
      finance
      fasd
+     rcirc
      (mu4e :variables
            mu4e-installation-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e"
            mu4e-enable-notifications t
@@ -82,8 +83,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry
-                                          (zen-mode :location (recipe :fetcher github :repo "aki237/zen-mode"))
+   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch
                                           (q4 :location (recipe :fetcher github :repo "rosbo018/q4")))
 
    ;; A list of packages that cannot be updated.
@@ -622,6 +622,7 @@ Today I learnt %?")
                                                         (:discard (:anything t))
                                                         ))
                                                      (org-agenda-overriding-header "Personal")))
+                                         (todo "DONE" ((org-agenda-overriding-header "Ready to archive")))
                                          ))
           ("p" "Super Work Daily agenda"(
                                          (agenda "" ((org-super-agenda-groups
