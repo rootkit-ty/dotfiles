@@ -1,0 +1,678 @@
+* Functions
+** Mu4e
+*** Compose mail using orgmode
+I like to use orgmode for a markup language, this is, so I can turn my notes into emails rather quickly
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun mu4e-compose-org-mail ()
+    (interactive)
+    (mu4e-compose-new)
+    (org-mu4e-compose-org-mode))
+#+END_SRC
+
+*** HTMLIze and Send Email
+I want to be able to turn org markup into HTML before I send, this helper function facilitates this need
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun htmlize-and-send ()
+    "When in an org-mu4e-compose-org-mode message, htmlize and send it."
+    (interactive)
+    (when (member 'org~mu4e-mime-switch-headers-or-body post-command-hook)
+      (org-mime-htmlize)
+      (message-send-and-exit)))
+#+END_SRC
+
+** Org
+*** Screenshots
+**** Attach screenshot
+This is rarely used but helps attach screenshots to an org heading for later reference.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun my-org-screenshot-attach ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat "/tmp/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+                                        ; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                        ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (org-attach-attach filename nil 'mv)))
+#+END_SRC
+**** Insert screenshot
+Being able to insert a section of my screen inline to an org document is vital for constructing documentation
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun my-org-screenshot-insert ()
+    "Take a screenshot into a time stamped unique-named file in the
+same directory as the org-buffer and insert a link to this file."
+    (interactive)
+    (org-display-inline-images)
+    (setq filename
+          (concat
+           (make-temp-name
+            (concat (file-name-nondirectory (buffer-file-name))
+                    "_imgs/"
+                    (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+    (unless (file-exists-p (file-name-directory filename))
+      (make-directory (file-name-directory filename)))
+                                        ; take screenshot
+    (if (eq system-type 'darwin)
+        (call-process "screencapture" nil nil nil "-i" filename))
+    (if (eq system-type 'gnu/linux)
+        (call-process "import" nil nil nil filename))
+                                        ; insert into file if correctly taken
+    (if (file-exists-p filename)
+        (insert (concat "[[file:" filename "]]"))))
+#+END_SRC
+
+*** Auto Download
+I like to archive websites I find interesting, in case they become dead links later in the future.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun do-org-board-dl-hook ()
+    (when
+	  (and (equal (buffer-name)
+                 (concat "CAPTURE-" "inbox.org"))
+		   (org-entry-properties nil "URL")
+		   )
+    (org-board-archive)))
+#+END_SRC
+
+** Term
+Term mode has some slowness when rendering full screen applications, this function is a hack to help fix that issue
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (defun ltr-term-mode-speed-hack-hook ()
+    ;; https://debbugs.gnu.org/cgi/bugreport.cgi?bug=20611
+    (setq bidi-paragraph-direction 'left-to-right))
+#+END_SRC
+
+* Hooks
+** HTMLize and Send
+This allows me to send an email from the body while technically in orgmode.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (add-hook 'org-ctrl-c-ctrl-c-hook 'htmlize-and-send t)
+#+END_SRC
+
+** Capture auto download
+I want to automatically archive websites after I've captured them
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (add-hook 'org-capture-before-finalize-hook 'do-org-board-dl-hook)
+#+END_SRC
+** Term speed hack
+I need to fix the speed by applying a hack to term-mode buffers
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (add-hook 'term-mode-hook 'ltr-term-mode-speed-hack-hook)
+#+END_SRC
+# ** Autosave orgmode documents
+# I want org documents to be automatically saved for easy syncing
+# #+BEGIN_SRC emacs-lisp :tangle yes 
+#   (add-hook 'org-mode-hook 'real-auto-save-mode)
+# #+END_SRC
+** Sauron alert.el
+I need Sauron to utlize alert.el
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
+#+END_SRC
+
+** Flyspell in mu4e
+Being able to check my spelling in an email is useful
+#+BEGIN_SRC emacs-lisp :tangle yes
+(add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
+#+END_SRC
+* Settings
+** Server
+I want a server so I can avoid emacs long startup time
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (server-start)
+#+END_SRC
+** Doom themes
+*** Require
+Not sure if this is required, but it doesn't hurt to have
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (require 'doom-themes)
+#+END_SRC
+
+*** Enable bold and italics
+I want bold and italics setup
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+#+END_SRC
+
+*** Load theme
+I want the doom-one theme specifically
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
+  ;; may have their own settings.
+  (load-theme 'doom-one t)
+#+END_SRC
+
+*** Visual Bell
+I want visual flashing when something needs attention
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+#+END_SRC
+
+*** Neotree
+While I don't use it much, might as well have a pretty neotree setup
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+#+END_SRC
+
+*** Org improvements
+Apparently this improves and corrects orgmode's native fontification, so why not enable it
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+#+END_SRC
+
+** Orgmode
+*** File configs
+**** Org directory
+The location where my orgmode files are standard across all environments I work on
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-directory "~/Documents/Notes/")
+#+END_SRC
+**** Archive location
+I want to archive in roughly the same location that I keep notes but under an =Archive= directory
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-archive-location "~/Documents/Notes/Archive/%s_archive::")
+#+END_SRC
+**** Default notes file
+This is my inbox file, where I have almost everything that I need to deal with.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-default-notes-file (concat org-directory "/inbox.org"))
+#+END_SRC
+**** Agenda files
+The files I want my agenda and refile targets to be constructed from.
+It's a list generated by recursively searching the org-directory that match the following regex
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-agenda-files (directory-files-recursively org-directory "^[A-Za-z\/~_-]*\.org$"))
+#+END_SRC
+*** Re-File
+**** Targets
+Generally I want to target my agenda files for refiling.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-refile-targets
+        '((nil :maxlevel . 9)
+          (org-agenda-files :maxlevel . 5)))
+#+END_SRC
+**** Create parent nodes
+I want org to confirm with me before creating parent nodes when refiling
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-refile-allow-creating-parent-nodes (quote confirm))
+#+END_SRC
+**** Outline path
+I want the file name to be in the outline path when refiling, makes searching easier
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-refile-use-outline-path (quote file))
+#+END_SRC
+*** Tasks
+**** Keywords
+I want my keywords to be verbose enough to allow me to use them as a standard filter.
+I have the following =TODO= keywords:
+  - TODO (Bound to ~t~)
+  - WAIT (Bound to ~w~, takes a note of why it's waiting)
+  - STARTED (Bound to ~s~, takes a note of it's progress thus far)
+  - APPOINTMENT (Bound to ~a~, not used a lot now)
+  - RECURRING (Bound to ~r~, use to help filter recurring tasks)
+  - NEXT (Bound to ~n~, used to mark what needs to be done this week)
+I have the following =DONE= keywords:
+  - DONE (Bound to ~d~, takes a note)
+  - CANCELED (Bound to ~c~, takes a note on why it was canceled)
+  - DEFFERED (Bound to ~D~, takes a note on why it was deffered)
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-todo-keywords
+        '((sequence "TODO(t)" "WAIT(w@/!)" "STARTED(s@/!)" "APPOINTMENT(a)" "RECURRING(r)" "NEXT(n)" "|" "DONE(d@/!)" "CANCELED(c@)" "DEFFERED(D@)")))
+#+END_SRC
+***** Keyword faces
+I want my keywords to look pretty
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-todo-keyword-faces
+        (quote (("TODO" :foreground "orange" :weight bold)
+                ("NEXT" :foreground "red" :weight bold)
+                ("WAIT" :foreground "deep sky blue" :weight bold)
+                ("DONE" :foreground "forest green" :weight bold)
+                ("STARTED" :foreground "Blue" :weight bold)
+                ("APPOINTMENT" :foreground "magenta" :weight bold)
+                ("RECURRING" :foreground "magenta" :weight bold)
+                ("DEFFERED" :foreground "forest green" :weight bold)
+                ("CANCELLED" :foreground "forest green" :weight bold))))
+#+END_SRC
+**** Enforce dependencies
+I want subtasks to block parents
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-enforce-todo-dependencies t)
+#+END_SRC
+**** Default repeat todo state
+I want tasks that repeat to be given the "RECURRING" keyword
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-todo-repeat-to-state "RECURRING")
+#+END_SRC
+*** Agenda
+**** Dim blocked tasks
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-agenda-dim-blocked-tasks t)
+#+END_SRC
+**** Custom commands
+I use super agenda to make agendas look pretty and more tame.
+These agenda views are generally a daily overview of what I need to do
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-agenda-custom-commands
+        '(
+          ("w" "Super Work Daily agenda"(
+                                         (agenda "" ((org-super-agenda-groups
+                                                      '((:log t)  ; Automatically named "Log"
+                                                        (:name "Schedule"
+                                                               :time-grid t)
+                                                        (:name "Overdue"
+                                                               :deadline past)
+                                                        (:name "Due today"
+                                                               :deadline today)
+                                                        (:name "Due soon"
+                                                               :deadline future)
+                                                        (:name "Today"
+                                                               :scheduled today)
+                                                        (:habit t)
+                                                        (:name "Scheduled earlier"
+                                                               :scheduled past)))
+                                                     (org-agenda-span 1)
+                                                     (org-deadline-warning-days 14)))
+                                         (tags "+INBOX-AGENDA_IGNORE=\"true\""
+                                               ((org-agenda-overriding-header "Inbox")))
+                                         (tags-todo "+@work-STYLE=\"habit\"-SCHEDULED<\"<tomorrow>\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "Work")))
+                                         (tags-todo "+{@computer\\|@laptop\\|@phone\\|@melbourne\\|@online}-{@work\\|work}-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "Personal")))
+                                         (todo "DONE" ((org-agenda-overriding-header "Ready to archive")))
+                                         ))
+          ("p" "Super Work Daily agenda"(
+                                         (agenda "" ((org-super-agenda-groups
+                                                      '((:log t)  ; Automatically named "Log"
+                                                        (:name "Schedule"
+                                                               :time-grid t)
+                                                        (:name "Overdue"
+                                                               :deadline past)
+                                                        (:name "Due today"
+                                                               :deadline today)
+                                                        (:name "Due soon"
+                                                               :deadline future)
+                                                        (:name "Today"
+                                                               :scheduled today)
+                                                        (:habit t)
+                                                        (:name "Scheduled earlier"
+                                                               :scheduled past)))
+                                                     (org-agenda-span 1)
+                                                     (org-deadline-warning-days 14)))
+                                         (tags "+INBOX-AGENDA_IGNORE=\"true\""
+                                               ((org-agenda-overriding-header "Inbox")))
+                                         (tags-todo "+{@computer\\|@laptop\\|@phone\\|@melbourne\\|@online\\|@home}-{@work\\|work}-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "Personal")))
+                                         (todo "DONE" ((org-agenda-overriding-header "Ready for archive")))
+                                         ))
+          ("p" "Super Work Daily agenda"(
+                                         (agenda "" ((org-super-agenda-groups
+                                                      '((:log t)  ; Automatically named "Log"
+                                                        (:name "Schedule"
+                                                               :time-grid t)
+                                                        (:name "Overdue"
+                                                               :deadline past)
+                                                        (:name "Due today"
+                                                               :deadline today)
+                                                        (:name "Today"
+                                                               :scheduled today)
+                                                        (:habit t)
+                                                        (:name "Scheduled earlier"
+                                                               :scheduled past)))
+                                                     (org-agenda-span 1)))
+                                         (tags-todo "+{@computer\\|@laptop\\|@phone\\|@melbourne\\|@online\\|@home}-{@work\\|work}-STYLE=\"habit\""
+                                                    ((org-super-agenda-groups
+                                                      '(
+                                                        (:name "Important"
+                                                               :priority "A")
+                                                        (:name "Inbox"
+                                                               :tag "INBOX")
+                                                        (:name "Waiting"
+                                                               :todo "WAIT")
+                                                        (:name "Next"
+                                                               :time-grid t
+                                                               :todo "NEXT")
+                                                        (:name "Projects"
+                                                               :children t)
+                                                        (:name "Quick Picks"
+                                                               :effort< "0:30")
+                                                        (:discard (:anything t))
+                                                        ))
+                                                     (org-agenda-overriding-header "")))
+                                         ))
+        ))
+#+END_SRC
+**** Super view
+I like using the super view package to make agendas look really nice
+#+BEGIN_SRC emacs-lisp :tangle yes
+ (setq org-super-agenda-mode t)
+#+END_SRC
+*** Babel
+**** Disable babel confirmation on evaluation
+This gets really annoying and gets in the way of a lot of neat stuff
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-confirm-babel-evaluate nil)
+#+END_SRC
+**** Load languages
+I have only a few languages I bother to evaluate in orgmode through babel
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell         . t)
+     (python        . t)
+     ))
+#+END_SRC
+*** Capture
+**** Protocol
+***** Require protocol
+So org knows that protocol is to be used
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (require 'org-protocol)
+#+END_SRC
+***** Mac protocol app
+This is specific to the Mac environment, I feel it's un-needed though
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (add-to-list 'load-path "/Applications/org-protocol.app/")
+#+END_SRC
+
+**** Templates
+I have a lot of capture templates, and I use them to varying degrees
+  - Meeting minutes, this isn't used nearly as much as it used to thanks to me just adding notes to a task.
+  - Phone call, this is used to track calls, and keep track of the information given to me on them. They can be work related or not, thus I put them in the inbox to refile them later.
+  - Interruption, This is used to track my time not working at work, making a coffee, or whatever
+  - Tasks, this is a generic capture for adding tasks, it's really not fancy
+  - Ideas, this is a quick way of getting ideas out of my head and into orgmode
+  - Snippets, this is where I'll take quick snippets, useful code, etc. To be refiled and organized later.
+  - Quotes, basically snippets but for quotes. Good quotes are good to have.
+  - Bookmark, I'm slowly moving to having orgmode as my bookmark solution, thus adding bookmarks should be easy and friction-less to create
+  - Journal entry, a rough personal note about something
+  - TIL, an overview of what I learnt that day, helps me track what I learn and remember it.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+    (setq org-capture-templates
+          (quote
+           (("M" "Meeting minutes" entry
+             (file+olp+datetree "~/Documents/Notes/work.org" "Minutes")
+             "* TODO %? - %U\n** Attendees\n** Notes" :clock-in t :clock-resume t)
+            ("p" "Phone call" entry
+             (file+headline "~/Documents/Notes/inbox.org" "Phone")
+             "* PHONE %?  :PHONE:\n%U" :clock-in t :clock-resume t)
+            ("i" "Interruption" entry
+             (file+olp+datetree "~/Documents/Notes/Personal/interruptions.org" "Interruptions")
+             "* %?  \n%U" :clock-in t :clock-resume t)
+            ("t" "Task to be refiled later" entry
+             (file+headline "~/Documents/Notes/inbox.org" "Tasks")
+             "* TODO %?
+   %a" :clock-in t :clock-resume t)
+            ("I" "Ideas" entry
+             (file "~/Documents/Notes/Personal/ideas.org")
+             "* %?
+   %i")
+            ("s" "Snippets" entry
+             (file+headline "~/Documents/Notes/inbox.org" "Snippets")
+             "* %^{Title}
+  Source: %u, %c
+   ,#+BEGIN_QUOTE
+  %i
+  ,#+END_QUOTE
+  [[%:link][%:description]]
+  %?")
+       ("q" "Quotes" entry
+        (file+headline "~/Documents/Notes/inbox.org" "Quotes")
+        "* %^{Title}
+  :PROPERTIES:
+  :URL: %:link
+  :END:
+
+  Source: %u, [[%:link][%:description]]
+  ,#+BEGIN_QUOTE
+  %i
+  ,#+END_QUOTE
+  %?")
+       ("b" "Bookmarks" entry
+        (file+headline "~/Documents/Notes/inbox.org" "Bookmarks")
+        "* %?[[%:link][%:description]]
+  :PROPERTIES:
+  :URL: %:link
+  :END:
+  Captured On: %U" :immediate-finish t)
+       ("j" "Journal Entries" entry
+        (file+olp+datetree "~/Documents/Notes/personal.org" "Journal")
+        "* %U - %^{Title}
+  %i
+  %?")
+       ("T" "TIL" entry
+        (file+olp+datetree "~/Documents/Notes/personal.org" "TIL")
+        "* %U - Today I learnt: %^{Title}
+  %i
+  Today I learnt %?")
+       )))
+#+END_SRC
+
+*** Habit
+**** Require org-habit
+Make sure it's enabled
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (require 'org-habit)
+#+END_SRC
+**** Visual fixes
+I want my habit graph to be less wonky then the default
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-habit-graph-column 60)
+  (setq org-habit-preceding-days 14)
+#+END_SRC
+*** Misc
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq org-export-backends (quote (ascii beamer html icalendar latex md odt)))
+  (setq org-goto-interface (quote outline-path-completion))
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-id-link-to-org-use-id (quote create-if-interactive-and-no-custom-id))
+  (setq org-clock-sound t)
+  (setq org-attach-store-link-p t)
+  (setq org-startup-indented t)
+#+END_SRC
+** Mu4e
+*** Mail command
+I use offlineimap to sync my mail into a maildir, so I want that run when I update mu4e
+#+BEGIN_SRC emacs-lisp :tangle yes
+ (setq mu4e-get-mail-command "offlineimap")
+#+END_SRC
+*** Headers visible line
+I want to focus on the content of an email rather then other emails so I want to keep the headers view small
+#+BEGIN_SRC emacs-lisp :tangle yes
+ (setq mu4e-headers-visible-lines 10)
+#+END_SRC
+*** Update interval
+I want email fast, but the update command might take a bit, to compromise I fetch every 5 minutes
+#+BEGIN_SRC emacs-lisp :tangle yes
+ (setq mu4e-update-interval 300)
+#+END_SRC
+*** Show images
+Images are nice, and I like to see them
+#+BEGIN_SRC emacs-lisp :tangle yes
+ (setq mu4e-view-show-images t)
+#+END_SRC
+*** Fancy characters for threading
+I want my threads to look pretty
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq mu4e-use-fancy-chars t)
+#+END_SRC
+** Not much
+I want not much to order mail with the newest first
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq notmuch-search-oldest-first nil)
+#+END_SRC
+** BBDB
+*** Create contacts from email
+I want to easily create contacts from email 
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq bbdb-mua-auto-update-p (quote create))
+#+END_SRC
+*** Disable popup
+This just wastes screen real-estate. I don't always need to see this
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq bbdb-mua-pop-up nil)
+#+END_SRC
+** Sauron
+I want sauron to start hidden
+#+BEGIN_SRC emacs-lisp :tangle yes 
+    (sauron-start-hidden)
+    (setq sauron-separate-frame nil)
+#+END_SRC
+** Zoom
+*** Enable
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq zoom-mode t)
+#+END_SRC
+*** Ratio
+I like to use the golden ratio for windows
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq zoom-size (quote (0.618 . 0.0618)))
+#+END_SRC
+*** Ignore
+I want it to not touch mu4e
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (setq zoom-ignored-buffer-name-regexps (quote ("^*mu4e.*")))
+  (setq zoom-ignored-buffer-names (quote ("*mu4e-view*" "*mu4e-headers*")))
+  (setq zoom-ignored-major-modes (quote (mu4e:view mu4e-headers)))
+#+END_SRC
+** Evil
+*** Evil want keybinding
+Evil collection suggests setting this to nil
+#+BEGIN_SRC emacs-lisp :tangle yes
+(setq evil-want-keybinding nil)
+#+END_SRC
+*** Evil collection init
+I want to utilize the evil collection
+#+BEGIN_SRC emacs-lisp :tangle yes
+(evil-collection-init)
+#+END_SRC
+** Persistent Undo
+I want undo to be persistent between files, and that means saving an undo file somewhere
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(concat spacemacs-cache-directory "undo"))))
+  (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    (make-directory (concat spacemacs-cache-directory "undo")))
+#+END_SRC
+** Relative lines
+*** Global relative lines
+#+BEGIN_SRC emacs-lisp :tangle yes 
+ (setq global-nlinum-relative-mode t)
+#+END_SRC
+*** Count only visual lines
+This will avoid issues with folded content
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq display-line-numbers 'visual)
+#+END_SRC
+** PinEntry
+Emacs native GPG Pin Entry, heck yeah.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (pinentry-start)
+  (setq epa-pinentry-mode (quote loopback))
+#+END_SRC
+** Fixes
+*** Mac Locate helm
+Mac's locate doesn't support the same flags as linux's as mac opts for the BSD coreutils whereas linux uses GNU.
+Thus we need to fix this up so we don't get any issues when using it
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (if (eq system-type 'darwin) (setq helm-locate-fuzzy-match nil))
+#+END_SRC
+** Other settings files
+*** Load custom file
+I want a separate file for custom set variables and spacemacs allows that
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (setq custom-file "~/.spacemacs.d/custom.el")
+  (load-file custom-file)
+#+END_SRC
+*** Load private file
+Not every setting I want synced with git, these are generally sensitive or computer specific settings
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (load-file "~/.spacemacs.d/private.el")
+#+END_SRC
+
+* Keybinds
+** Kill window and buffer
+Sometimes I wanna kill a buffer and a window, so instead of =SPC b d SPC w d= it's not just =SPC b q=
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  (spacemacs/set-leader-keys
+    "bq" 'kill-buffer-and-window)
+#+END_SRC
+
+** Sauron event activate fix
+For some reason sauron-mode won't activate an event when you press enter, this is a bit strange so I added a bind for it
+#+BEGIN_SRC emacs-lisp :tangle yes 
+    (eval-after-load 'sauron
+      (lambda ()
+        (define-key sauron-mode-map [return] 'sauron-activate-event)
+        )
+    )
+#+END_SRC
+
+** Mu4e notmuch search
+Not much has a much better search then mu4e, thus I want to use it.
+So I loop through a list of mu4e mode maps and then bind =s= to do a notmuch search in each mode
+This doesn't function anymore though, no idea why. It was working earlier.
+#+BEGIN_SRC emacs-lisp :tangle yes 
+  ;; Bind "s" to do notmuch search in all mu4e modes
+  ;; (define-key mu4e-main-mode-map (kbd "s") 'notmuch-search)
+  (define-key mu4e-headers-mode-map (kbd "s") 'notmuch-search)
+  ;; (define-key mu4e-view-mode-map (kbd "s") 'notmuch-search)
+#+END_SRC
