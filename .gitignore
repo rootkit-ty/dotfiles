@@ -7,3 +7,4 @@ Newsboat/history.cmdline
 Newsboat/history.search
 Newsboat/cache.db.lock
 Spacemacs/private.el
+Spacemacs/config.el
