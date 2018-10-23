@@ -1,6 +1,11 @@
 * Introduction
 I've recently been moving more and more towards using spacemacs for everything. This means my spacemacs config has grown significantly.
 To avoid losing grasp on the config, I've decided to make it literate. This makes it easier to manage, organise, understand and update.
+
+* Screenshots
+A picture is worth a thousand words
+[[file:config.org_imgs/20181023_133433_yXFxlG.png]]
+[[file:config.org_imgs/super-agenda-view.png]]
 * Server
 I want a server so I can avoid emacs long startup time
 #+BEGIN_SRC emacs-lisp :tangle yes 
