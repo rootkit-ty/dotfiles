@@ -107,16 +107,16 @@ The basic workflow is:
 *** Keywords
 I want my keywords to be verbose enough to allow me to use them as a standard filter.
 I have the following =TODO= keywords:
-  - TODO (Bound to ~t~)
-  - WAIT (Bound to ~w~, takes a note of why it's waiting)
-  - STARTED (Bound to ~s~, takes a note of it's progress thus far)
-  - APPOINTMENT (Bound to ~a~, not used a lot now)
-  - RECURRING (Bound to ~r~, use to help filter recurring tasks)
-  - NEXT (Bound to ~n~, used to mark what needs to be done this week)
+  - *TODO* (Bound to ~t~)
+  - *WAIT* (Bound to ~w~, takes a note of why it's waiting)
+  - *STARTED* (Bound to ~s~, takes a note of it's progress thus far)
+  - *APPOINTMENT* (Bound to ~a~, not used a lot now)
+  - *RECURRING* (Bound to ~r~, use to help filter recurring tasks)
+  - *NEXT* (Bound to ~n~, used to mark what needs to be done this week)
 I have the following =DONE= keywords:
-  - DONE (Bound to ~d~, takes a note)
-  - CANCELED (Bound to ~c~, takes a note on why it was canceled)
-  - DEFFERED (Bound to ~D~, takes a note on why it was deffered)
+  - *DONE* (Bound to ~d~, takes a note)
+  - *CANCELED* (Bound to ~c~, takes a note on why it was canceled)
+  - *DEFFERED* (Bound to ~D~, takes a note on why it was deffered)
 #+BEGIN_SRC emacs-lisp :tangle yes 
   (setq org-todo-keywords
         '((sequence "TODO(t)" "WAIT(w@/!)" "STARTED(s@/!)" "APPOINTMENT(a)" "RECURRING(r)" "NEXT(n)" "|" "DONE(d@/!)" "CANCELED(c@)" "DEFFERED(D@)")))
@@ -346,16 +346,16 @@ This is specific to the Mac environment, I feel it's un-needed though
 
 *** Templates
 I have a lot of capture templates, and I use them to varying degrees
-  - Meeting minutes, this isn't used nearly as much as it used to thanks to me just adding notes to a task.
-  - Phone call, this is used to track calls, and keep track of the information given to me on them. They can be work related or not, thus I put them in the inbox to refile them later.
-  - Interruption, This is used to track my time not working at work, making a coffee, or whatever
-  - Tasks, this is a generic capture for adding tasks, it's really not fancy
-  - Ideas, this is a quick way of getting ideas out of my head and into orgmode
-  - Snippets, this is where I'll take quick snippets, useful code, etc. To be refiled and organized later.
-  - Quotes, basically snippets but for quotes. Good quotes are good to have.
-  - Bookmark, I'm slowly moving to having orgmode as my bookmark solution, thus adding bookmarks should be easy and friction-less to create
-  - Journal entry, a rough personal note about something
-  - TIL, an overview of what I learnt that day, helps me track what I learn and remember it.
+  - *Meeting minutes*, this isn't used nearly as much as it used to thanks to me just adding notes to a task.
+  - *Phone call*, this is used to track calls, and keep track of the information given to me on them. They can be work related or not, thus I put them in the inbox to refile them later.
+  - *Interruption*, This is used to track my time not working at work, making a coffee, or whatever
+  - *Tasks*, this is a generic capture for adding tasks, it's really not fancy
+  - *Ideas*, this is a quick way of getting ideas out of my head and into orgmode
+  - *Snippets*, this is where I'll take quick snippets, useful code, etc. To be refiled and organized later.
+  - *Quotes*, basically snippets but for quotes. Good quotes are good to have.
+  - *Bookmark*, I'm slowly moving to having orgmode as my bookmark solution, thus adding bookmarks should be easy and friction-less to create
+  - *Journal entry*, a rough personal note about something
+  - *TIL*, an overview of what I learnt that day, helps me track what I learn and remember it.
 #+BEGIN_SRC emacs-lisp :tangle yes 
     (setq org-capture-templates
           (quote
@@ -497,11 +497,9 @@ same directory as the org-buffer and insert a link to this file."
 ** Autosave orgmode documents
 I want org documents to be automatically saved for easy syncing
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  ;; Currently disabled
-  ;; (add-hook 'org-mode-hook 'real-auto-save-mode)
+  (require 'real-auto-save)
+  (add-hook 'org-mode-hook 'real-auto-save-mode)
 #+END_SRC
-
-#+RESULTS:
 
 ** Misc
 #+BEGIN_SRC emacs-lisp :tangle yes 
@@ -699,6 +697,6 @@ This doesn't function anymore though, no idea why. It was working earlier.
 #+BEGIN_SRC emacs-lisp :tangle yes 
   ;; Bind "s" to do notmuch search in all mu4e modes
   ;; (define-key mu4e-main-mode-map (kbd "s") 'notmuch-search)
-  (define-key mu4e-headers-mode-map (kbd "s") 'notmuch-search)
+  ;; (define-key mu4e-headers-mode-map (kbd "s") 'notmuch-search)
   ;; (define-key mu4e-view-mode-map (kbd "s") 'notmuch-search)
 #+END_SRC
