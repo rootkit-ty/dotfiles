@@ -119,31 +119,8 @@ bindkey -v
 
 
 # Setup the prompt elements on the left and right
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv custom_tw_count_week custom_tw_count_today custom_tw_count_overdue)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(custom_tw_count vcs status root_indicator background_jobs custom_tiw custom_tiw_day time)
-
-
-# Custom prompt element to count all tasks in the current context
-POWERLEVEL9K_CUSTOM_TW_COUNT="tw +READY count"
-
-# Custom prompt element to count all tasks in the current context due this week
-POWERLEVEL9K_CUSTOM_TW_COUNT_WEEK="tw -hold \(+DUE or +next\) count"
-
-# Custom prompt element to count all tasks in the current context due today
-POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY="tw +READY due:24h count"
-POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY_FOREGROUND="black"
-POWERLEVEL9K_CUSTOM_TW_COUNT_TODAY_BACKGROUND="yellow"
-
-# Custom prompt element to count all tasks in the current context that are overdue
-POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE="tw +OVERDUE +READY count"
-POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE_FOREGROUND="black"
-POWERLEVEL9K_CUSTOM_TW_COUNT_OVERDUE_BACKGROUND="red"
-
-# Custom prompt element to display current task time tracking
-POWERLEVEL9K_CUSTOM_TIW="tiw | grep 'Total' | awk '{print \$2}'"
-
-# Custom prompt element to display current day timetracking
-POWERLEVEL9K_CUSTOM_TIW_DAY="tiw summary :day | tail -n 2 | head -n 1 | awk '{print \$1}'"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs status root_indicator background_jobs time)
 
 # Overwrite default zsh context with a cat emoji to save space
 POWERLEVEL9K_CONTEXT_TEMPLATE="🐱"
