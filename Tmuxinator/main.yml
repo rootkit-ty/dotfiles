@@ -1,0 +1,10 @@
+# /Users/***REMOVED***/.config/tmuxinator/main.yml
+
+name: main
+root: ~/
+
+windows:
+  - term: 
+  - ranger:  ranger && exit
+  - music:  ncmpcpp && exit
+  - org:  emacs -nw && exit
