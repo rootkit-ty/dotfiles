@@ -83,8 +83,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch
-                                          (q4 :location (recipe :fetcher github :repo "rosbo018/q4")))
+   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch org-plus-contrib ox-reveal)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
