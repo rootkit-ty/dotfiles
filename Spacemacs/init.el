@@ -86,6 +86,8 @@ values."
    dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch org-plus-contrib ox-reveal)
 
    ;; A list of packages that cannot be updated.
+
+   ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
