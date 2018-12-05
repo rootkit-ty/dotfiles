@@ -1,0 +1,7 @@
+name: dotfiles
+root: ~/Documents/Projects/Personal/dotfiles/
+startup_window: term
+windows:
+  - editor:  vim ./README.md && exit
+  - ranger:  ranger && exit
+  - term: 
