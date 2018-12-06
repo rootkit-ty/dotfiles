@@ -416,7 +416,7 @@ I have a lot of capture templates, and I use them to varying degrees
           (quote
            (("M" "Meeting minutes" entry
              (file+olp+datetree "~/Documents/Notes/journal.org" "Minutes")
-             "* NEXT %? - %U\n** Attendees\n - ***REMOVED***\n** Notes\n** Action items" :clock-in t :clock-resume t)
+             "* NEXT %? - %U\n** Notes\n** Action items" :clock-in t :clock-resume t)
             ("p" "Phone call" entry
              (file+headline "~/Documents/Notes/inbox.org" "Phone")
              "* PHONE %?  :PHONE:\n%U" :clock-in t :clock-resume t)
