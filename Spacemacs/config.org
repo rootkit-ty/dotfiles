@@ -217,9 +217,10 @@ These agenda views are generally a daily overview of what I need to do
                                                      (org-deadline-warning-days 14)))
                                          (tags "+INBOX-AGENDA_IGNORE=\"true\""
                                                ((org-agenda-overriding-header "Inbox")))
-                                        (tags-todo "+{@Work\\|WORK}-STYLE=\"habit\"-SCHEDULED<\"<tomorrow>\""
+                                        (tags-todo "+{@Work\\|WORK}-STYLE=\"habit\""
                                                     ((org-super-agenda-groups
                                                       '(
+                                                        (:discard (:scheduled t))
                                                         (:name "Important"
                                                                :priority "A")
                                                         (:name "Started"
@@ -236,9 +237,10 @@ These agenda views are generally a daily overview of what I need to do
                                                         (:discard (:anything t))
                                                         ))
                                                      (org-agenda-overriding-header "Work")))
-                                         (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\""
+                                         (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\"-SCHEDULED"
                                                     ((org-super-agenda-groups
                                                       '(
+                                                        (:discard (:scheduled t))
                                                         (:name "Important"
                                                                :priority "A")
                                                         (:name "Started"
