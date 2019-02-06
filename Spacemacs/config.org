@@ -103,8 +103,9 @@ Generally I want to target my agenda files for refiling.
 #+BEGIN_SRC emacs-lisp :tangle yes 
   (setq org-refile-targets
         '((nil :maxlevel . 9)
-          (org-agenda-files :maxlevel . 5)))
+          (org-agenda-files :maxlevel . 3)))
 #+END_SRC
+
 *** Create parent nodes
 I want org to confirm with me before creating parent nodes when refiling
 #+BEGIN_SRC emacs-lisp :tangle yes 
