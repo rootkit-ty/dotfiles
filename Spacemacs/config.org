@@ -493,7 +493,8 @@ I want to zip/tar/package the entire HTML+Assets so syncing is faster, and conve
                  (concat "CAPTURE-" "inbox.org"))
 		   (org-entry-properties nil "URL")
 		   )
-    (org-board-archive)))
+    (org-web-tools-archive-attach (cdr (assoc "URL" (org-entry-properties nil "URL"))))
+))
   (add-hook 'org-capture-before-finalize-hook 'do-org-board-dl-hook)
 #+END_SRC
 ** Habit
