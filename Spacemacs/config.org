@@ -237,7 +237,7 @@ These agenda views are generally a daily overview of what I need to do
                                                         (:discard (:anything t))
                                                         ))
                                                      (org-agenda-overriding-header "Work")))
-                                         (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\"-SCHEDULED"
+                                         (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\""
                                                     ((org-super-agenda-groups
                                                       '(
                                                         (:discard (:scheduled t))
