@@ -572,13 +572,10 @@ Dates need quotes for my version of hugo
 #+BEGIN_SRC emacs-lisp :tangle yes
 (setq org-hugo-date-format "\"%Y-%m-%dT%T%z\"")
 #+END_SRC
-*** Load ox-confluence
-#+BEGIN_SRC emacs-lisp :tangle yes
-(load-library "ox-confluence")
-#+END_SRC
+
 ** Misc
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (setq org-export-backends (quote (ascii beamer html icalendar latex md odt)))
+  (setq org-export-backends (quote (ascii beamer html icalendar latex md odt confluence reveal)))
   (setq org-goto-interface (quote outline-path-completion))
   (setq org-outline-path-complete-in-steps nil)
   (setq org-id-link-to-org-use-id (quote create-if-interactive-and-no-custom-id))
