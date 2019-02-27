@@ -495,16 +495,15 @@ I have a lot of capture templates, and I use them to varying degrees
         (file+olp+datetree "~/Documents/Notes/journal.org" "TIL")
         "* %U - Today I learnt: %^{Title}
   %i
-  Today I learnt %?")
+  Today I learned that %^{Title} %?")
+       ("B" "Blog Idea" entry
+        (file+headline "~/Documents/Notes/Personal/blog.org" "Ideas")
+        "* %U - %?")
        )))
 #+END_SRC
 
 *** Capture auto download
 I want to automatically archive websites after I've captured them
-This is incase the link dies or something similar.
-At this current time it's not the greatest solution and I plan on creating my own solution.
-
-I want to zip/tar/package the entire HTML+Assets so syncing is faster, and convert the HTML to org.
 #+BEGIN_SRC emacs-lisp :tangle yes 
   (defun do-org-board-dl-hook ()
     (when
