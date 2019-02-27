@@ -196,136 +196,154 @@ or removed altogether.
 I use super agenda to make agendas look pretty and more tame.
 These agenda views are generally a daily overview of what I need to do
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (setq org-agenda-custom-commands
-        '(
-          ("w" "Super Work Daily agenda"(
-                                         (agenda "" ((org-super-agenda-groups
-                                                      '((:log t)  ; Automatically named "Log"
-                                                        (:name "Schedule"
-                                                               :time-grid t)
-                                                        (:name "Overdue"
-                                                               :deadline past)
-                                                        (:name "Due today"
-                                                               :deadline today)
-                                                        (:name "Due soon"
-                                                               :deadline future)
-                                                        (:name "Today"
-                                                               :scheduled today)
-                                                        (:habit t)
-                                                        (:name "Scheduled earlier"
-                                                               :scheduled past)))
-                                                     (org-agenda-span 1)
-                                                     (org-deadline-warning-days 14)))
-                                         (tags "+INBOX-AGENDA_IGNORE=\"true\""
-                                               ((org-agenda-overriding-header "Inbox")))
-                                        (tags-todo "+{@Work\\|WORK}-STYLE=\"habit\""
-                                                    ((org-super-agenda-groups
-                                                      '(
-                                                        (:discard (:scheduled t))
-                                                        (:name "Important"
-                                                               :priority "A")
-                                                        (:name "Started"
-                                                               :todo "STARTED")
-                                                        (:name "Waiting"
-                                                               :todo "WAIT")
-                                                        (:name "Next"
-                                                               :time-grid t
-                                                               :todo "NEXT")
-                                                        (:name "Projects"
-                                                               :children t)
-                                                        (:name "Quick Picks"
-                                                               :effort< "0:30")
-                                                        (:discard (:anything t))
-                                                        ))
-                                                     (org-agenda-overriding-header "Work")))
-                                         (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\""
-                                                    ((org-super-agenda-groups
-                                                      '(
-                                                        (:discard (:scheduled t))
-                                                        (:name "Important"
-                                                               :priority "A")
-                                                        (:name "Started"
-                                                               :todo "STARTED")
-                                                        (:name "Waiting"
-                                                               :todo "WAIT")
-                                                        (:name "Next"
-                                                               :time-grid t
-                                                               :todo "NEXT")
-                                                        (:name "Projects"
-                                                               :children t)
-                                                        (:name "Quick Picks"
-                                                               :effort< "0:30")
-                                                        (:discard (:anything t))
-                                                        ))
-                                                     (org-agenda-overriding-header "Personal")))
-                                         (todo "DONE|CANCELED|DEFFERED" (
-                                                    (org-super-agenda-groups '(
-                                                        (:discard (:tag "BLOG"))
-                                                        (:discard (:tag "BOOKMARK"))
-                                                        (:discard (:tag "goal"))
-                                                        (:name "Done"
-                                                            :todo "DONE")
-                                                        (:name "Canceled"
-                                                            :todo "CANCELED")
-                                                        (:name "Deffered"
-                                                            :todo "DEFFERED")
-))
-                                                    (org-agenda-overriding-header "Ready to archive")))
-                                         ))
-          ("p" "Super Work Daily agenda"(
-                                         (agenda "" ((org-super-agenda-groups
-                                                      '((:log t)  ; Automatically named "Log"
-                                                        (:name "Schedule"
-                                                               :time-grid t)
-                                                        (:name "Overdue"
-                                                               :deadline past)
-                                                        (:name "Due today"
-                                                               :deadline today)
-                                                        (:name "Due soon"
-                                                               :deadline future)
-                                                        (:name "Today"
-                                                               :scheduled today)
-                                                        (:habit t)
-                                                        (:name "Scheduled earlier"
-                                                               :scheduled past)))
-                                                     (org-agenda-span 1)
-                                                     (org-deadline-warning-days 14)))
-                                         (tags "+INBOX-AGENDA_IGNORE=\"true\""
-                                               ((org-agenda-overriding-header "Inbox")))
-                                         (tags-todo concat("+{{@Computer\\|@Phone\\|@Melbourne\\|@Online\\|@Home}-{@Work\\|WORK}-STYLE=\"habit\"\\|assignee=\"" user-login-name "\"}")
-                                                    ((org-super-agenda-groups
-                                                      '(
-                                                        (:name "Important"
-                                                               :priority "A")
-                                                        (:name "Started"
-                                                               :todo "STARTED")
-                                                        (:name "Waiting"
-                                                               :todo "WAIT")
-                                                        (:name "Next"
-                                                               :time-grid t
-                                                               :todo "NEXT")
-                                                        (:name "Projects"
-                                                               :children t)
-                                                        (:name "Quick Picks"
-                                                               :effort< "0:30")
-                                                        (:discard (:anything t))
-                                                        ))
-                                                     (org-agenda-overriding-header "Personal")))
-                                         (todo "DONE|CANCELED|DEFFERED" (
-                                                    (org-super-agenda-groups '(
-                                                        (:discard (:tag "BLOG"))
-                                                        (:discard (:tag "BOOKMARK"))
-                                                        (:discard (:tag "goal"))
-                                                        (:name "Done"
-                                                            :todo "DONE")
-                                                        (:name "Canceled"
-                                                            :todo "CANCELED")
-                                                        (:name "Deffered"
-                                                            :todo "DEFFERED")
-                                                    ))
-                                                    (org-agenda-overriding-header "Ready to archive")))
-                                         ))
-        ))
+    (setq org-agenda-custom-commands
+          '(
+            ("w" "Super Work Daily agenda"(
+                                           (agenda "" ((org-super-agenda-groups
+                                                        '((:log t)  ; Automatically named "Log"
+                                                          (:name "Schedule"
+                                                                 :time-grid t)
+                                                          (:name "Overdue"
+                                                                 :deadline past)
+                                                          (:name "Due today"
+                                                                 :deadline today)
+                                                          (:name "Due soon"
+                                                                 :deadline future)
+                                                          (:name "Today"
+                                                                 :scheduled today)
+                                                          (:habit t)
+                                                          (:name "Scheduled earlier"
+                                                                 :scheduled past)))
+                                                       (org-agenda-span 1)
+                                                       (org-deadline-warning-days 14)))
+                                           (tags "+INBOX-AGENDA_IGNORE=\"true\""
+                                                 ((org-agenda-overriding-header "Inbox")))
+                                          (tags-todo "+{@Work\\|WORK}-STYLE=\"habit\""
+                                                      ((org-super-agenda-groups
+                                                        '(
+                                                          (:discard (:scheduled t))
+                                                          (:name "Important"
+                                                                 :priority "A")
+                                                          (:name "Started"
+                                                                 :todo "STARTED")
+                                                          (:name "Waiting"
+                                                                 :todo "WAIT")
+                                                          (:name "Next"
+                                                                 :time-grid t
+                                                                 :todo "NEXT")
+                                                          (:name "Projects"
+                                                                 :children t)
+                                                          (:name "Quick Picks"
+                                                                 :effort< "0:30")
+                                                          (:discard (:anything t))
+                                                          ))
+                                                       (org-agenda-overriding-header "Work")))
+                                           (tags-todo "+{@Computer\\|@Phone\\|@Melbourne\\|@Online}-{@Work\\|WORK}-STYLE=\"habit\""
+                                                      ((org-super-agenda-groups
+                                                        '(
+                                                          (:discard (:scheduled t))
+                                                          (:name "Important"
+                                                                 :priority "A")
+                                                          (:name "Started"
+                                                                 :todo "STARTED")
+                                                          (:name "Waiting"
+                                                                 :todo "WAIT")
+                                                          (:name "Next"
+                                                                 :time-grid t
+                                                                 :todo "NEXT")
+                                                          (:name "Projects"
+                                                                 :children t)
+                                                          (:name "Quick Picks"
+                                                                 :effort< "0:30")
+                                                          (:discard (:anything t))
+                                                          ))
+                                                       (org-agenda-overriding-header "Personal")))
+                                           (todo "DONE|CANCELED|DEFFERED" (
+                                                      (org-super-agenda-groups '(
+                                                          (:discard (:tag "BLOG"))
+                                                          (:discard (:tag "BOOKMARK"))
+                                                          (:discard (:tag "goal"))
+                                                          (:name "Done"
+                                                              :todo "DONE")
+                                                          (:name "Canceled"
+                                                              :todo "CANCELED")
+                                                          (:name "Deffered"
+                                                              :todo "DEFFERED")
+  ))
+                                                      (org-agenda-overriding-header "Ready to archive")))
+                                           ))
+            ("p" "Super Work Daily agenda"(
+                                           (agenda "" ((org-super-agenda-groups
+                                                        '((:log t)  ; Automatically named "Log"
+                                                          (:name "Schedule"
+                                                                 :time-grid t)
+                                                          (:name "Overdue"
+                                                                 :deadline past)
+                                                          (:name "Due today"
+                                                                 :deadline today)
+                                                          (:name "Due soon"
+                                                                 :deadline future)
+                                                          (:name "Today"
+                                                                 :scheduled today)
+                                                          (:habit t)
+                                                          (:name "Scheduled earlier"
+                                                                 :scheduled past)))
+                                                       (org-agenda-span 1)
+                                                       (org-deadline-warning-days 14)))
+                                           (tags "+INBOX-AGENDA_IGNORE=\"true\""
+                                                 ((org-agenda-overriding-header "Inbox")))
+                                           (tags-todo concat("+{{@Computer\\|@Phone\\|@Melbourne\\|@Online\\|@Home}-{@Work\\|WORK}-STYLE=\"habit\"\\|assignee=\"" user-login-name "\"}")
+                                                      ((org-super-agenda-groups
+                                                        '(
+                                                          (:name "Important"
+                                                                 :priority "A")
+                                                          (:name "Started"
+                                                                 :todo "STARTED")
+                                                          (:name "Waiting"
+                                                                 :todo "WAIT")
+                                                          (:name "Next"
+                                                                 :time-grid t
+                                                                 :todo "NEXT")
+                                                          (:name "Projects"
+                                                                 :children t)
+                                                          (:name "Quick Picks"
+                                                                 :effort< "0:30")
+                                                          (:discard (:anything t))
+                                                          ))
+                                                       (org-agenda-overriding-header "Personal")))
+                                           (todo "DONE|CANCELED|DEFFERED" (
+                                                      (org-super-agenda-groups '(
+                                                          (:discard (:tag "BLOG"))
+                                                          (:discard (:tag "BOOKMARK"))
+                                                          (:discard (:tag "goal"))
+                                                          (:name "Done"
+                                                              :todo "DONE")
+                                                          (:name "Canceled"
+                                                              :todo "CANCELED")
+                                                          (:name "Deffered"
+                                                              :todo "DEFFERED")
+                                                      ))
+                                                      (org-agenda-overriding-header "Ready to archive")))
+                                           ))
+            ("R" "Weekly review Personal"(
+                                           (tags "+INBOX-AGENDA_IGNORE=\"true\""
+                                                 ((org-agenda-overriding-header "Inbox")))
+                                           (tags-todo "PERSONAL"
+                                                      ((org-super-agenda-groups
+                                                        '(
+                                                          (:name "Started"
+                                                                 :todo "STARTED")
+                                                          (:name "Waiting"
+                                                                 :todo "WAIT")
+                                                          (:name "Next"
+                                                                 :time-grid t
+                                                                 :todo "NEXT")
+                                                          (:name "Someday"
+                                                                 :tag "SOMEDAY")
+                                                          ))
+                                                       (org-agenda-overriding-header "Personal")))
+                                           ))
+          ))
 #+END_SRC
 *** Super view
 I like using the super view package to make agendas look really nice
