@@ -103,7 +103,8 @@ Generally I want to target my agenda files for refiling.
 #+BEGIN_SRC emacs-lisp :tangle yes 
   (setq org-refile-targets
         '((nil :maxlevel . 9)
-          (org-agenda-files :maxlevel . 3)))
+          (org-agenda-files :maxlevel . 3))
+          ("~/Documents/Notes/bookmarks.org" :maxlevel . 9))
 #+END_SRC
 
 *** Create parent nodes
