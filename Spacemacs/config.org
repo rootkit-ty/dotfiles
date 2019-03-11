@@ -406,6 +406,7 @@ I have only a few languages I bother to evaluate in orgmode through babel
    'org-babel-load-languages
    '((shell         . t)
      (python        . t)
+     (plantuml      . t)
      ))
 #+END_SRC
 ** Capture
