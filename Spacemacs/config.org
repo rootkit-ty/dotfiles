@@ -584,6 +584,64 @@ I want org documents to be automatically saved for easy syncing
   (add-hook 'org-mode-hook 'real-auto-save-mode)
 #+END_SRC
 
+** Easy templates
+I basically want to not execute most code-blocks on an export by default (this
+stops me accidentally running destructive scripts)
+
+I still provide myself an avenue to quickly create code-blocks that will be
+evaluated on an export, but this should not be the default.
+
+I also provide myself with an easy way of getting emacs lisp into this org file
+with a custom template for that.
+#+BEGIN_SRC emacs-lisp :tangle yes
+   '(org-structure-template-alist
+     '(
+       ;; Source code that will query to run on export
+       ("s" "#+BEGIN_SRC ? :eval query-export
+
+  \#+END_SRC")
+       ;; Source code that will be run on export
+       ("se" "#+BEGIN_SRC ?
+
+  \#+END_SRC")
+       ("E" "#+BEGIN_SRC emacs-lisp :tangle yes
+  ?
+  \#+END_SRC")
+       ("e" "#+BEGIN_EXAMPLE
+  ?
+  ,#+END_EXAMPLE")
+       ("q" "#+BEGIN_QUOTE
+  ?
+  ,#+END_QUOTE")
+       ("v" "#+BEGIN_VERSE
+  ?
+  ,#+END_VERSE")
+       ("V" "#+BEGIN_VERBATIM
+  ?
+  ,#+END_VERBATIM")
+       ("c" "#+BEGIN_CENTER
+  ?
+  ,#+END_CENTER")
+       ("C" "#+BEGIN_COMMENT
+  ?
+  ,#+END_COMMENT")
+       ("l" "#+BEGIN_EXPORT latex
+  ?
+  ,#+END_EXPORT")
+       ("L" "#+LaTeX: ")
+       ("h" "#+BEGIN_EXPORT html
+  ?
+  ,#+END_EXPORT")
+       ("H" "#+HTML: ")
+       ("a" "#+BEGIN_EXPORT ascii
+  ?
+  ,#+END_EXPORT")
+       ("A" "#+ASCII: ")
+       ("i" "#+INDEX: ?")
+       ("I" "#+INCLUDE: %file ?")
+       )
+     )
+#+END_SRC
 ** Export
 *** Hugo
 **** Fix quotes around dates
