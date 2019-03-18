@@ -661,6 +661,12 @@ Dates need quotes for my version of hugo
   (setq org-startup-indented t)
   ;; turn on autofil paragraphs for orgmode
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+  ;; Automatically refresh inline images after a babel execute (for diagrams)
+  (add-hook 'org-babel-after-execute-hook
+            (lambda ()
+              (when org-inline-image-overlays
+                (org-redisplay-inline-images))))
+
 #+END_SRC
 * Mu4e
 ** Mail command
@@ -786,29 +792,36 @@ I want undo to be persistent between files, and that means saving an undo file s
         `(("." . ,(concat spacemacs-cache-directory "undo"))))
   (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
     (make-directory (concat spacemacs-cache-directory "undo")))
+
+    ;; also disable this troublesome component
+(setq undo-tree-enable-undo-in-region nil)
 #+END_SRC
 * Relative lines
-** Global relative lines
-#+BEGIN_SRC emacs-lisp :tangle yes 
- (setq global-nlinum-relative-mode t)
-#+END_SRC
 ** Count only visual lines
 This will avoid issues with folded content
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (setq display-line-numbers 'visual)
+  (setq display-line-numbers-type 'visual)
+  (when (version<= "26.0.50" emacs-version )
+    (global-display-line-numbers-mode))
 #+END_SRC
 * PinEntry
 Emacs native GPG Pin Entry, heck yeah.
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (pinentry-start)
-  (setq epa-pinentry-mode (quote loopback))
+  (if (not (or 'gnu/linux 'darwin))
+  ((pinentry-start)
+  (setq epa-pinentry-mode (quote loopback))))
 #+END_SRC
 * Fixes
-** Mac Locate helm
+** Mac
+*** Locate helm
 Mac's locate doesn't support the same flags as linux's as mac opts for the BSD coreutils whereas linux uses GNU.
 Thus we need to fix this up so we don't get any issues when using it
 #+BEGIN_SRC emacs-lisp :tangle yes 
   (if (eq system-type 'darwin) (setq helm-locate-fuzzy-match nil))
+#+END_SRC
+*** PlantUML
+#+BEGIN_SRC emacs-lisp :tangle yes
+  (if (eq system-type 'darwin) (setq org-plantuml-jar-path "/usr/local/Cellar/plantuml/1.2019.1/libexec/plantuml.jar"))
 #+END_SRC
 * Other settings files
 ** Load custom file
