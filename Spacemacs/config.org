@@ -652,6 +652,10 @@ Dates need quotes for my version of hugo
 
 ** Misc
 #+BEGIN_SRC emacs-lisp :tangle yes 
+  (require 'org-id)
+  (require 'ox-confluence)
+  (org-id-update-id-locations)
+
   (setq org-export-backends (quote (ascii beamer html icalendar latex md odt confluence reveal)))
   (setq org-goto-interface (quote outline-path-completion))
   (setq org-outline-path-complete-in-steps nil)
