@@ -32,6 +32,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     php
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -74,6 +75,7 @@ values."
      html
      markdown
      org
+     plantuml
 
      emacs-lisp
      python
@@ -83,7 +85,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch org-plus-contrib ox-reveal)
+   dotspacemacs-additional-packages '(fzf org-bullets ranger smart-tab helm-org-rifle epresent ob-async org-super-agenda real-auto-save doom-themes org-board bbdb helm-bbdb bbdb-handy zoom elfeed-protocol sauron pinentry evil-collection notmuch org-plus-contrib ox-reveal org-web-tools ox-hugo org-jira)
 
    ;; A list of packages that cannot be updated.
 
