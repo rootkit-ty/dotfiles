@@ -301,3 +301,4 @@ export HISTCONTROL=ignorespace
 if [[ -z $TMUX ]] && [[ -z $NO_TMUX_START ]] ; then
 	tmux attach -t main 2> /dev/null || tmuxinator start main
 fi
+export PATH="/usr/local/opt/openssl/bin:$PATH"

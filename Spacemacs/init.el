@@ -75,6 +75,7 @@ values."
      html
      markdown
      org
+     bibtex
      plantuml
 
      emacs-lisp
