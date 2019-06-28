@@ -16,3 +16,4 @@
     ~/.config/polybar: Polybar
     ~/.config/tmuxinator: Tmuxinator
     ~/.spacemacs.d: Spacemacs
+    ~/.config/fish: Fish
