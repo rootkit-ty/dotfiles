@@ -6,6 +6,11 @@ function _is_git_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
+function _git_stash
+  set -l stashes (command git stash list ^/dev/null | wc -l)
+  [ $stashes != '0' ]; and echo -n (set_color bryellow)'^['$stashes']'
+end
+
 function fish_prompt
 	test $SSH_TTY
 	and printf (set_color red)$USER(set_color brwhite)'@'(set_color yellow)(prompt_hostname)' '
@@ -32,18 +37,14 @@ function fish_prompt
 	# Main
 	echo -n (set_color brmagenta)(prompt_pwd)
 
-	# if command git rev-parse --git-dir > /dev/null 2>&1
-	# 	echo -n (set_color brgreen)'('(command git branch ^/dev/null | grep \* | sed 's/* //')')'
-	# 	if not command git diff --no-ext-diff --quiet --exit-code  2>/dev/null
-	# 		echo -n (set_color brred)'*'
-	# 	end
-	# end
-
 	# Branch name
 	set_color brgreen; [ -z (_git_branch_name) ]; or printf '(%s)' (_git_branch_name)
 
 	# Dirty detection
 	set_color brred; [ -z (_is_git_dirty) ]; or echo -n '*'
+
+	# Stash detection
+	echo -n (_git_stash)
 
 	# AWS profiles, so I know which client I might blow away
 	# - Green if readonly
