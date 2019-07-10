@@ -54,7 +54,7 @@ function fish_prompt
 	if [ -n "$AWS_PROFILE" ]
 		if command env | grep 'AWS_PROFILE' | grep -P '\w{3,}-ro' > /dev/null
 			echo -n (set_color -b green)
-		else if command env |grep 'AWS_PROFILE' | grep -P '(?<!non)prod$' > /dev/null
+		else if command echo $AWS_PROFILE | grep -P '(?<!non)prod$' > /dev/null; or command grep "$AWS_PROFILE" ~/.aws/prod_accounts > /dev/null;
 			echo -n (set_color -b brred)
 		else
 			echo -n (set_color -b bryellow)
