@@ -202,6 +202,13 @@
 
 
 "}
+
+" NERDTree Settings {
+    let NERDTreeShowHidden = 1
+    let NERDTreeShowLineNumbers = 1
+    let NERDTreeMinimalUI=1
+" }
+
 " Netrw settings {
     let g:netrw_banner = 0
     let g:netrw_liststyle = 3
