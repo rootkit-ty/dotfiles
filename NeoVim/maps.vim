@@ -114,8 +114,8 @@
         nnoremap <leader>fC :Commands<cr>
         nnoremap <leader>fm :Marks<cr>
         nnoremap <leader>fM :Maps<cr>
-        nnoremap <leader>a :Ag<cr>
-        nnoremap <leader>fa :Ag<space>
+        nnoremap <leader>a :Rg<cr>
+        nnoremap <leader>fa :Rg<space>
 
     "}
 
