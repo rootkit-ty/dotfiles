@@ -95,7 +95,7 @@
 
     "Plugin keymaps {
 
-        nnoremap <leader>B :Buffers<cr>
+        nnoremap <leader>b :Buffers<cr>
         nnoremap <leader>F :FZF<space>
         nnoremap <leader>S :Snippets<cr>
         nnoremap <leader>ff :FZF<cr>
