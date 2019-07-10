@@ -18,6 +18,11 @@
 
    "}
 
+   " Quick buffer movement {
+       nnoremap <leader>n :bn<CR>
+       nnoremap <leader>N :bp<CR>
+   " }
+
     " Mode binds{
 
         " Run GDiff (DiffMode)
