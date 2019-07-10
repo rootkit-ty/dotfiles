@@ -6,11 +6,21 @@
     " Nord colour theme
     Plug 'arcticicestudio/nord-vim'
 
+    Plug 'ludovicchabant/vim-gutentags'
+
     Plug 'tyrannicaltoucan/vim-quantum'
     Plug 'rakr/vim-one'
 
     Plug 'rhysd/clever-f.vim'
     Plug 'justinmk/vim-sneak'
+
+    Plug 'christoomey/vim-conflicted'
+
+    Plug 'markonm/traces.vim'
+
+    Plug 'scrooloose/nerdtree'
+
+    Plug 'rhysd/committia.vim'
 
     Plug 'wellle/targets.vim'
 
@@ -58,7 +68,9 @@
     Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
     Plug 'junegunn/limelight.vim', {'on': 'LimeLight'}
 
-    Plug 'blindFS/vim-taskwarrior'
+    Plug 'vim-ruby/vim-ruby', { 'for': 'Ruby' }
+
+    "Plug 'blindFS/vim-taskwarrior'
 
     Plug 'ajh17/VimCompletesMe'
 "    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --cs-completer --go-completer --java-completer --js-completer', 'on': []}
@@ -67,6 +79,9 @@
 
     Plug 'itchyny/lightline.vim'
     Plug 'maximbaz/lightline-ale'
+    Plug 'mengelbrecht/lightline-bufferline'
+
+    Plug 'ryanoasis/vim-devicons'
 
     " Initialize plugin system
     call plug#end()
