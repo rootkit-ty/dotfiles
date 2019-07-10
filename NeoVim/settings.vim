@@ -54,6 +54,9 @@
     " Don't redraw while executing macros (good performance config)
     set lazyredraw
 
+    " Ope them folds please
+    set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
+
     autocmd FileType haskell,puppet,ruby,yaml,markdown setlocal expandtab shiftwidth=2 softtabstop=2
 
     " Change working directory to the git root of the project if it exists
