@@ -115,8 +115,16 @@
 
     " Lightline {
 
+        function! MyFiletype()
+            return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+        endfunction
+
         let g:lightline = {
           \ 'colorscheme': 'one',
+          \ }
+
+        let g:lightline.component_function = {
+          \  'filetype': 'MyFiletype',
           \ }
 
         let g:lightline.component_expand = {
@@ -124,16 +132,34 @@
           \  'linter_warnings': 'lightline#ale#warnings',
           \  'linter_errors': 'lightline#ale#errors',
           \  'linter_ok': 'lightline#ale#ok',
+          \  'buffers': 'lightline#bufferline#buffers'
           \ }
+
+        let g:lightline#bufferline#enable_devicons = 1
+        let g:lightline#bufferline#unicode_symbols = 1
+        let g:lightline#bufferline#min_buffer_count = 2
 
         let g:lightline.component_type = {
           \     'linter_checking': 'left',
           \     'linter_warnings': 'warning',
           \     'linter_errors': 'error',
           \     'linter_ok': 'left',
+          \     'buffers': 'tabsel'
           \ }
 
-        let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ]] }
+        let g:lightline.active = {
+                    \  'right': [[
+                    \  'linter_checking',
+                    \  'linter_errors',
+                    \  'linter_warnings',
+                    \  'linter_ok'
+                    \  ]],
+                    \  'left': [ ['mode', 'paste'],
+                    \            ['readonly', 'filetype', 'filename', 'modified']
+                    \]
+                    \}
+
+        let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
 
         let g:lightline#ale#indicator_checking = "\uf110"
         let g:lightline#ale#indicator_warnings = "\uf071 "
@@ -171,6 +197,9 @@
     " }
 
     let g:task_rc_override = 'rc.defaultwidth=265'
+
+    let g:airline_powerline_fonts = 1
+
 
 "}
 " Netrw settings {
