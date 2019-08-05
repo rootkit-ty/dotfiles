@@ -14,6 +14,9 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+
+local bomWidget = require('widgets.bom')
+local maildirWidget = require('widgets.maildir_count')
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -362,7 +365,11 @@ awful.screen.connect_for_each_screen(function(s)
                     halign = "right",
                     {
                         layout = wibox.layout.fixed.horizontal,
-                        s.systray
+                        s.systray,
+						maildirWidget,
+						bomWidget,
+						mytextclock,
+						s.mylayoutbox,
                     }
                 },
             },
@@ -676,9 +683,9 @@ awful.rules.rules = {
       }, properties = { floating = true }},
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
-    },
+    -- { rule_any = {type = { "normal", "dialog" }
+    --   }, properties = { titlebars_enabled = true }
+    -- },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
