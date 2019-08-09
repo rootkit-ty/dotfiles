@@ -113,7 +113,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock('%R')
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -226,8 +226,9 @@ awful.screen.connect_for_each_screen(function(s)
 				layout = layouts[10],
 				screen = s,
 			})
-	-- s.systray = wibox.widget.systray()
-    -- s.systray.visible = false
+	s.systray = wibox.widget.systray()
+	s.systray:set_base_size(24)
+    --s.systray.visible = false
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -246,22 +247,20 @@ awful.screen.connect_for_each_screen(function(s)
         buttons = taglist_buttons
     }
 
-	s.systray = wibox.widget({
-        layout = wibox.layout.fixed.horizontal,
-        {
-            widget = wibox.container.margin,
-            right = 95,
-            {
-                widget = wibox.container.background,
-                bg = '#FFFFFF',
-                {
-                    -- widget = wibox.widget.systray,
-                    -- systray_icon_spacing = 200,
-                    widget = wibox.widget.systray(),
-                },
-            },
-        },
-	})
+	-- s.systray = wibox.widget({
+        -- layout = wibox.layout.fixed.horizontal,
+        -- {
+            -- widget = wibox.container.margin,
+            -- right = 95,
+            -- {
+                -- widget = wibox.container.background,
+                -- bg = '#FFFFFF',
+                -- {
+                    -- widget = wibox.widget.systray(),
+                -- },
+            -- },
+        -- },
+	-- })
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -299,32 +298,36 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
 	-- s.mywibox = awful.wibar({ position = "top", screen = s })
-	s.mywibox = awful.wibar({ position = "top", screen = s, height = 25, bg = beautiful.xcolor0.."00", type = dock})
+	s.mywibox = awful.wibar({ position = "top", screen = s, height = 30, type = dock})
+
+	sep_left = wibox.widget.textbox('[')
+	sep_middle = wibox.widget.textbox('][')
+	sep_right = wibox.widget.textbox(']')
 
 
-	s.systray = wibox.widget({
-        layout = wibox.layout.fixed.horizontal,
-        {
-            widget = wibox.container.margin,
-            right = 15,
-            {
-				widget = wibox.container.background,
-                bg = '#00ff0000',
-                {
-                    widget = wibox.widget.systray,
-                    -- systray_icon_spacing = 200,
-                    -- wibox.widget.systray(),
-                },
-            },
-        },
-    })
+	-- s.systray = wibox.widget({
+        -- layout = wibox.layout.fixed.horizontal,
+        -- {
+            -- widget = wibox.container.margin,
+            -- right = 15,
+            -- {
+	-- 			widget = wibox.container.background,
+                -- bg = '#00ff0000',
+                -- {
+                    -- widget = wibox.widget.systray,
+                    -- -- systray_icon_spacing = 200,
+                    -- -- wibox.widget.systray(),
+                -- },
+            -- },
+        -- },
+    -- })
 
 	s.mywibox:setup({
 		layout = wibox.layout.manual,
         { -- Left widget space setup
             point = { x = 0, y = 0 },
             forced_width = awful.screen.focused().geometry.width/2 - 60,
-            forced_height = 25,
+            forced_height = 30,
             widget = wibox.container.background,
             -- bg = "#33ff8800",
             {
@@ -340,7 +343,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Middle widget space setup
             point = { x = awful.screen.focused().geometry.width/2 - 60, y = 0 },
             forced_width = 120,
-            forced_height = 25,
+            forced_height = 30,
             widget = wibox.container.background,
             -- bg = "#ff008800",
             {
@@ -354,7 +357,7 @@ awful.screen.connect_for_each_screen(function(s)
         { -- Right widget space setup
             point = { x = awful.screen.focused().geometry.width/2 + 60, y = 0 },
             forced_width = awful.screen.focused().geometry.width/2 - 60,
-            forced_height = 20,
+            forced_height = 30,
             widget = wibox.container.background,
             -- bg = "#00880000",
             {
@@ -366,10 +369,14 @@ awful.screen.connect_for_each_screen(function(s)
                     {
                         layout = wibox.layout.fixed.horizontal,
                         s.systray,
+						sep_left,
 						maildirWidget,
+						sep_middle,
 						bomWidget,
 						mytextclock,
+						sep_middle,
 						s.mylayoutbox,
+						sep_right
                     }
                 },
             },
@@ -407,7 +414,7 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    awful.key({ modkey, "shift"   }, "/",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
@@ -449,14 +456,6 @@ globalkeys = gears.table.join(
               {description = "focus the previous screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        {description = "go back", group = "client"}),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
@@ -465,6 +464,10 @@ globalkeys = gears.table.join(
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "Escape", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
+    awful.key({ modkey, "Shift"   }, "s", function () awful.spawn('systemctl suspend') end,
+              {description = "Suspend", group = "power"}),
+    awful.key({ modkey            }, "s", function () awful.spawn('slock') end,
+              {description = "Lock", group = "power"}),
 
 
     awful.key({ modkey,           }, "Print", function () awful.spawn.with_shell('~/.bin/screenshot.sh') end,
@@ -519,8 +522,10 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() awful.spawn('rofi -show run') end,
-              {description = "show the menubar", group = "launcher"})
+    awful.key({ modkey }, "p", function() awful.spawn('rofi -show drun') end,
+              {description = "show the menubar", group = "launcher"}),
+    awful.key({ modkey, "Shift" }, "p", function() awful.spawn('bwmenu') end,
+              {description = "show the password selector", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -752,6 +757,18 @@ end)
 client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
+
+-- I3 like focus persistence
+client.connect_signal("unmanage", function() focus_on_last_in_history(mouse.screen) end)
+tag.connect_signal("property::selected", function() focus_on_last_in_history(mouse.screen) end)
+
+function focus_on_last_in_history( screen )
+  local c = awful.client.focus.history.get(screen, 0)
+  if not (c == nil) then
+    client.focus = c
+    c:raise()
+  end
+end
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
