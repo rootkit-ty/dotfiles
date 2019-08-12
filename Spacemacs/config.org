@@ -9,7 +9,7 @@ A picture is worth a thousand words
 * Server
 I want a server so I can avoid emacs long startup time
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  ;;(server-start)
+  (server-start)
 #+END_SRC
 * Repositories
 I like to have up to date orgmode and MELPA
