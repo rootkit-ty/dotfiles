@@ -61,5 +61,5 @@ function fish_prompt
 		end
 		echo -n (set_color white)'{'$AWS_PROFILE'}'(set_color normal)
 	end
-	echo -n (set_color brblack)'❯'(set_color $separator_color_1)'❯'(set_color $separator_color_2)'❯ ' (set_color normal)
+	echo -n (set_color brblack)'❯'(set_color $separator_color_1)'❯'(set_color $separator_color_2)'❯'(set_color normal)
 end
