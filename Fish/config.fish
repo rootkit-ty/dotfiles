@@ -2,6 +2,10 @@ set -x PATH $PATH $HOME/.bin/ $HOME/.local/bin/
 set -x VISUAL nvim
 set -x EDITOR nvim
 
+set -x GOPATH $HOME/Documents/Projects/Go
+set -x GOROOT /usr/local/opt/go/libexec
+set PATH $GOPATH/bin $GOROOT/bin $PATH
+
 # FZF default command
 set FZF_DEFAULT_COMMAND 'rg --files --hidden --follow'
 
