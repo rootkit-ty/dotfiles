@@ -17,3 +17,6 @@
     ~/.config/tmuxinator: Tmuxinator
     ~/.spacemacs.d: Spacemacs
     ~/.config/fish: Fish
+    # Here come the unique scripts
+    ~/.sleep: Scripts/sleep.fish
+    ~/.wakeup: Scripts/wakeup.fish
