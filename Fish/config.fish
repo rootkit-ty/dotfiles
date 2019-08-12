@@ -1,4 +1,4 @@
-set -x PATH $PATH ~/.bin/ ~/.local/bin/
+set -x PATH $PATH $HOME/.bin/ $HOME/.local/bin/
 set -x VISUAL nvim
 set -x EDITOR nvim
 
