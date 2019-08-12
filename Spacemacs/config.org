@@ -773,56 +773,6 @@ Dates need quotes for my version of hugo
         org-ref-pdf-directory "~/Documents/Notes/Papers/"
         org-ref-bibliography-notes "~/Documents/Notes/bib_notes.org")
 #+END_SRC
-* Mu4e
-** Mail command
-I use offlineimap to sync my mail into a maildir, so I want that run when I update mu4e
-#+BEGIN_SRC emacs-lisp :tangle yes
- (setq mu4e-get-mail-command "offlineimap")
-#+END_SRC
-** Headers visible line
-I want to focus on the content of an email rather then other emails so I want to keep the headers view small
-#+BEGIN_SRC emacs-lisp :tangle yes
- (setq mu4e-headers-visible-lines 10)
-#+END_SRC
-** Update interval
-I want email fast, but the update command might take a bit, to compromise I fetch every 5 minutes
-#+BEGIN_SRC emacs-lisp :tangle yes
- (setq mu4e-update-interval 300)
-#+END_SRC
-** Show images
-Images are nice, and I like to see them
-#+BEGIN_SRC emacs-lisp :tangle yes
- (setq mu4e-view-show-images t)
-#+END_SRC
-** Fancy characters for threading
-I want my threads to look pretty
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq mu4e-use-fancy-chars t)
-#+END_SRC
-** Compose mail using orgmode
-I like to use orgmode for a markup language, this is, so I can turn my notes into emails rather quickly
-#+BEGIN_SRC emacs-lisp :tangle yes 
-  (defun mu4e-compose-org-mail ()
-    (interactive)
-    (mu4e-compose-new)
-    (org-mu4e-compose-org-mode))
-#+END_SRC
-** HTMLize and Send
-This allows me to send an email from the body while technically in orgmode.
-#+BEGIN_SRC emacs-lisp :tangle yes 
-  (defun htmlize-and-send ()
-    "When in an org-mu4e-compose-org-mode message, htmlize and send it."
-    (interactive)
-    (when (member 'org~mu4e-mime-switch-headers-or-body post-command-hook)
-      (org-mime-htmlize)
-      (message-send-and-exit)))
-  (add-hook 'org-ctrl-c-ctrl-c-hook 'htmlize-and-send t)
-#+END_SRC
-** Flyspell in mu4e
-Being able to check my spelling in an email is useful
-#+BEGIN_SRC emacs-lisp :tangle yes
-(add-hook 'mu4e-compose-mode-hook 'flyspell-mode)
-#+END_SRC
 * Not much
 I want not much to order mail with the newest first
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -843,13 +793,13 @@ This just wastes screen real-estate. I don't always need to see this
 ** Start hidden
 I want sauron to start hidden
 #+BEGIN_SRC emacs-lisp :tangle yes 
-    (sauron-start-hidden)
-    (setq sauron-separate-frame nil)
+  ;; (sauron-start-hidden)
+  ;; (setq sauron-separate-frame nil)
 #+END_SRC
 ** Sauron alert.el
 I need Sauron to utlize alert.el
 #+BEGIN_SRC emacs-lisp :tangle yes 
-  (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
+  ;; (add-hook 'sauron-event-added-functions 'sauron-alert-el-adapter)
 #+END_SRC
 
 * Zoom
@@ -861,13 +811,6 @@ I need Sauron to utlize alert.el
 I like to use the golden ratio for windows
 #+BEGIN_SRC emacs-lisp :tangle yes
   (setq zoom-size (quote (0.618 . 0.0618)))
-#+END_SRC
-** Ignore
-I want it to not touch mu4e
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (setq zoom-ignored-buffer-name-regexps (quote ("^*mu4e.*")))
-  (setq zoom-ignored-buffer-names (quote ("*mu4e-view*" "*mu4e-headers*")))
-  (setq zoom-ignored-major-modes (quote (mu4e:view mu4e-headers)))
 #+END_SRC
 * Term mode
 ** Term speed hack
@@ -942,6 +885,12 @@ Not every setting I want synced with git, these are generally sensitive or compu
 #+END_SRC
 
 * Custom Keybinds
+** Fix org tab
+Why isn't this the default, I want to manage what's under my curser, not the
+heading.
+#+BEGIN_SRC emacs-lisp :tangle yes
+(evil-define-key 'normal org-mode-map (kbd "<tab>") #'org-cycle)
+#+END_SRC
 ** Kill window and buffer
 Sometimes I wanna kill a buffer and a window, so instead of =SPC b d SPC w d= it's not just =SPC b q=
 #+BEGIN_SRC emacs-lisp :tangle yes 
@@ -959,13 +908,3 @@ For some reason sauron-mode won't activate an event when you press enter, this i
     )
 #+END_SRC
 
-** Mu4e notmuch search
-Not much has a much better search then mu4e, thus I want to use it.
-So I loop through a list of mu4e mode maps and then bind =s= to do a notmuch search in each mode
-This doesn't function anymore though, no idea why. It was working earlier.
-#+BEGIN_SRC emacs-lisp :tangle yes 
-  ;; Bind "s" to do notmuch search in all mu4e modes
-  ;; (define-key mu4e-main-mode-map (kbd "s") 'notmuch-search)
-  ;; (define-key mu4e-headers-mode-map (kbd "s") 'notmuch-search)
-  ;; (define-key mu4e-view-mode-map (kbd "s") 'notmuch-search)
-#+END_SRC
