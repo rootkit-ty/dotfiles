@@ -7,7 +7,7 @@ function _is_git_dirty
 end
 
 function _git_stash
-  set -l stashes (command git stash list ^/dev/null | wc -l)
+  set -l stashes (command git stash list ^/dev/null | wc -l | string trim)
   [ $stashes != '0' ]; and echo -n (set_color bryellow)'^['$stashes']'
 end
 
@@ -52,9 +52,9 @@ function fish_prompt
 	# - Red if prod and writable
 	set_color normal
 	if [ -n "$AWS_PROFILE" ]
-		if command env | grep 'AWS_PROFILE' | grep -P '\w{3,}-ro' > /dev/null
+		if command env | grep 'AWS_PROFILE' | rg -P '\w{3,}-ro' > /dev/null
 			echo -n (set_color -b green)
-		else if command echo $AWS_PROFILE | grep -P '(?<!non)prod$' > /dev/null; or command grep "$AWS_PROFILE" ~/.aws/prod_accounts > /dev/null;
+		else if command echo $AWS_PROFILE | rg -P '(?<!non)prod$' > /dev/null; or command grep "$AWS_PROFILE" ~/.aws/prod_accounts > /dev/null;
 			echo -n (set_color -b brred)
 		else
 			echo -n (set_color -b bryellow)
