@@ -70,10 +70,10 @@
 
     " Deal with swap, backup, and undo files
     call WriteCacheDir("swap")
-    set directory=./.vim_data/,~/.cache/vim/swap/,~/.cache/,./,~
+    set directory=~/.cache/vim/swap/,~/.cache/,./,~
 
     call WriteCacheDir("backup")
-    set backupdir=./.vim_data/,~/.cache/vim/backup/,~/.cache/,./,~
+    set backupdir=~/.cache/vim/backup/,~/.cache/,./,~
 
     if exists('+undofile')
         call WriteCacheDir("undo")
