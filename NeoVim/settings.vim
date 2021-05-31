@@ -125,6 +125,7 @@
 
         let g:lightline.component_function = {
           \  'filetype': 'MyFiletype',
+          \  'gitbranch': 'FugitiveHead'
           \ }
 
         let g:lightline.component_expand = {
@@ -155,7 +156,8 @@
                     \  'linter_ok'
                     \  ]],
                     \  'left': [ ['mode', 'paste'],
-                    \            ['readonly', 'filetype', 'filename', 'modified']
+                    \            ['readonly', 'filetype', 'filename', 'modified'],
+                    \            ['gitbranch']
                     \]
                     \}
 
