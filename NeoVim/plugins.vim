@@ -7,6 +7,9 @@
     Plug 'arcticicestudio/nord-vim'
 
     Plug 'tpope/vim-sleuth'
+
+    Plug 'ActivityWatch/aw-watcher-vim'
+
     Plug 'adborden/vim-notmuch-address', { 'for': 'mail' }
     Plug 'airblade/vim-rooter'
     Plug 'ludovicchabant/vim-gutentags'
