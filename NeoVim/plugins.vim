@@ -6,6 +6,7 @@
     " Nord colour theme
     Plug 'arcticicestudio/nord-vim'
 
+    Plug 'airblade/vim-rooter'
     Plug 'ludovicchabant/vim-gutentags'
 
     Plug 'tyrannicaltoucan/vim-quantum'
