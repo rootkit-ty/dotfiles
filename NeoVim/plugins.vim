@@ -12,6 +12,8 @@
 
     Plug 'adborden/vim-notmuch-address', { 'for': 'mail' }
     Plug 'airblade/vim-rooter'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
     Plug 'ludovicchabant/vim-gutentags'
 
     Plug 'pearofducks/ansible-vim',  { 'do': './UltiSnips/generate.sh' }
