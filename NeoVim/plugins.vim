@@ -18,7 +18,8 @@
 
     Plug 'markonm/traces.vim'
 
-    Plug 'scrooloose/nerdtree'
+    Plug 'preservim/nerdtree' | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
     Plug 'rhysd/committia.vim'
 

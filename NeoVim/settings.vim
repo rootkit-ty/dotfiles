@@ -207,6 +207,18 @@
     let NERDTreeShowHidden = 1
     let NERDTreeShowLineNumbers = 1
     let NERDTreeMinimalUI=1
+    let g:NERDTreeFileExtensionHighlightFullName = 1
+    let g:NERDTreeExactMatchHighlightFullName = 1
+    let g:NERDTreePatternMatchHighlightFullName = 1
+    "let g:NERDTreeLimitedSyntax = 1
+    let g:NERDTreeSyntaxDisableDefaultExtensions = 1
+    let g:NERDTreeSyntaxDisableDefaultExactMatches = 1
+    let g:NERDTreeSyntaxDisableDefaultPatternMatches = 1
+    let g:NERDTreeSyntaxEnabledExtensions = ['bmp', 'c', 'coffee', 'cpp', 'cs', 'css', 'erb', 'go', 'hs', 'html', 'java', 'jpg', 'js', 'json', 'jsx', 'less', 'lua', 'markdown', 'md', 'php', 'png', 'pl', 'py', 'rb', 'rs', 'scala', 'scss', 'sh', 'sql', 'vim', 'yml', 'j2']
+    " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+    autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 | let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+    " Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " }
 
 " Netrw settings {
