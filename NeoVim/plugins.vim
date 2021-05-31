@@ -14,6 +14,8 @@
     Plug 'airblade/vim-rooter'
     Plug 'ludovicchabant/vim-gutentags'
 
+    Plug 'pearofducks/ansible-vim',  { 'do': './UltiSnips/generate.sh' }
+
     Plug 'tyrannicaltoucan/vim-quantum'
     Plug 'rakr/vim-one'
 
