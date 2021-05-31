@@ -72,5 +72,22 @@
                 call plug#load('YouCompleteMe')
             endif
         endfunction
+
     "}
+
+    " Basic idea is that I want to lcd to the role root and cd to the git root
+    " So that way I have nerdtree show the whole project but more or less work
+    " relative to the role
+    " Ansible CD {
+        function! AnsibleRoot()
+            " If the dir contains roles
+            let file_path = expand('%:p:h')
+            let role_dirs = ['tasks', 'templates', 'files', 'handlers', 'defaults']
+            if file_path =~ '\/roles\/'
+                exec 'lcd' fnameescape(fnamemodify(finddir('tasks',
+                            \ escape(file_path, ' ') . ';'), ':h'))
+            endif
+        endfunction
+    " }
+
 " }

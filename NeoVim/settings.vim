@@ -243,4 +243,10 @@
         autocmd FileType netrw nnoremap <buffer> <leader>fa :winc w<cr>:Ag<space>
         autocmd FileType netrw nnoremap <buffer> - <plug>VinegarUp
     augroup END
+    " Auto LCD to role dir if it's an ansible role with the folder of tasks
+    autocmd BufEnter * call AnsibleRoot()
+    autocmd USer RooterChDir call AnsibleRoot()
+    "autocmd User RooterChDir if expand("%:p:h") =~ '\/roles\/' | exec 'lcd' fnameescape(fnamemodify(finddir('tasks', escape(expand('%:p:h'), ' ') . ';'), ':h')) | endif
+    let g:rooter_silent_chdir = 1
+
 "}
