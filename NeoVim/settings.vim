@@ -200,6 +200,11 @@
 
     let g:airline_powerline_fonts = 1
 
+    au FileType mail let b:vcm_tab_complete = 'omni'
+    au FileType mail setlocal omnifunc=CompleteNotmuchAddress
+    " autocmd FileType mail call coc#config('suggest', {
+    " \ 'autoTrigger': 'trigger',
+    " \})
 
 "}
 

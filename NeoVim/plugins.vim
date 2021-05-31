@@ -6,6 +6,7 @@
     " Nord colour theme
     Plug 'arcticicestudio/nord-vim'
 
+    Plug 'adborden/vim-notmuch-address', { 'for': 'mail' }
     Plug 'airblade/vim-rooter'
     Plug 'ludovicchabant/vim-gutentags'
 
