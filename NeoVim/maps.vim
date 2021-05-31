@@ -65,7 +65,7 @@
        nnoremap <leader>ss :setlocal spell!<cr>
 
         " Toggle netrw
-       nnoremap <leader>e :NERDTreeToggle<cr>
+        nnoremap <leader>e :NERDTreeToggleVCS<cr>
 
        nnoremap <leader>/ :nohlsearch<cr>
 
