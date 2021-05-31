@@ -90,7 +90,6 @@
     Plug 'maximbaz/lightline-ale'
     Plug 'mengelbrecht/lightline-bufferline'
 
-    Plug 'ryanoasis/vim-devicons'
 
     " Initialize plugin system
     call plug#end()
