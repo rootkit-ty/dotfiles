@@ -96,9 +96,10 @@
     "Plugin keymaps {
 
         nnoremap <leader>b :Buffers<cr>
-        nnoremap <leader>F :FZF<space>
+        nnoremap <leader>F :exec 'FZF' FindRootDirectory()<cr>
         nnoremap <leader>S :Snippets<cr>
         nnoremap <leader>ff :FZF<cr>
+        nnoremap <leader>fF :FZF<space>
         nnoremap <leader>fw :Windows<cr>
         nnoremap <leader>fl :Lines<cr>
         nnoremap <leader>fb :BLines<cr>
